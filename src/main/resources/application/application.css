@@ -1,0 +1,221 @@
+/* Root background and font */
+.root {
+    -fx-font-family: 'Segoe UI', 'Yu Gothic UI', Arial, sans-serif;
+    -fx-background-color: #f6f8f5;
+}
+
+/* Header */
+.hbox {
+    -fx-background-color: white;
+    -fx-padding: 4 0 4 0; /* Reduced padding */
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),0,0,0,4);
+}
+.hbox > .label {
+    -fx-font-size: 16px;   /* Reduced font size */
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-alignment: center;
+    -fx-padding: 0 0 0 0;
+}
+
+/* TitledPane */
+.titled-pane {
+    -fx-font-size: 16px;
+    -fx-background-color: #e8f0ea;
+    -fx-border-color: #6bbf59;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-radius: 10px;
+}
+.titled-pane > .title {
+    -fx-font-size: 18px;
+    -fx-background-color: #4a6741;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px 10px 0 0;
+}
+
+/* VBox and HBox spacing */
+.vbox, .hbox {
+    -fx-spacing: 13;
+}
+
+/* Buttons */
+.button {
+    -fx-font-size: 13px;
+    -fx-background-color: linear-gradient(to right, #6bbf59, #4a6741);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),2,0,0,1);
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0;
+}
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #8ee08a, #4a6741);
+}
+.button:pressed {
+    -fx-background-color: #4a6741;
+}
+
+/* ProgressIndicator */
+.progress-indicator {
+    -fx-progress-color: #4a6741;
+}
+
+/* ComboBox, TextField */
+.combo-box, .text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+    -fx-border-color: #b2c2b0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 12 8 12;
+    -fx-pref-width: 180px;
+}
+
+/* TableView */
+.table-view {
+    -fx-font-size: 15px;
+    -fx-background-color: #f6f8f5;
+    -fx-table-cell-border-color: #e0e0e0;
+    -fx-border-color: #b2c2b0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.table-view .column-header-background {
+    -fx-background-color: #4a6741;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-font-size: 15px;
+    -fx-size: 38px;
+    -fx-background-color: #4a6741;
+    -fx-border-width: 0 0 1 0;
+    -fx-alignment: CENTER;
+}
+.table-view .column-header .label {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+.table-row-cell:filled:selected, .table-row-cell:focused:selected {
+    -fx-background-color: #b2c2b0;
+}
+.table-row-cell:filled:hover {
+    -fx-background-color: #e8f0ea;
+}
+
+/* ListView (Event Log) */
+.list-view {
+    -fx-font-size: 14px;
+    -fx-background-color: #f6f8f5;
+    -fx-border-color: #b2c2b0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.list-cell:filled:selected, .list-cell:filled:selected:focused {
+    -fx-background-color: #b2c2b0;
+    -fx-text-fill: #2c3e50;
+}
+.list-cell:filled:hover {
+    -fx-background-color: #e8f0ea;
+}
+
+/* Switchable clickable labels for Attendance/Schedule */
+.switch-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #4a6741;
+    -fx-cursor: hand;
+    -fx-underline: false;
+    -fx-font-weight: normal;
+    -fx-padding: 0 14 0 14;
+    -fx-background-color: transparent;
+    -fx-border-radius: 6px;
+}
+.switch-label:hover {
+    -fx-text-fill: #2c3e50;
+    -fx-background-color: #e8f0ea;
+}
+.switch-label-selected {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c3e50;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+    -fx-padding: 0 14 0 14;
+    -fx-background-color: #e8f0ea;
+    -fx-border-radius: 6px;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background: #f6f8f5;
+    -fx-border-color: #b2c2b0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+/* General Label styling */
+.label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Schedule container */
+.schedule-container {
+    -fx-background-color: #f0f7ed;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+}
+
+/* Subheader for schedule */
+.schedule-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a6741;
+    -fx-padding: 0 0 6px 0;
+}
+
+/* Selected Templates label */
+.selected-templates-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 10 0 0 0;
+}
+
+/* Event Log label */
+.event-log-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-fill: #4a6741;
+}
+
+/* Remove highlight/selection background for TextField, ComboBox, and ListCell */
+
+/* TextField: Remove selection highlight */
+.text-field .text-input {
+    -fx-highlight-fill: transparent;
+    -fx-highlight-text-fill: -fx-text-inner-color;
+    -fx-background-insets: 0;
+}
+
+/* ComboBox: Remove selection and hover highlight */
+.combo-box .list-cell:selected,
+.combo-box .list-cell:filled:selected,
+.combo-box .list-cell:filled:hover,
+.combo-box-popup .list-view .list-cell:selected,
+.combo-box-popup .list-view .list-cell:filled:selected,
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+/* Remove highlight from ListView (used in ComboBox dropdown and logList) */
+.list-view .list-cell:selected,
+.list-view .list-cell:filled:selected,
+.list-view .list-cell:filled:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-inner-color;
+}
