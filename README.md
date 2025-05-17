@@ -1,5 +1,5 @@
 
-# GhostEyeFX – Facial Attendance System
+# IceFX – Facial Attendance System
 
 This project is a JavaFX-based facial recognition attendance system using OpenCV + JavaCV.  
 **Compatible with Apache NetBeans 15 and Java 11+**
