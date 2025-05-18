@@ -1,4 +1,4 @@
-/* Root background and font */
+/* Forest minimalist theme */
 .root {
     -fx-font-family: 'Segoe UI', 'Yu Gothic UI', Arial, sans-serif;
     -fx-background-color: #f6f8f5;
@@ -7,31 +7,30 @@
 /* Header */
 .hbox {
     -fx-background-color: white;
-    -fx-padding: 4 0 4 0; /* Reduced padding */
+    -fx-padding: 3 0 3 0; /* Reduced padding */
     -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),0,0,0,4);
 }
 .hbox > .label {
-    -fx-font-size: 16px;   /* Reduced font size */
+    -fx-font-size: 14px;   /* Reduced font size */
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
     -fx-alignment: center;
     -fx-padding: 0 0 0 0;
 }
 
-/* TitledPane */
+/* Data Pane */
 .titled-pane {
-    -fx-font-size: 16px;
-    -fx-background-color: #e8f0ea;
-    -fx-border-color: #6bbf59;
-    -fx-border-width: 0 0 0 4px;
-    -fx-border-radius: 10px;
+    -fx-background-color: #355c3a;
+    -fx-border-radius: 18px;
+    -fx-background-radius: 18px;
+    -fx-padding: 0;
 }
 .titled-pane > .title {
-    -fx-font-size: 18px;
-    -fx-background-color: #4a6741;
-    -fx-text-fill: white;
+    -fx-background-color: #355c3a;
+    -fx-text-fill: #eafbe6;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-border-radius: 10px 10px 0 0;
+    -fx-border-radius: 18px 18px 0 0;
 }
 
 /* VBox and HBox spacing */
@@ -42,22 +41,37 @@
 /* Buttons */
 .button {
     -fx-font-size: 13px;
-    -fx-background-color: linear-gradient(to right, #6bbf59, #4a6741);
+    -fx-background-color: linear-gradient(to right, #6bbf59, #355c3a);
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
-    -fx-padding: 8 16 8 16;
+    -fx-padding: 8 18 8 18;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian,rgba(0,0,0,0.08),2,0,0,1);
+    -fx-effect: dropshadow(gaussian,rgba(53,92,58,0.08),2,0,0,1);
     -fx-border-color: transparent;
     -fx-border-radius: 10px;
     -fx-border-width: 0;
+    -fx-min-width: 110px;
+    -fx-pref-width: 130px;
 }
 .button:hover {
-    -fx-background-color: linear-gradient(to right, #8ee08a, #4a6741);
+    -fx-background-color: linear-gradient(to right, #8ee08a, #355c3a);
 }
 .button:pressed {
-    -fx-background-color: #4a6741;
+    -fx-background-color: #355c3a;
+}
+.button-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: #6bbf59;
+    -fx-text-fill: #355c3a;
+    -fx-border-width: 2;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-min-width: 110px;
+    -fx-pref-width: 130px;
+}
+.button-outline:hover {
+    -fx-background-color: #eafbe6;
 }
 
 /* ProgressIndicator */
@@ -65,20 +79,27 @@
     -fx-progress-color: #4a6741;
 }
 
-/* ComboBox, TextField */
-.combo-box, .text-field {
-    -fx-font-size: 14px;
-    -fx-background-color: white;
+/* Form labels */
+.form-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #355c3a;
+    -fx-font-weight: 600;
+}
+
+/* TextField and ComboBox uniform width */
+.text-field, .combo-box {
+    -fx-pref-width: 220px;
+    -fx-background-color: #f6f8f5;
     -fx-border-color: #b2c2b0;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-padding: 8 12 8 12;
-    -fx-pref-width: 180px;
+    -fx-font-size: 13px;
 }
 
 /* TableView */
 .table-view {
-    -fx-font-size: 15px;
+    -fx-font-size: 14px;
     -fx-background-color: #f6f8f5;
     -fx-table-cell-border-color: #e0e0e0;
     -fx-border-color: #b2c2b0;
@@ -165,33 +186,42 @@
 
 /* Schedule container */
 .schedule-container {
-    -fx-background-color: #f0f7ed;
-    -fx-border-radius: 8px;
-    -fx-padding: 10px;
+    -fx-background-color: linear-gradient(to bottom right, #eafbe6, #d2e6d0);
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-padding: 18 18 18 18;
+    -fx-effect: dropshadow(gaussian,rgba(53,92,58,0.08),8,0,0,2);
+    -fx-spacing: 12;
+    -fx-border-color: #6bbf59;
+    -fx-border-width: 1.5;
+    -fx-margin: 18 0 0 0; /* Add top margin */
 }
 
-/* Subheader for schedule */
+/* Schedule header */
 .schedule-header {
-    -fx-font-size: 18px;
+    -fx-font-size: 16px; /* was 22px */
     -fx-font-weight: bold;
-    -fx-text-fill: #4a6741;
-    -fx-padding: 0 0 6px 0;
+    -fx-text-fill: #355c3a;
+    -fx-padding: 0 0 1 0; /* Reduced padding */
 }
 
-/* Selected Templates label */
+.card-header {
+    -fx-font-size: 16px; /* was 22px */
+    -fx-font-weight: bold;
+    -fx-text-fill: #355c3a;
+    -fx-padding: 0 0 2 0; /* Reduced padding */
+}
 .selected-templates-label {
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-padding: 10 0 0 0;
+    -fx-font-size: 16px;
+    -fx-text-fill: #355c3a;
+    -fx-padding: 0 0 2 0; /* Reduced padding */
 }
-
-/* Event Log label */
 .event-log-label {
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-text-fill: #4a6741;
+    -fx-font-size: 18px;
+    -fx-text-fill: #355c3a;
 }
-
 /* Remove highlight/selection background for TextField, ComboBox, and ListCell */
 
 /* TextField: Remove selection highlight */
@@ -218,4 +248,36 @@
 .list-view .list-cell:filled:hover {
     -fx-background-color: transparent;
     -fx-text-fill: -fx-text-inner-color;
+}
+
+/* --- CARD CONTAINERS: Place these at the end of your CSS file --- */
+.card-container {
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 20 18 20 18;
+    -fx-effect: dropshadow(gaussian,rgba(53,92,58,0.22),16,0,0,4);
+    -fx-border-width: 2;
+    -fx-spacing: 14;
+    -fx-margin: 0 0 18 0;
+}
+
+.card-leaf {
+    -fx-background-color: linear-gradient(to bottom right, #eafbe6cc, #b7e0b0cc); /* add opacity */
+    -fx-border-color: #6bbf59;
+    -fx-border-width: 2.5;
+}
+.card-wood {
+    -fx-background-color: linear-gradient(to bottom right, #e7d3c2, #bfa980);
+    -fx-border-color: #a67c52;
+}
+.card-stone {
+    -fx-background-color: linear-gradient(to bottom right, #e6e8e6, #cfd2cf);
+    -fx-border-color: #8e9a92;
+}
+
+/* Make sure GridPane inside card doesn't cover the card background */
+.card-container > .grid-pane {
+    -fx-background-color: transparent;
+    -fx-max-width: 95%;
+    -fx-max-height: 70%;
 }

@@ -2,7 +2,6 @@ package application;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Popup;
@@ -14,13 +13,14 @@ public class Toast {
         Platform.runLater(() -> {
             Popup popup = new Popup();
             Label label = new Label(message);
-            label.setStyle("-fx-background-color: #4a6741; -fx-text-fill: white; -fx-padding: 12 24 12 24; -fx-background-radius: 8; -fx-font-size: 15px;");
-            popup.getContent().add(label);
+            label.setStyle("-fx-background-color: #4a6741; -fx-text-fill: white; -fx-padding: 12 24 12 24; -fx-background-radius: 8; -fx-background-insets: 0; -fx-font-size: 15px;");
+            StackPane pane = new StackPane(label);
+            pane.setStyle("-fx-background-color: transparent;");
+            popup.getContent().add(pane);
             popup.setAutoFix(true);
             popup.setAutoHide(true);
             popup.setHideOnEscape(true);
 
-            // Center bottom of the window
             double x = owner.getX() + (owner.getWidth() - label.getWidth()) / 2;
             double y = owner.getY() + owner.getHeight() - 80;
             popup.show(owner, x, y);

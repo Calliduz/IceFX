@@ -20,7 +20,7 @@ public class AdvancedToast {
         Platform.runLater(() -> {
             Popup popup = new Popup();
             Label label = new Label(message);
-            label.setStyle("-fx-font-size: 15px; -fx-padding: 14 32 14 32; -fx-background-radius: 12; -fx-text-fill: white;");
+            label.setStyle("-fx-font-size: 15px; -fx-padding: 14 32 14 32; -fx-background-radius: 12; -fx-background-insets: 0; -fx-text-fill: white;");
             label.setEffect(new DropShadow(8, Color.gray(0, 0.4)));
 
             // Color by type
@@ -38,6 +38,7 @@ public class AdvancedToast {
             pane.setPadding(new Insets(10));
             pane.setPickOnBounds(false);
             pane.setAlignment(Pos.BOTTOM_CENTER);
+            pane.setStyle("-fx-background-color: transparent;");
 
             popup.getContent().add(pane);
 

@@ -24,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.util.StringConverter;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.opencv.opencv_core.Mat;
@@ -64,6 +65,9 @@ public class SampleController {
     @FXML private ImageView selectedTemplateView;
     @FXML private Button retakeTemplateBtn;
 
+    @FXML private TitledPane dataTitledPane;
+    @FXML private VBox eventVBox;
+
     // Core services
     private final FaceDetector   faceDetect = new FaceDetector();
     private final FaceRecognizer faceRec    = new FaceRecognizer(70.0);
@@ -80,7 +84,11 @@ public class SampleController {
 
     @FXML
     public void initialize() {
+        attendanceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        scheduleTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         faceDetect.setFrame(cameraView);
+
 
         try {
             db = new Database();
