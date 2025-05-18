@@ -113,4 +113,8 @@ public class FaceRecognizer {
             saveTrainedData();
         }
     }
+
+    public LBPHFaceRecognizer getRecognizer() {
+        return recognizer;
+    }
 }

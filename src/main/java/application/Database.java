@@ -221,9 +221,25 @@ public class Database {
         return list;
     }
 
+    public void removeScheduleForPerson(int personId, Schedule schedule) throws SQLException {
+        String sql = "DELETE FROM schedules WHERE person_id = ? AND day = ? AND start_time = ? AND end_time = ? AND activity = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, personId);
+            ps.setString(2, schedule.getDay());
+            ps.setString(3, schedule.getStartTime());
+            ps.setString(4, schedule.getEndTime());
+            ps.setString(5, schedule.getActivity());
+            ps.executeUpdate();
+        }
+    }
+
     public void close() throws SQLException {
         if (conn != null && !conn.isClosed()) {
             conn.close();
         }
+    }
+
+    public boolean isClosed() throws SQLException {
+        return conn == null || conn.isClosed();
     }
 }

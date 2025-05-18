@@ -30,6 +30,10 @@ import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.global.opencv_core;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 
+import javafx.stage.Stage;
+
+import application.AdvancedToast;
+
 public class SampleController {
 
     // --- FXML controls ---
@@ -54,6 +58,7 @@ public class SampleController {
     @FXML private ComboBox<String> scheduleDayCombo;
     @FXML private ComboBox<String> scheduleStartCombo;
     @FXML private ComboBox<String> scheduleEndCombo;
+    @FXML private Button removeScheduleBtn;
 
     // For selected template display and actions
     @FXML private ImageView selectedTemplateView;
@@ -69,6 +74,9 @@ public class SampleController {
 
     // Store the current template data for delete/retake
     private byte[] currentTemplateData;
+
+    private Stage primaryStage;
+    public void setPrimaryStage(Stage stage) { this.primaryStage = stage; }
 
     @FXML
     public void initialize() {
@@ -160,6 +168,26 @@ public class SampleController {
             Circle clip = new Circle(60, 60, 60);
             selectedTemplateView.setClip(clip);
         }
+
+        eventTypeColumn.setCellFactory(col -> new TableCell<AttendanceRecord, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    if (item.equalsIgnoreCase("Time In")) {
+                        setStyle("-fx-text-fill: #43a047; -fx-font-weight: bold;"); // Green
+                    } else if (item.equalsIgnoreCase("Time Out")) {
+                        setStyle("-fx-text-fill: #e53935; -fx-font-weight: bold;"); // Red
+                    } else {
+                        setStyle("-fx-text-fill: #2c3e50;");
+                    }
+                }
+            }
+        });
     }
 
     public void addSchedule(Schedule schedule) {
@@ -182,6 +210,7 @@ public class SampleController {
                 scheduleStartCombo.getSelectionModel().clearSelection();
                 scheduleEndCombo.getSelectionModel().clearSelection();
                 scheduleActivity.clear();
+                AdvancedToast.show(primaryStage, "Schedule added successfully!", AdvancedToast.ToastType.SUCCESS);
             } catch (SQLException ex) {
                 putOnLog("Failed to add schedule: " + ex.getMessage());
             }
@@ -289,6 +318,29 @@ public class SampleController {
 
     @FXML
     private void onStartCamera(ActionEvent e) {
+        // Reconnect to DB if needed
+        if (db == null) {
+            try {
+                db = new Database();
+                putOnLog("DB reconnected");
+            } catch (SQLException ex) {
+                putOnLog("DB reconnection failed: " + ex.getMessage());
+                AdvancedToast.show(primaryStage, "DB reconnection failed: " + ex.getMessage(), AdvancedToast.ToastType.ERROR);
+                return;
+            }
+        } else {
+            try {
+                if (db.isClosed()) {
+                    db = new Database();
+                    putOnLog("DB reconnected");
+                }
+            } catch (SQLException ex) {
+                putOnLog("DB reconnection failed: " + ex.getMessage());
+                AdvancedToast.show(primaryStage, "DB reconnection failed: " + ex.getMessage(), AdvancedToast.ToastType.ERROR);
+                return;
+            }
+        }
+
         if (faceDetect.start()) {
             putOnLog("Webcam started");
             startCameraBtn.setVisible(false);
@@ -332,16 +384,17 @@ public class SampleController {
 
                 Mat roi = faceDetect.getFaceROI();
                 if (roi != null) {
+                    Mat processed = preprocessFace(roi);
                     String filename = String.format("resources/trained_faces/%d/face_%d.png", pid, System.currentTimeMillis());
-                    opencv_imgcodecs.imwrite(filename, roi);
-
-                    byte[] tpl = encodeMat(roi);
+                    opencv_imgcodecs.imwrite(filename, processed);
+                    byte[] tpl = encodeMat(processed);
                     db.addFaceTemplate(pid, tpl);
                     Platform.runLater(() ->
                         personSelect.getItems().add(new Person(pid,code,name,dept,pos))
                     );
                     putOnLog("Saved face for " + name);
                     trainPersonModel(pid);
+                    AdvancedToast.show(primaryStage, "Face saved for " + name + "!", AdvancedToast.ToastType.SUCCESS);
                 } else {
                     putOnLog("No face detected to save");
                 }
@@ -360,21 +413,42 @@ public class SampleController {
     private void onRecognize(ActionEvent e) {
         Person sel = personSelect.getValue();
         if (sel == null) {
-            putOnLog("No person selected to recognize."); 
+            putOnLog("No person selected to recognize.");
+            AdvancedToast.show(primaryStage, "No person selected to recognize.", AdvancedToast.ToastType.ERROR);
             return;
         }
         Mat roi = faceDetect.getFaceROI();
-        if (roi == null) {
-            putOnLog("No face detected in frame."); 
+        if (roi == null || roi.empty()) {
+            putOnLog("No face detected in frame.");
+            AdvancedToast.show(primaryStage, "No face detected in frame.", AdvancedToast.ToastType.ERROR);
+            return;
+        }
+
+        // --- Basic liveness detection: require face to move/change between frames ---
+        long now = System.currentTimeMillis();
+        boolean livenessPassed = false;
+        if (lastFaceROI != null && (now - lastFaceTime) < LIVENESS_MAX_INTERVAL_MS) {
+            double diff = faceDifference(lastFaceROI, roi);
+            if (diff > LIVENESS_MIN_DIFF) {
+                livenessPassed = true;
+            }
+        }
+        lastFaceROI = roi.clone();
+        lastFaceTime = now;
+        if (!livenessPassed) {
+            putOnLog("Liveness check: Please blink or move your face.");
+            AdvancedToast.show(primaryStage, "Liveness check: Please blink or move your face.", AdvancedToast.ToastType.WARNING);
             return;
         }
 
         try {
+            // Save the captured face for audit/debug
             File personDir = new File("resources/trained_faces/" + sel.getPersonId());
             if (!personDir.exists()) personDir.mkdirs();
             String loginImg = String.format("resources/trained_faces/%d/login_%d.png", sel.getPersonId(), System.currentTimeMillis());
             opencv_imgcodecs.imwrite(loginImg, roi);
 
+            // Prepare training data for all persons
             List<Person> allPersons = db.getAllPersons();
             List<Mat> mats = new ArrayList<>();
             List<Integer> labels = new ArrayList<>();
@@ -393,80 +467,95 @@ public class SampleController {
             }
             if (mats.isEmpty()) {
                 putOnLog("No images found for any user.");
+                AdvancedToast.show(primaryStage, "No face data available for recognition.", AdvancedToast.ToastType.ERROR);
                 return;
             }
-            Mat[] matsArray = mats.toArray(new Mat[0]);
-            int[] labelsArray = labels.stream().mapToInt(i -> i).toArray();
-            faceRec.train(matsArray, labelsArray);
-            faceRec.saveTrainedData();
 
-            int predicted = faceRec.predict(roi);
-            putOnLog("[LBPH] predicted=" + predicted + ", expected=" + sel.getPersonId());
+            // Predict and get confidence
+            Mat processed = preprocessFace(roi);
+            faceRec.loadTrainedData(); // Make sure model is loaded
+            org.bytedeco.javacpp.IntPointer lbl = new org.bytedeco.javacpp.IntPointer(1);
+            org.bytedeco.javacpp.DoublePointer conf = new org.bytedeco.javacpp.DoublePointer(1);
+            faceRec.getRecognizer().predict(processed, lbl, conf);
+            int predicted = lbl.get(0);
+            double confidence = conf.get(0);
 
-            if (predicted == sel.getPersonId()) {
-                String today = DayOfWeek.from(java.time.LocalDate.now()).name();
-                LocalTime now = LocalTime.now();
-                boolean inSchedule = false;
-                String activity = "";
-                for (Schedule s : db.getSchedulesForPerson(sel.getPersonId())) {
-                    if (s.getDay().equalsIgnoreCase(today.substring(0,1) + today.substring(1).toLowerCase())) {
-                        LocalTime start = parseTime(s.getStartTime());
-                        LocalTime end = parseTime(s.getEndTime());
-                        if (!now.isBefore(start) && !now.isAfter(end)) {
-                            activity = s.getActivity();
-                            inSchedule = true;
-                            break;
-                        }
-                    }
-                }
-                if (!inSchedule) {
-                    putOnLog("No active schedule for this user at this time.");
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "You do not have a schedule at this time.", ButtonType.OK);
-                        alert.showAndWait();
-                    });
-                    return;
-                }
+            putOnLog("[LBPH] predicted=" + predicted + ", expected=" + sel.getPersonId() + ", confidence=" + confidence);
 
-                AttendanceRecord last = db.getLastAttendanceForToday(sel.getPersonId(), activity);
-
-                String eventType;
-                LocalDateTime nowDateTime = LocalDateTime.now();
-
-                if (last == null) {
-                    eventType = "Time In";
-                } else if ("Time In".equals(last.getEventType())) {
-                    if (java.time.Duration.between(last.getEventTime(), nowDateTime).toMinutes() < 10) {
-                        putOnLog("You must wait at least 10 minutes before Time Out.");
-                        Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.WARNING, "You must wait at least 10 minutes before Time Out.", ButtonType.OK);
-                            alert.showAndWait();
-                        });
-                        return;
-                    }
-                    eventType = "Time Out";
-                } else {
-                    eventType = "Time In";
-                }
-
-                if (last != null && last.getEventType().equals(eventType)) {
-                    putOnLog("Already logged " + eventType + " for this activity today.");
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.WARNING, "Already logged " + eventType + " for this activity today.", ButtonType.OK);
-                        alert.showAndWait();
-                    });
-                    return;
-                }
-
-                db.logAttendance(sel.getPersonId(), eventType, "CAM1", 1.0, null, activity);
-                putOnLog("Recognize ✔ matched " + sel.getFullName() + " (" + eventType + ")");
-                loadAttendance(sel.getPersonId());
-            } else {
-                putOnLog("Recognize ✘ did NOT match");
+            // Set a stricter threshold for acceptance (e.g., < 55.0)
+            double strictThreshold = 70.0;
+            if (predicted != sel.getPersonId()) {
+                putOnLog("Face does not match the selected person.");
+                AdvancedToast.show(primaryStage, "Face does not match the selected person.", AdvancedToast.ToastType.ERROR);
+                return;
             }
+            if (confidence > strictThreshold) {
+                putOnLog("Face not recognized with high enough confidence (" + String.format("%.2f", confidence) + ").");
+                AdvancedToast.show(primaryStage, "Face not recognized. Please try again.", AdvancedToast.ToastType.ERROR);
+                return;
+            }
+
+            // Optionally: Add a check for face size/position to reject photos/screens (basic liveness)
+            if (roi.cols() < 100 || roi.rows() < 100) {
+                putOnLog("Face too small or not clear.");
+                AdvancedToast.show(primaryStage, "Face too small or not clear. Move closer.", AdvancedToast.ToastType.WARNING);
+                return;
+            }
+
+            // Proceed with attendance logic as before
+            String today = DayOfWeek.from(java.time.LocalDate.now()).name();
+            LocalTime nowTime = LocalTime.now();
+            boolean inSchedule = false;
+            String activity = "";
+            for (Schedule s : db.getSchedulesForPerson(sel.getPersonId())) {
+                if (s.getDay().equalsIgnoreCase(today.substring(0,1) + today.substring(1).toLowerCase())) {
+                    LocalTime start = parseTime(s.getStartTime());
+                    LocalTime end = parseTime(s.getEndTime());
+                    if (!nowTime.isBefore(start) && !nowTime.isAfter(end)) {
+                        activity = s.getActivity();
+                        inSchedule = true;
+                        break;
+                    }
+                }
+            }
+            if (!inSchedule) {
+                putOnLog("No active schedule for this user at this time.");
+                AdvancedToast.show(primaryStage, "No active schedule for this user at this time.", AdvancedToast.ToastType.WARNING);
+                return;
+            }
+
+            AttendanceRecord last = db.getLastAttendanceForToday(sel.getPersonId(), activity);
+
+            String eventType;
+            LocalDateTime nowDateTime = LocalDateTime.now();
+
+            if (last == null) {
+                eventType = "Time In";
+            } else if ("Time In".equals(last.getEventType())) {
+                if (java.time.Duration.between(last.getEventTime(), nowDateTime).toMinutes() < 10) {
+                    putOnLog("You must wait at least 10 minutes before Time Out.");
+                    AdvancedToast.show(primaryStage, "You must wait at least 10 minutes before Time Out.", AdvancedToast.ToastType.WARNING);
+                    return;
+                }
+                eventType = "Time Out";
+            } else {
+                eventType = "Time In";
+            }
+
+            if (last != null && last.getEventType().equals(eventType)) {
+                putOnLog("Already logged " + eventType + " for this activity today.");
+                AdvancedToast.show(primaryStage, "Already logged " + eventType + " for this activity today.", AdvancedToast.ToastType.WARNING);
+                return;
+            }
+
+            db.logAttendance(sel.getPersonId(), eventType, "CAM1", 1.0, null, activity);
+            putOnLog("Recognize ✔ matched " + sel.getFullName() + " (" + eventType + ")");
+            loadAttendance(sel.getPersonId());
+            AdvancedToast.show(primaryStage, "Welcome, " + sel.getFullName() + "! " + eventType + " recorded.", AdvancedToast.ToastType.SUCCESS);
+
         } catch (Exception ex) {
             putOnLog("Recognition error: " + ex.getMessage());
-            ex.printStackTrace();
+            AdvancedToast.show(primaryStage, "Recognition error: " + ex.getMessage(), AdvancedToast.ToastType.ERROR);
         }
     }
 
@@ -534,7 +623,8 @@ public class SampleController {
             for (File imgFile : images) {
                 Mat img = opencv_imgcodecs.imread(imgFile.getAbsolutePath(), opencv_imgcodecs.IMREAD_GRAYSCALE);
                 if (img != null && !img.empty()) {
-                    mats.add(img);
+                    Mat processed = preprocessFace(img); // <--- preprocess for training!
+                    mats.add(processed);
                     labels.add(personId);
                 }
             }
@@ -543,7 +633,57 @@ public class SampleController {
             Mat[] matsArray = mats.toArray(new Mat[0]);
             int[] labelsArray = labels.stream().mapToInt(i -> i).toArray();
             faceRec.train(matsArray, labelsArray);
-            faceRec.saveTrainedData(); // No argument
+            faceRec.saveTrainedData();
+        }
+    }
+
+    private Mat lastFaceROI = null;
+    private long lastFaceTime = 0;
+    private static final double LIVENESS_MIN_DIFF = 1200.0; // tune as needed
+    private static final long LIVENESS_MAX_INTERVAL_MS = 3000; // 3 seconds
+
+    /** Returns the sum of absolute differences between two Mats (grayscale, same size). */
+    private double faceDifference(Mat a, Mat b) {
+        if (a == null || b == null || a.size().width() != b.size().width() || a.size().height() != b.size().height())
+            return Double.MAX_VALUE;
+        Mat diff = new Mat();
+        org.bytedeco.opencv.global.opencv_core.absdiff(a, b, diff);
+        return org.bytedeco.opencv.global.opencv_core.sumElems(diff).get(0);
+    }
+
+    private static final int FACE_WIDTH = 100;
+    private static final int FACE_HEIGHT = 100;
+
+    private Mat preprocessFace(Mat face) {
+        Mat gray = new Mat();
+        if (face.channels() > 1)
+            org.bytedeco.opencv.global.opencv_imgproc.cvtColor(face, gray, org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGR2GRAY);
+        else
+            gray = face.clone();
+        Mat resized = new Mat();
+        org.bytedeco.opencv.global.opencv_imgproc.resize(gray, resized, new org.bytedeco.opencv.opencv_core.Size(FACE_WIDTH, FACE_HEIGHT));
+        return resized;
+    }
+
+    @FXML
+    private void onRemoveSchedule(ActionEvent event) {
+        Person sel = personSelect.getValue();
+        Schedule selectedSchedule = scheduleTable.getSelectionModel().getSelectedItem();
+        if (sel == null) {
+            AdvancedToast.show(primaryStage, "Select a person first.", AdvancedToast.ToastType.WARNING);
+            return;
+        }
+        if (selectedSchedule == null) {
+            AdvancedToast.show(primaryStage, "Select a schedule to remove.", AdvancedToast.ToastType.WARNING);
+            return;
+        }
+        try {
+            db.removeScheduleForPerson(sel.getPersonId(), selectedSchedule);
+            schedules.remove(selectedSchedule); // Remove from observable list
+            scheduleTable.refresh();
+            AdvancedToast.show(primaryStage, "Schedule removed.", AdvancedToast.ToastType.SUCCESS);
+        } catch (Exception ex) {
+            AdvancedToast.show(primaryStage, "Failed to remove schedule: " + ex.getMessage(), AdvancedToast.ToastType.ERROR);
         }
     }
 

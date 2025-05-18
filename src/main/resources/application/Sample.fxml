@@ -143,6 +143,7 @@
                                     <Insets top="20.0" />
                                  </VBox.margin>
                               </Button>
+                    <Button fx:id="removeScheduleBtn" text="Remove Schedule" onAction="#onRemoveSchedule"/>
                   </VBox>
                 </VBox>
               </content>

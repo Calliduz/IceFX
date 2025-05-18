@@ -15,6 +15,8 @@ public class Main extends Application {
             // Load UI from FXML (now under /application in resources)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/Sample.fxml"));
             BorderPane root = loader.load();
+            SampleController controller = loader.getController();
+            controller.setPrimaryStage(primaryStage);
 
             // Create scene
             Scene scene = new Scene(root, 1350, 720);
