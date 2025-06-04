@@ -20,7 +20,7 @@ public class AdvancedToast {
         Platform.runLater(() -> {
             Popup popup = new Popup();
             Label label = new Label(message);
-            label.setStyle("-fx-font-size: 15px; -fx-padding: 14 32 14 32; -fx-background-radius: 12; -fx-background-insets: 0; -fx-text-fill: white;");
+            label.setStyle("-fx-font-size: 16px; -fx-padding: 16 32 16 32; -fx-background-color: transparent; -fx-text-fill: white;");
             label.setEffect(new DropShadow(8, Color.gray(0, 0.4)));
 
             // Color by type
@@ -38,13 +38,23 @@ public class AdvancedToast {
             pane.setPadding(new Insets(10));
             pane.setPickOnBounds(false);
             pane.setAlignment(Pos.BOTTOM_CENTER);
-            pane.setStyle("-fx-background-color: transparent;");
+            pane.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+
+            // --- Toast visual fix ---
+            // Remove all background from StackPane, and set label background only
+            pane.setStyle("-fx-background-color: transparent; -fx-padding: 0; -fx-border-color: transparent;");
+            label.setStyle("-fx-font-size: 16px; -fx-padding: 16 32 16 32; -fx-background-radius: 20; -fx-background-color: " + bg + "; -fx-text-fill: " + (type == ToastType.WARNING ? "#222;" : "white;") + "; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 16,0,0,4); -fx-border-color: transparent; -fx-background-insets: 0;");
+            label.setMinWidth(Label.USE_PREF_SIZE);
+            label.setMinHeight(Label.USE_PREF_SIZE);
+            // --- End Toast visual fix ---
 
             popup.getContent().add(pane);
 
-            // Position: bottom center of window
+            // Wait for layout to be calculated before showing
+            pane.applyCss();
+            pane.layout();
             Scene scene = owner.getScene();
-            double x = owner.getX() + (scene.getWidth() - 320) / 2;
+            double x = owner.getX() + (scene.getWidth() - pane.getWidth()) / 2;
             double y = owner.getY() + scene.getHeight() - 100;
             popup.show(owner, x, y);
 

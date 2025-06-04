@@ -41,9 +41,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Load OpenCV native library
-        System.load("C:\\\\Users\\\\ljcab\\\\Downloads\\\\facial-attendance-main\\\\native\\\\opencv_java4110.dll");
-
         // Launch JavaFX application
         launch(args);
     }

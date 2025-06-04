@@ -37,10 +37,15 @@ public class FaceDetectionController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Load face detection model
-        faceCascade = new CascadeClassifier("resources/haarcascade_frontalface_alt.xml");
+        // Load face detection model from classpath (works in Maven, IDE, and JAR)
+        URL cascadeUrl = getClass().getResource("/haar/haarcascade_frontalface_alt.xml");
+        if (cascadeUrl != null) {
+            faceCascade = new CascadeClassifier(cascadeUrl.getPath());
+        } else {
+            faceCascade = new CascadeClassifier(); // empty
+        }
         if (faceCascade.empty()) {
-            System.err.println("❌ Could not load Haar Cascade file.");
+            System.err.println("❌ Could not load Haar Cascade file from /haar/haarcascade_frontalface_alt.xml");
         }
 
         startButton.setOnAction(e -> {
