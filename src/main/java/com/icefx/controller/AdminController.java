@@ -5,6 +5,7 @@ import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import com.icefx.service.UserService;
 import com.icefx.service.FaceRecognitionService;
+import com.icefx.util.ModernToast;
 import com.icefx.util.AuthorizationManager;
 import com.icefx.util.SessionManager;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.slf4j.Logger;
@@ -76,6 +78,13 @@ public class AdminController {
     @FXML private Label totalUsersLabel;
     @FXML private Label activeUsersLabel;
     @FXML private Label adminCountLabel;
+    @FXML private Label currentUserLabel;
+    @FXML private Label userCountLabel;
+    @FXML private Label selectedUserLabel;
+    @FXML private Label totalFacesLabel;
+    @FXML private Label lastTrainedLabel;
+    @FXML private ProgressBar trainingProgress;
+    @FXML private VBox trainingProgressBox;
     
     // Data
     private ObservableList<User> allUsers;
@@ -167,11 +176,6 @@ public class AdminController {
                 handleUpdate();
             }
         });
-    }
-
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-        logger.info("AdminController session bound to {}", user.getUserCode());
     }
     
     /**
@@ -411,48 +415,42 @@ public class AdminController {
         }
         
         if (selectedUser == null) {
-            showError("Selection Error", "Please select a user to delete");
+            ModernToast.warning("Please select a user to delete");
             return;
         }
         
-        // Confirmation dialog
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Delete");
-        alert.setHeaderText("Delete User: " + selectedUser.getFullName());
-        alert.setContentText("Are you sure you want to delete this user? This action cannot be undone.");
+        // Show confirmation and delete
+        ModernToast.warning("Deleting user: " + selectedUser.getFullName());
         
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            int userId = selectedUser.getUserId();
+        int userId = selectedUser.getUserId();
+        
+        // Run in background thread
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                userService.deleteUser(userId);
+                return null;
+            }
             
-            // Run in background thread
-            Task<Void> task = new Task<>() {
-                @Override
-                protected Void call() throws Exception {
-                    userService.deleteUser(userId);
-                    return null;
-                }
-                
-                @Override
-                protected void succeeded() {
-                    allUsers.remove(selectedUser);
-                    userTable.refresh();
-                    updateStatistics();
-                    handleClear();
-                    showInfo("Success", "User deleted successfully");
-                    logger.info("Deleted user ID: {}", userId);
-                }
-                
-                @Override
-                protected void failed() {
-                    Throwable e = getException();
-                    logger.error("Error deleting user", e);
-                    showError("Error", "Failed to delete user: " + e.getMessage());
-                }
-            };
+            @Override
+            protected void succeeded() {
+                allUsers.remove(selectedUser);
+                userTable.refresh();
+                updateStatistics();
+                handleClear();
+                ModernToast.success("User deleted successfully");
+                logger.info("Deleted user ID: {}", userId);
+            }
             
-            new Thread(task).start();
-        }
+            @Override
+            protected void failed() {
+                Throwable e = getException();
+                logger.error("Error deleting user", e);
+                ModernToast.error("Failed to delete user: " + e.getMessage());
+            }
+        };
+        
+        new Thread(task).start();
     }
     
     /**
@@ -639,28 +637,76 @@ public class AdminController {
     }
     
     /**
-     * Show error dialog
+     * Show error message using ModernToast
      */
     private void showError(String title, String message) {
         Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+            ModernToast.error(message);
         });
     }
     
     /**
-     * Show info dialog
+     * Show info message using ModernToast
      */
     private void showInfo(String title, String message) {
         Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+            ModernToast.success(message);
+        });
+    }
+    
+    /**
+     * Set current user (for display in header)
+     */
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        Platform.runLater(() -> {
+            if (currentUserLabel != null && user != null) {
+                currentUserLabel.setText(user.getFullName());
+            }
+        });
+    }
+    
+    /**
+     * Handle logout button
+     */
+    @FXML
+    private void handleLogout() {
+        logger.info("Admin logout requested");
+        
+        ModernToast.info("Logging out...");
+        
+        Platform.runLater(() -> {
+            try {
+                // Navigate back to login
+                javafx.stage.Stage stage = (javafx.stage.Stage) userTable.getScene().getWindow();
+                
+                // Store current window state
+                boolean wasMaximized = stage.isMaximized();
+                boolean wasFullScreen = stage.isFullScreen();
+                
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/com/icefx/view/Login.fxml")
+                );
+                javafx.scene.Parent root = loader.load();
+                javafx.scene.Scene scene = new javafx.scene.Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("IceFX - Login");
+                
+                // Restore window state
+                if (wasMaximized) {
+                    stage.setMaximized(true);
+                }
+                if (wasFullScreen) {
+                    stage.setFullScreen(true);
+                }
+                
+                ModernToast.success("Logged out successfully");
+                logger.info("Admin logged out successfully");
+                
+            } catch (Exception e) {
+                logger.error("Error during logout", e);
+                ModernToast.error("Error during logout: " + e.getMessage());
+            }
         });
     }
 }

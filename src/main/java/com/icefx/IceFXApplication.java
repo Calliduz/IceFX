@@ -93,6 +93,11 @@ public class IceFXApplication extends Application {
                 shutdown();
             });
             
+            // Start in fullscreen mode
+            primaryStage.setMaximized(true);
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitHint("Press ESC to exit fullscreen");
+            
             primaryStage.show();
             logger.info("✅ Application started successfully");
             
@@ -118,11 +123,12 @@ public class IceFXApplication extends Application {
         
         Scene scene = new Scene(root);
         
-        // Apply theme stylesheet
+        // Apply modern theme stylesheet
         String theme = AppConfig.getTheme();
+        String themeFile = theme.equals("dark") ? "dark-theme.css" : "modern-light.css";
         scene.getStylesheets().add(
             Objects.requireNonNull(
-                getClass().getResource("/com/icefx/styles/" + theme + "-theme.css")
+                getClass().getResource("/com/icefx/styles/" + themeFile)
             ).toExternalForm()
         );
         

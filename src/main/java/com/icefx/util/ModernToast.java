@@ -102,9 +102,9 @@ public class ModernToast {
                 scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 toastStage.setScene(scene);
                 
-                // Position at top-right
-                double targetX = ownerStage.getX() + ownerStage.getWidth() - 320;
-                double y = ownerStage.getY() + 80;
+                // Position consistently at top-right corner
+                double targetX = ownerStage.getX() + ownerStage.getWidth() - 340;
+                double y = ownerStage.getY() + 20; // Consistent top position
                 toastStage.setX(targetX);
                 toastStage.setY(y);
                 
