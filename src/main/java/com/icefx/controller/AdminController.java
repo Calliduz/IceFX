@@ -5,6 +5,8 @@ import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import com.icefx.service.UserService;
 import com.icefx.service.FaceRecognitionService;
+import com.icefx.util.AuthorizationManager;
+import com.icefx.util.SessionManager;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -98,6 +100,20 @@ public class AdminController {
     @FXML
     public void initialize() {
         logger.info("Initializing AdminController");
+        
+        // AUTHORIZATION CHECK - Admin panel requires ADMIN role
+        if (!AuthorizationManager.requireAdmin("Access Admin Panel")) {
+            SessionManager.getCurrentUser().ifPresent(user ->
+                logger.warn("Unauthorized access attempt to Admin Panel by user: {}", user)
+            );
+            // Close the admin window
+            Platform.runLater(() -> {
+                if (userTable != null && userTable.getScene() != null) {
+                    userTable.getScene().getWindow().hide();
+                }
+            });
+            return;
+        }
         
         setupUserTable();
         setupFormFields();
@@ -328,6 +344,11 @@ public class AdminController {
      */
     @FXML
     private void handleUpdate() {
+        // AUTHORIZATION CHECK
+        if (!AuthorizationManager.requireAdmin("Update User")) {
+            return;
+        }
+        
         if (selectedUser == null) {
             showError("Selection Error", "Please select a user to update");
             return;
@@ -384,6 +405,11 @@ public class AdminController {
      */
     @FXML
     private void handleDelete() {
+        // AUTHORIZATION CHECK
+        if (!AuthorizationManager.requireAdmin("Delete User")) {
+            return;
+        }
+        
         if (selectedUser == null) {
             showError("Selection Error", "Please select a user to delete");
             return;
@@ -445,6 +471,11 @@ public class AdminController {
      */
     @FXML
     private void handleTrainModel() {
+        // AUTHORIZATION CHECK
+        if (!AuthorizationManager.requireAdmin("Train Face Recognition Model")) {
+            return;
+        }
+        
         // Choose directory with face images
         DirectoryChooser dirChooser = new DirectoryChooser();
         dirChooser.setTitle("Select Faces Directory");
