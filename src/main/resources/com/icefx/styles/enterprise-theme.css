@@ -91,21 +91,21 @@
   -fx-font-size-3xl: 32px;
 
   /* Base Overrides */
-  -fx-base: -fx-surface-primary;
-  -fx-background: -fx-background;
-  -fx-control-inner-background: -fx-surface-primary;
+  -fx-base: #ffffff;
+  -fx-control-inner-background: #ffffff;
   -fx-faint-focus-color: transparent;
-  -fx-focus-color: -fx-primary;
+  -fx-focus-color: #1976d2;
 }
 
 /* ========================================
    GLOBAL STYLES
    ======================================== */
 .root {
-  -fx-background-color: -fx-background;
-  -fx-font-family: -fx-font-family;
-  -fx-font-size: -fx-font-size-base;
-  -fx-text-fill: -fx-text-primary;
+  -fx-background-color: #f8f9fa;
+  -fx-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  -fx-font-size: 14px;
+  -fx-text-fill: #212121;
 }
 
 /* Scroll Panes */
@@ -151,24 +151,24 @@
 }
 
 .header .app-title {
-  -fx-font-size: -fx-font-size-2xl;
+  -fx-font-size: 24px;
   -fx-font-weight: 700;
   -fx-text-fill: -fx-primary;
 }
 
 .header .user-info {
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-text-fill: -fx-text-secondary;
 }
 
 .header .logout-button {
   -fx-background-color: transparent;
   -fx-text-fill: -fx-text-secondary;
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-font-weight: 600;
   -fx-padding: 8 16;
-  -fx-border-radius: -fx-radius-md;
-  -fx-background-radius: -fx-radius-md;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
   -fx-cursor: hand;
 }
 
@@ -182,9 +182,12 @@
    ======================================== */
 .card {
   -fx-background-color: -fx-surface-primary;
-  -fx-background-radius: -fx-radius-lg;
+  -fx-background-radius: 8px;
+  -fx-border-color: -fx-border-light;
+  -fx-border-width: 1px;
+  -fx-border-radius: 8px;
   -fx-padding: -fx-space-lg;
-  -fx-effect: -fx-shadow-md;
+  -fx-effect: -fx-shadow-sm;
 }
 
 .card-header {
@@ -192,13 +195,13 @@
 }
 
 .card-title {
-  -fx-font-size: -fx-font-size-xl;
+  -fx-font-size: 18px;
   -fx-font-weight: 700;
   -fx-text-fill: -fx-text-primary;
 }
 
 .card-subtitle {
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-text-fill: -fx-text-secondary;
 }
 
@@ -214,57 +217,57 @@
    STATISTICS CARDS
    ======================================== */
 .stat-card {
-  -fx-background-radius: -fx-radius-xl;
+  -fx-background-radius: 16px;
   -fx-padding: -fx-space-xl;
   -fx-effect: -fx-shadow-md;
 }
 
 .stat-card-success {
-  -fx-background-color: linear-gradient(to bottom right, #4caf50, #66bb6a);
+  -fx-background-color: #4caf50;
 }
 
 .stat-card-info {
-  -fx-background-color: linear-gradient(to bottom right, #2196f3, #42a5f5);
+  -fx-background-color: #2196f3;
 }
 
 .stat-card-warning {
-  -fx-background-color: linear-gradient(to bottom right, #ff9800, #ffb74d);
+  -fx-background-color: #ff9800;
 }
 
 .stat-card-error {
-  -fx-background-color: linear-gradient(to bottom right, #f44336, #ef5350);
+  -fx-background-color: #f44336;
 }
 
 .stat-card .stat-label {
   -fx-text-fill: rgba(255, 255, 255, 0.9);
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-font-weight: 600;
 }
 
 .stat-card .stat-value {
   -fx-text-fill: white;
-  -fx-font-size: -fx-font-size-3xl;
+  -fx-font-size: 32px;
   -fx-font-weight: 700;
 }
 
 .stat-card .stat-description {
   -fx-text-fill: rgba(255, 255, 255, 0.8);
-  -fx-font-size: -fx-font-size-xs;
+  -fx-font-size: 11px;
 }
 
 /* ========================================
    BUTTONS - Enterprise Grade
    ======================================== */
+/* Button Styles */
 .button {
-  -fx-background-color: -fx-surface-primary;
+  -fx-background-color: -fx-surface-secondary;
+  -fx-background-radius: 8px;
+  -fx-border-color: -fx-border-medium;
+  -fx-border-width: 1px;
+  -fx-border-radius: 8px;
   -fx-text-fill: -fx-text-primary;
-  -fx-font-size: -fx-font-size-base;
-  -fx-font-weight: 600;
-  -fx-padding: 12 24;
-  -fx-background-radius: -fx-radius-md;
-  -fx-border-color: -fx-border-light;
-  -fx-border-width: 1;
-  -fx-border-radius: -fx-radius-md;
+  -fx-font-weight: 500;
+  -fx-padding: 10px 20px;
   -fx-cursor: hand;
   -fx-effect: -fx-shadow-sm;
 }
@@ -343,19 +346,19 @@
 /* Button Sizes */
 .button-sm {
   -fx-padding: 8 16;
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
 }
 
 .button-lg {
   -fx-padding: 16 32;
-  -fx-font-size: -fx-font-size-lg;
+  -fx-font-size: 16px;
 }
 
 /* Icon Buttons */
 .icon-button {
   -fx-padding: 10;
-  -fx-background-radius: -fx-radius-full;
-  -fx-border-radius: -fx-radius-full;
+  -fx-background-radius: 9999px;
+  -fx-border-radius: 9999px;
   -fx-pref-width: 40;
   -fx-pref-height: 40;
 }
@@ -369,12 +372,12 @@
   -fx-background-color: -fx-surface-primary;
   -fx-text-fill: -fx-text-primary;
   -fx-prompt-text-fill: -fx-text-tertiary;
-  -fx-font-size: -fx-font-size-base;
+  -fx-font-size: 14px;
   -fx-padding: 12 16;
   -fx-border-color: -fx-border-light;
   -fx-border-width: 2;
-  -fx-border-radius: -fx-radius-md;
-  -fx-background-radius: -fx-radius-md;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .text-field:focused,
@@ -403,7 +406,7 @@
 /* Labels */
 .label {
   -fx-text-fill: -fx-text-primary;
-  -fx-font-size: -fx-font-size-base;
+  -fx-font-size: 14px;
 }
 
 .label-secondary {
@@ -411,11 +414,11 @@
 }
 
 .label-sm {
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
 }
 
 .label-lg {
-  -fx-font-size: -fx-font-size-lg;
+  -fx-font-size: 16px;
 }
 
 .label-bold {
@@ -427,8 +430,8 @@
   -fx-background-color: -fx-surface-primary;
   -fx-border-color: -fx-border-light;
   -fx-border-width: 2;
-  -fx-border-radius: -fx-radius-md;
-  -fx-background-radius: -fx-radius-md;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .combo-box:focused {
@@ -462,8 +465,8 @@
 .table-view {
   -fx-background-color: -fx-surface-primary;
   -fx-border-color: -fx-border-light;
-  -fx-border-radius: -fx-radius-lg;
-  -fx-background-radius: -fx-radius-lg;
+  -fx-border-radius: 12px;
+  -fx-background-radius: 12px;
   -fx-padding: 0;
 }
 
@@ -475,7 +478,7 @@
   -fx-background-color: -fx-gray-50;
   -fx-text-fill: -fx-text-primary;
   -fx-font-weight: 700;
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-padding: 16 12;
   -fx-border-color: transparent transparent -fx-border-light transparent;
   -fx-border-width: 0 0 2 0;
@@ -488,7 +491,7 @@
 .table-view .table-cell {
   -fx-text-fill: -fx-text-primary;
   -fx-padding: 14 12;
-  -fx-font-size: -fx-font-size-base;
+  -fx-font-size: 14px;
   -fx-border-color: transparent -fx-border-light transparent transparent;
 }
 
@@ -511,7 +514,7 @@
 
 .table-view .placeholder .label {
   -fx-text-fill: -fx-text-tertiary;
-  -fx-font-size: -fx-font-size-base;
+  -fx-font-size: 14px;
 }
 
 /* ========================================
@@ -525,7 +528,7 @@
 
 .login-card {
   -fx-background-color: -fx-surface-primary;
-  -fx-background-radius: -fx-radius-xl;
+  -fx-background-radius: 16px;
   -fx-padding: -fx-space-3xl;
   -fx-effect: -fx-shadow-xl;
   -fx-max-width: 480px;
@@ -546,19 +549,19 @@
 }
 
 .login-subtitle {
-  -fx-font-size: -fx-font-size-base;
+  -fx-font-size: 14px;
   -fx-text-fill: -fx-text-secondary;
 }
 
 .login-field {
   -fx-pref-height: 56px;
-  -fx-font-size: -fx-font-size-lg;
+  -fx-font-size: 16px;
 }
 
 .login-button {
   -fx-pref-height: 56px;
   -fx-pref-width: 200px;
-  -fx-font-size: -fx-font-size-lg;
+  -fx-font-size: 16px;
 }
 
 .login-footer {
@@ -569,10 +572,10 @@
 
 .login-hint {
   -fx-text-fill: -fx-text-tertiary;
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-padding: -fx-space-md;
   -fx-background-color: -fx-gray-50;
-  -fx-background-radius: -fx-radius-md;
+  -fx-background-radius: 8px;
 }
 
 /* ========================================
@@ -586,7 +589,7 @@
 
 .camera-panel {
   -fx-background-color: -fx-gray-900;
-  -fx-background-radius: -fx-radius-lg;
+  -fx-background-radius: 12px;
   -fx-padding: 0;
   -fx-effect: -fx-shadow-md;
   -fx-min-height: 480px;
@@ -612,12 +615,12 @@
 
 .progress-bar {
   -fx-background-color: -fx-gray-200;
-  -fx-background-radius: -fx-radius-full;
+  -fx-background-radius: 9999px;
 }
 
 .progress-bar .bar {
   -fx-background-color: -fx-primary;
-  -fx-background-radius: -fx-radius-full;
+  -fx-background-radius: 9999px;
 }
 
 /* ========================================
@@ -632,8 +635,8 @@
    ======================================== */
 .badge {
   -fx-padding: 4 12;
-  -fx-background-radius: -fx-radius-full;
-  -fx-font-size: -fx-font-size-xs;
+  -fx-background-radius: 9999px;
+  -fx-font-size: 11px;
   -fx-font-weight: 700;
 }
 
@@ -663,9 +666,9 @@
 .tooltip {
   -fx-background-color: -fx-gray-800;
   -fx-text-fill: white;
-  -fx-font-size: -fx-font-size-sm;
+  -fx-font-size: 13px;
   -fx-padding: 8 12;
-  -fx-background-radius: -fx-radius-md;
+  -fx-background-radius: 8px;
   -fx-effect: -fx-shadow-lg;
 }
 
@@ -722,4 +725,293 @@
 }
 .gap-lg {
   -fx-spacing: -fx-space-lg;
+}
+
+/* ========================================
+   ENHANCED BUTTON STYLES - Vibrant & Modern
+   ======================================== */
+.btn {
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 10px 20px;
+  -fx-cursor: hand;
+  -fx-font-weight: 600;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0, 0, 2);
+}
+
+.btn-primary {
+  -fx-background-color: #667eea;
+  -fx-text-fill: white;
+  -fx-border-color: transparent;
+}
+
+.btn-primary:hover {
+  -fx-background-color: #5568d3;
+  -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.5), 10, 0, 0, 4);
+  -fx-scale-y: 1.03;
+  -fx-scale-x: 1.03;
+}
+
+.btn-success {
+  -fx-background-color: #4caf50;
+  -fx-text-fill: white;
+  -fx-border-color: transparent;
+}
+
+.btn-success:hover {
+  -fx-background-color: #45a049;
+  -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.5), 10, 0, 0, 4);
+}
+
+.btn-error {
+  -fx-background-color: #f44336;
+  -fx-text-fill: white;
+  -fx-border-color: transparent;
+}
+
+.btn-error:hover {
+  -fx-background-color: #e53935;
+  -fx-effect: dropshadow(gaussian, rgba(244, 67, 54, 0.5), 10, 0, 0, 4);
+}
+
+.btn-warning {
+  -fx-background-color: #ff9800;
+  -fx-text-fill: white;
+  -fx-border-color: transparent;
+}
+
+.btn-warning:hover {
+  -fx-background-color: #fb8c00;
+  -fx-effect: dropshadow(gaussian, rgba(255, 152, 0, 0.5), 10, 0, 0, 4);
+}
+
+.btn-outlined {
+  -fx-background-color: transparent;
+  -fx-text-fill: #667eea;
+  -fx-border-color: #667eea;
+  -fx-border-width: 2px;
+}
+
+.btn-outlined:hover {
+  -fx-background-color: rgba(102, 126, 234, 0.1);
+  -fx-border-color: #5568d3;
+}
+
+.btn-sm {
+  -fx-padding: 6px 12px;
+  -fx-font-size: 12px;
+}
+
+/* ========================================
+   ENHANCED CARD STYLES - Colorful
+   ======================================== */
+.card {
+  -fx-background-radius: 12px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
+  -fx-border-width: 0;
+}
+
+.stat-card {
+  -fx-background-color: white;
+  -fx-border-color: #e0e0e0;
+  -fx-border-width: 1px;
+  -fx-border-radius: 12px;
+  -fx-padding: 20px;
+}
+
+.stat-value {
+  -fx-font-size: 36px;
+  -fx-font-weight: 700;
+  -fx-text-fill: #667eea;
+}
+
+.stat-label {
+  -fx-font-size: 13px;
+  -fx-text-fill: #757575;
+  -fx-font-weight: 500;
+}
+
+.stat-value-small {
+  -fx-font-size: 18px;
+  -fx-font-weight: 600;
+  -fx-text-fill: #667eea;
+}
+
+/* ========================================
+   ENHANCED HEADER
+   ======================================== */
+.header-bar {
+  -fx-background-color: #667eea;
+  -fx-padding: 16px 24px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0, 0, 2);
+}
+
+.header-title {
+  -fx-font-size: 24px;
+  -fx-font-weight: 700;
+  -fx-text-fill: white;
+}
+
+.header-user-name {
+  -fx-font-size: 14px;
+  -fx-font-weight: 600;
+  -fx-text-fill: white;
+}
+
+.header-user-role {
+  -fx-font-size: 12px;
+  -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+/* ========================================
+   MODERN TABLE ENHANCEMENTS
+   ======================================== */
+.modern-table {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+}
+
+.modern-table .column-header {
+  -fx-background-color: #f8f9fa;
+  -fx-text-fill: #424242;
+  -fx-font-weight: 600;
+  -fx-font-size: 13px;
+  -fx-padding: 12px;
+}
+
+.modern-table .table-row-cell {
+  -fx-background-color: white;
+  -fx-border-color: #f5f5f5;
+  -fx-border-width: 0 0 1px 0;
+  -fx-padding: 10px;
+}
+
+.modern-table .table-row-cell:hover {
+  -fx-background-color: #f8f9fa;
+}
+
+.modern-table .table-row-cell:selected {
+  -fx-background-color: rgba(102, 126, 234, 0.1);
+  -fx-border-color: #667eea;
+  -fx-border-width: 2px 0 2px 0;
+}
+
+/* ========================================
+   COLORFUL ACCENTS
+   ======================================== */
+.section-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: 700;
+  -fx-text-fill: #2c3e50;
+}
+
+.card-title {
+  -fx-font-size: 16px;
+  -fx-font-weight: 700;
+  -fx-text-fill: #2c3e50;
+}
+
+.text-primary {
+  -fx-text-fill: #667eea;
+}
+
+.text-success {
+  -fx-text-fill: #4caf50;
+}
+
+.text-error {
+  -fx-text-fill: #f44336;
+}
+
+.text-warning {
+  -fx-text-fill: #ff9800;
+}
+
+.text-muted {
+  -fx-text-fill: #757575;
+}
+
+.text-large {
+  -fx-font-size: 18px;
+}
+
+.text-white {
+  -fx-text-fill: white;
+}
+
+/* ========================================
+   FORM INPUT ENHANCEMENTS
+   ======================================== */
+.form-input {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-border-color: #e0e0e0;
+  -fx-border-radius: 8px;
+  -fx-border-width: 2px;
+  -fx-padding: 12px;
+  -fx-font-size: 14px;
+}
+
+.form-input:focused {
+  -fx-border-color: #667eea;
+  -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.3), 8, 0, 0, 0);
+}
+
+.form-label {
+  -fx-font-size: 14px;
+  -fx-font-weight: 600;
+  -fx-text-fill: #424242;
+}
+
+/* ========================================
+   CAMERA PANEL
+   ======================================== */
+.camera-panel {
+  -fx-background-color: #1e293b;
+  -fx-background-radius: 12px;
+  -fx-border-color: #334155;
+  -fx-border-width: 2px;
+  -fx-border-radius: 12px;
+}
+
+.overlay {
+  -fx-background-color: rgba(0, 0, 0, 0.7);
+  -fx-background-radius: 12px;
+}
+
+/* ========================================
+   INFO BOX
+   ======================================== */
+.info-box {
+  -fx-background-color: #f0f4ff;
+  -fx-background-radius: 8px;
+  -fx-padding: 16px;
+  -fx-border-color: #c7d7fe;
+  -fx-border-width: 1px;
+  -fx-border-radius: 8px;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer-bar {
+  -fx-background-color: #2c3e50;
+  -fx-padding: 12px;
+}
+
+.footer-text {
+  -fx-text-fill: rgba(255, 255, 255, 0.7);
+  -fx-font-size: 12px;
+}
+
+/* ========================================
+   CONTENT AREA
+   ======================================== */
+.content-area {
+  -fx-background-color: #f8f9fa;
+  -fx-padding: 24px;
+}
+
+.root-container {
+  -fx-background-color: #f8f9fa;
 }

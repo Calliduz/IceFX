@@ -92,7 +92,7 @@
                 </VBox>
             </VBox>
 
-            <VBox spacing="20" prefWidth="420" minWidth="420" maxWidth="420">
+            <VBox spacing="20" minWidth="350" prefWidth="450">
                 
                 <VBox styleClass="card" spacing="16">
                     <Label text="User Details" styleClass="card-title"/>

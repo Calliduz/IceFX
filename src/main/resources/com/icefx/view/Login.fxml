@@ -9,95 +9,97 @@
            styleClass="root-container"
            stylesheets="@../styles/enterprise-theme.css">
 
-    <!-- Background -->
-    <VBox alignment="CENTER" spacing="0" style="-fx-background-color: linear-gradient(to bottom right, #1976D2, #1565C0);">
+    <!-- Animated Gradient Background -->
+    <VBox alignment="CENTER" spacing="0" style="-fx-background-color: #667eea;">
         
-        <!-- Login Card -->
-        <VBox styleClass="login-card" alignment="CENTER" spacing="32" maxWidth="480" style="-fx-background-color: white; -fx-background-radius: 16px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 40, 0, 0, 8); -fx-padding: 48px 56px;">
+        <!-- Main Login Card -->
+        <VBox alignment="CENTER" spacing="36" maxWidth="500" 
+              style="-fx-background-color: white; -fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 50, 0, 0, 10); -fx-padding: 56px 64px;">
             
-            <!-- Header -->
-            <VBox alignment="CENTER" spacing="8">
-                <Label text="🎯" style="-fx-font-size: 56px;"/>
-                <Label text="IceFX Attendance" styleClass="login-title" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1976D2;"/>
-                <Label text="Facial Recognition Powered System" styleClass="text-muted" style="-fx-font-size: 14px;"/>
+            <!-- Logo & Branding -->
+            <VBox alignment="CENTER" spacing="12">
+                <Label text="🎯" style="-fx-font-size: 64px;"/>
+                <Label text="IceFX Attendance" style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #667eea;"/>
+                <Label text="Facial Recognition Powered System" styleClass="text-muted" style="-fx-font-size: 15px;"/>
             </VBox>
             
-            <Separator style="-fx-opacity: 0.1;"/>
+            <Separator style="-fx-opacity: 0.15;"/>
             
-            <!-- Welcome Message -->
-            <VBox alignment="CENTER" spacing="4">
-                <Label text="Welcome Back" style="-fx-font-size: 24px; -fx-font-weight: 600; -fx-text-fill: #1e293b;"/>
-                <Label text="Sign in to access your dashboard" styleClass="text-muted"/>
+            <!-- Welcome Text -->
+            <VBox alignment="CENTER" spacing="6">
+                <Label text="Welcome Back! 👋" style="-fx-font-size: 26px; -fx-font-weight: 600; -fx-text-fill: #1e293b;"/>
+                <Label text="Sign in to access your dashboard" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
             </VBox>
             
             <!-- Login Form -->
-            <VBox spacing="20" prefWidth="360" maxWidth="360">
+            <VBox spacing="24" prefWidth="380" maxWidth="380">
                 
-                <!-- User Code Field -->
-                <VBox spacing="8">
-                    <Label text="User Code" styleClass="form-label" style="-fx-font-weight: 600;"/>
+                <!-- User Code Input -->
+                <VBox spacing="10">
+                    <Label text="👤 User Code" styleClass="form-label" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
                     <TextField fx:id="userCodeField" 
                                styleClass="form-input"
-                               promptText="e.g., ADMIN001 or STU001"
-                               style="-fx-pref-height: 44px; -fx-font-size: 14px;"/>
+                               promptText="Enter your user code (e.g., ADMIN001)"
+                               style="-fx-pref-height: 48px; -fx-font-size: 15px; -fx-background-radius: 10px; -fx-border-radius: 10px;"/>
                 </VBox>
                 
-                <!-- Password Field -->
-                <VBox spacing="8">
-                    <Label text="Password" styleClass="form-label" style="-fx-font-weight: 600;"/>
+                <!-- Password Input -->
+                <VBox spacing="10">
+                    <Label text="🔒 Password" styleClass="form-label" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
                     <PasswordField fx:id="passwordField" 
                                    styleClass="form-input"
                                    promptText="Enter your password"
-                                   style="-fx-pref-height: 44px; -fx-font-size: 14px;"/>
+                                   style="-fx-pref-height: 48px; -fx-font-size: 15px; -fx-background-radius: 10px; -fx-border-radius: 10px;"/>
                 </VBox>
                 
-                <!-- Error Label -->
+                <!-- Error Message -->
                 <Label fx:id="errorLabel" 
                        styleClass="text-error"
                        wrapText="true"
                        visible="false"
-                       style="-fx-padding: 12px; -fx-background-color: #fee2e2; -fx-background-radius: 8px; -fx-font-size: 13px;"/>
+                       style="-fx-padding: 14px; -fx-background-color: #fee2e2; -fx-background-radius: 10px; -fx-font-size: 13px; -fx-text-fill: #dc2626;"/>
                 
-                <!-- Login Button -->
+                <!-- Sign In Button -->
                 <Button fx:id="loginButton" 
                         text="Sign In" 
                         styleClass="btn, btn-primary"
                         onAction="#handleLogin"
                         defaultButton="true"
                         maxWidth="Infinity"
-                        style="-fx-pref-height: 48px; -fx-font-size: 16px; -fx-font-weight: 600;"/>
+                        style="-fx-pref-height: 52px; -fx-font-size: 17px; -fx-font-weight: 700; -fx-background-radius: 12px; -fx-background-color: #667eea; -fx-text-fill: white;"/>
                 
                 <!-- Progress Indicator -->
                 <StackPane>
                     <ProgressIndicator fx:id="progressIndicator" 
                                        visible="false"
-                                       maxWidth="32"
-                                       maxHeight="32"/>
+                                       maxWidth="36"
+                                       maxHeight="36"/>
                 </StackPane>
                 
             </VBox>
             
-            <!-- Helpful Info Card -->
-            <VBox spacing="8" styleClass="info-box" style="-fx-background-color: #f1f5f9; -fx-padding: 16px; -fx-background-radius: 8px;">
-                <HBox spacing="8" alignment="CENTER_LEFT">
-                    <Label text="💡" style="-fx-font-size: 18px;"/>
-                    <Label text="Quick Access" styleClass="text-small" style="-fx-font-weight: 600;"/>
+            <!-- Demo Credentials Card -->
+            <VBox spacing="10" styleClass="info-box" 
+                  style="-fx-background-color: #f8fafc; -fx-padding: 20px; -fx-background-radius: 12px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 12px;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="💡" style="-fx-font-size: 20px;"/>
+                    <Label text="Demo Credentials" style="-fx-font-weight: 700; -fx-font-size: 14px; -fx-text-fill: #475569;"/>
                 </HBox>
-                <Label text="Admin: ADMIN001 / admin123" styleClass="text-muted" style="-fx-font-size: 12px;"/>
-                <Label text="Student: STU001 / student123" styleClass="text-muted" style="-fx-font-size: 12px;"/>
+                <Label text="Admin: ADMIN001 / admin123" style="-fx-font-size: 13px; -fx-text-fill: #64748b;"/>
+                <Label text="Student: STU001 / student123" style="-fx-font-size: 13px; -fx-text-fill: #64748b;"/>
             </VBox>
             
         </VBox>
         
         <!-- Footer -->
-        <VBox alignment="CENTER" spacing="8" style="-fx-padding: 32px;">
-            <Label text="IceFX Attendance System v2.0" style="-fx-text-fill: white; -fx-font-size: 12px; -fx-opacity: 0.9;"/>
-            <HBox spacing="12" alignment="CENTER">
-                <Label text="OpenCV 4.9" style="-fx-text-fill: white; -fx-font-size: 11px; -fx-opacity: 0.8;"/>
-                <Label text="•" style="-fx-text-fill: white; -fx-opacity: 0.8;"/>
-                <Label text="JavaFX 23" style="-fx-text-fill: white; -fx-font-size: 11px; -fx-opacity: 0.8;"/>
-                <Label text="•" style="-fx-text-fill: white; -fx-opacity: 0.8;"/>
-                <Label text="JDK 23.0.1" style="-fx-text-fill: white; -fx-font-size: 11px; -fx-opacity: 0.8;"/>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 36px;">
+            <Label text="IceFX Attendance System v2.0" style="-fx-text-fill: white; -fx-font-size: 13px; -fx-opacity: 0.95; -fx-font-weight: 500;"/>
+            <HBox spacing="14" alignment="CENTER">
+                <Label text="OpenCV 4.9" style="-fx-text-fill: white; -fx-font-size: 12px; -fx-opacity: 0.85;"/>
+                <Label text="•" style="-fx-text-fill: white; -fx-opacity: 0.85;"/>
+                <Label text="JavaFX 23" style="-fx-text-fill: white; -fx-font-size: 12px; -fx-opacity: 0.85;"/>
+                <Label text="•" style="-fx-text-fill: white; -fx-opacity: 0.85;"/>
+                <Label text="JDK 23.0.1" style="-fx-text-fill: white; -fx-font-size: 12px; -fx-opacity: 0.85;"/>
             </HBox>
         </VBox>
         

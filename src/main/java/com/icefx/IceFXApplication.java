@@ -93,6 +93,11 @@ public class IceFXApplication extends Application {
                 shutdown();
             });
             
+            // Start in fullscreen mode
+            primaryStage.setMaximized(true);
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitHint("Press ESC to exit fullscreen");
+            
             primaryStage.show();
             logger.info("✅ Application started successfully");
             
