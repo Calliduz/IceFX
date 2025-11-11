@@ -25,10 +25,13 @@
                 <Label text="Administrator" styleClass="header-user-role"/>
             </VBox>
             
-            <Button text="Logout" styleClass="btn, btn-error" onAction="#handleLogout"
+            <Button styleClass="btn, btn-error" onAction="#handleLogout"
                     style="-fx-background-color: white; -fx-text-fill: #f44336; -fx-border-color: white; -fx-border-width: 2px;">
                 <graphic>
-                    <Label text="🚪" style="-fx-font-size: 16px;"/>
+                    <HBox spacing="6" alignment="CENTER">
+                        <Label text="🚪" style="-fx-font-size: 16px;"/>
+                        <Label text="Logout" style="-fx-font-size: 13px;"/>
+                    </HBox>
                 </graphic>
             </Button>
         </HBox>
@@ -62,41 +65,132 @@
                     </VBox>
                 </HBox>
 
-                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
-                    <HBox alignment="CENTER_LEFT" spacing="12">
-                        <Label text="User Management" styleClass="card-title" HBox.hgrow="ALWAYS"/>
-                        <Button text="➕ Add" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
-                        <Button text="🔄 Refresh" styleClass="btn, btn-outlined, btn-sm" onAction="#handleRefresh"/>
-                    </HBox>
+                <!-- User Management and Face Training Side by Side -->
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
                     
-                    <HBox spacing="12" alignment="CENTER_LEFT">
-                        <TextField fx:id="searchField" promptText="Search by name or code..." 
-                                   styleClass="form-input" HBox.hgrow="ALWAYS" prefWidth="300"/>
-                        <ComboBox fx:id="roleFilterComboBox" promptText="Filter by role" 
-                                  styleClass="form-input" prefWidth="150"/>
-                    </HBox>
-                    
-                    <TableView fx:id="userTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
-                            <TableColumn fx:id="userCodeColumn" text="User Code" prefWidth="120"/>
-                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="180"/>
-                            <TableColumn fx:id="emailColumn" text="Department" prefWidth="150"/>
-                            <TableColumn fx:id="roleColumn" text="Role" prefWidth="100"/>
-                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="80"/>
-                        </columns>
-                        <placeholder>
-                            <VBox alignment="CENTER" spacing="12" style="-fx-padding: 60px;">
-                                <Label text="👥" style="-fx-font-size: 48px; -fx-opacity: 0.3;"/>
-                                <Label text="No users found" styleClass="text-muted" style="-fx-font-size: 16px;"/>
-                                <Label text="Click 'Add' to create your first user" styleClass="text-muted"/>
+                    <!-- User Management Card -->
+                    <VBox styleClass="card" spacing="16" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="User Management" styleClass="card-title" HBox.hgrow="ALWAYS"/>
+                            <Button styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd">
+                                <graphic>
+                                    <HBox spacing="6" alignment="CENTER">
+                                        <Label text="➕" style="-fx-font-size: 14px;"/>
+                                        <Label text="Add" style="-fx-font-size: 12px;"/>
+                                    </HBox>
+                                </graphic>
+                            </Button>
+                            <Button styleClass="btn, btn-outlined, btn-sm" onAction="#handleRefresh">
+                                <graphic>
+                                    <HBox spacing="6" alignment="CENTER">
+                                        <Label text="🔄" style="-fx-font-size: 14px;"/>
+                                        <Label text="Refresh" style="-fx-font-size: 12px;"/>
+                                    </HBox>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                        
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <TextField fx:id="searchField" promptText="Search by name or code..." 
+                                       styleClass="form-input" HBox.hgrow="ALWAYS" prefWidth="300"/>
+                            <ComboBox fx:id="roleFilterComboBox" promptText="Filter by role" 
+                                      styleClass="form-input" prefWidth="150"/>
+                        </HBox>
+                        
+                        <TableView fx:id="userTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                                <TableColumn fx:id="userCodeColumn" text="User Code" prefWidth="120"/>
+                                <TableColumn fx:id="nameColumn" text="Name" prefWidth="180"/>
+                                <TableColumn fx:id="emailColumn" text="Department" prefWidth="150"/>
+                                <TableColumn fx:id="roleColumn" text="Role" prefWidth="100"/>
+                                <TableColumn fx:id="statusColumn" text="Status" prefWidth="80"/>
+                            </columns>
+                            <placeholder>
+                                <VBox alignment="CENTER" spacing="12" style="-fx-padding: 60px;">
+                                    <Label text="👥" style="-fx-font-size: 48px; -fx-opacity: 0.3;"/>
+                                    <Label text="No users found" styleClass="text-muted" style="-fx-font-size: 16px;"/>
+                                    <Label text="Click 'Add' to create your first user" styleClass="text-muted"/>
+                                </VBox>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+
+                    <!-- Face Training Card -->
+                    <VBox styleClass="card" spacing="20" style="-fx-padding: 24px; -fx-background-color: white;" minWidth="380" prefWidth="400">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="🎯" style="-fx-font-size: 24px;"/>
+                            <VBox spacing="2">
+                                <Label text="Face Recognition Training" styleClass="card-title" style="-fx-font-size: 18px; -fx-font-weight: 700;"/>
+                                <Label text="Train and manage recognition models" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
                             </VBox>
-                        </placeholder>
-                    </TableView>
-                </VBox>
+                        </HBox>
+                        
+                        <Separator style="-fx-opacity: 0.2;"/>
+                        
+                        <!-- Model Status Card -->
+                        <VBox spacing="12" style="-fx-background-color: #f8fafc; -fx-padding: 16px; -fx-background-radius: 10px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 10px;">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📊" style="-fx-font-size: 20px;"/>
+                                <Label text="Model Status" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #1e293b;"/>
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label fx:id="modelStatusLabel" text="✗ No Model" style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #f44336;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="trainingStatusLabel" text="Ready to train" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
+                            </HBox>
+                            <ProgressBar fx:id="trainingProgressBar" maxWidth="Infinity" progress="0" visible="false" 
+                                         style="-fx-accent: #667eea;" prefHeight="8"/>
+                        </VBox>
+                        
+                        <!-- Training Actions -->
+                        <VBox spacing="12">
+                            <Button fx:id="trainButton" text="🎯 Train Model" styleClass="btn, btn-success" 
+                                    onAction="#handleTrainModel" maxWidth="Infinity"
+                                    style="-fx-pref-height: 45px; -fx-font-size: 15px; -fx-font-weight: 600;"/>
+                            <HBox spacing="12">
+                                <Button fx:id="saveModelButton" text="💾 Save Model" styleClass="btn, btn-primary" 
+                                        onAction="#handleSaveModel" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-pref-height: 40px;"/>
+                                <Button fx:id="loadModelButton" text="📂 Load Model" styleClass="btn, btn-primary" 
+                                        onAction="#handleLoadModel" HBox.hgrow="ALWAYS"
+                                        style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-pref-height: 40px;"/>
+                            </HBox>
+                        </VBox>
+                        
+                        <Separator style="-fx-opacity: 0.2;"/>
+                        
+                        <!-- Instructions Collapsible -->
+                        <VBox spacing="12" style="-fx-background-color: #f0f9ff; -fx-padding: 16px; -fx-background-radius: 10px; -fx-border-color: #bae6fd; -fx-border-width: 1px; -fx-border-radius: 10px;">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="💡" style="-fx-font-size: 20px;"/>
+                                <Label text="Quick Guide" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #0369a1;"/>
+                            </HBox>
+                            <VBox spacing="8">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="1" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
+                                    <Label text="Prepare face images in a directory" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="2" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
+                                    <Label text="Organize by user ID subdirectories" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="3" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
+                                    <Label text="Click 'Train Model' to select directory" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="4" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
+                                    <Label text="Save/Load models for reuse" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+
+                </HBox>
             </VBox>
 
-            <VBox spacing="20" minWidth="350" prefWidth="450">
+            <VBox spacing="20" minWidth="350" prefWidth="400">
                 
                 <VBox styleClass="card" spacing="16" style="-fx-padding: 24px;">
                     <Label text="User Details" styleClass="card-title"/>
@@ -134,81 +228,25 @@
                     <Separator/>
                     
                     <HBox spacing="12">
-                        <Button fx:id="updateButton" text="💾 Update" styleClass="btn, btn-success" onAction="#handleUpdate" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true"/>
-                        <Button fx:id="deleteButton" text="🗑️ Delete" styleClass="btn, btn-error" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true"/>
+                        <Button fx:id="updateButton" styleClass="btn, btn-success" onAction="#handleUpdate" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true">
+                            <graphic>
+                                <HBox spacing="6" alignment="CENTER">
+                                    <Label text="💾" style="-fx-font-size: 16px;"/>
+                                    <Label text="Update" style="-fx-font-size: 13px;"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="deleteButton" styleClass="btn, btn-error" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true">
+                            <graphic>
+                                <HBox spacing="6" alignment="CENTER">
+                                    <Label text="🗑️" style="-fx-font-size: 16px;"/>
+                                    <Label text="Delete" style="-fx-font-size: 13px;"/>
+                                </HBox>
+                            </graphic>
+                        </Button>
                     </HBox>
                     
                     <Button fx:id="clearButton" text="Clear Form" styleClass="btn, btn-outlined" onAction="#handleClear" maxWidth="Infinity"/>
-                </VBox>
-
-                <VBox styleClass="card" spacing="20" style="-fx-padding: 24px; -fx-background-color: white;">
-                    <HBox alignment="CENTER_LEFT" spacing="12">
-                        <Label text="🎯" style="-fx-font-size: 24px;"/>
-                        <VBox spacing="2">
-                            <Label text="Face Recognition Training" styleClass="card-title" style="-fx-font-size: 18px; -fx-font-weight: 700;"/>
-                            <Label text="Train and manage recognition models" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-                        </VBox>
-                    </HBox>
-                    
-                    <Separator style="-fx-opacity: 0.2;"/>
-                    
-                    <!-- Model Status Card -->
-                    <VBox spacing="12" style="-fx-background-color: #f8fafc; -fx-padding: 16px; -fx-background-radius: 10px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 10px;">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="📊" style="-fx-font-size: 20px;"/>
-                            <Label text="Model Status" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #1e293b;"/>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="12">
-                            <Label fx:id="modelStatusLabel" text="✗ No Model" style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #f44336;"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="trainingStatusLabel" text="Ready to train" style="-fx-font-size: 12px; -fx-text-fill: #64748b;"/>
-                        </HBox>
-                        <ProgressBar fx:id="trainingProgressBar" maxWidth="Infinity" progress="0" visible="false" 
-                                     style="-fx-accent: #667eea;" prefHeight="8"/>
-                    </VBox>
-                    
-                    <!-- Training Actions -->
-                    <VBox spacing="12">
-                        <Button fx:id="trainButton" text="🎯 Train Model" styleClass="btn, btn-success" 
-                                onAction="#handleTrainModel" maxWidth="Infinity"
-                                style="-fx-pref-height: 45px; -fx-font-size: 15px; -fx-font-weight: 600;"/>
-                        <HBox spacing="12">
-                            <Button fx:id="saveModelButton" text="💾 Save Model" styleClass="btn, btn-primary" 
-                                    onAction="#handleSaveModel" HBox.hgrow="ALWAYS"
-                                    style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-pref-height: 40px;"/>
-                            <Button fx:id="loadModelButton" text="📂 Load Model" styleClass="btn, btn-primary" 
-                                    onAction="#handleLoadModel" HBox.hgrow="ALWAYS"
-                                    style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-pref-height: 40px;"/>
-                        </HBox>
-                    </VBox>
-                    
-                    <Separator style="-fx-opacity: 0.2;"/>
-                    
-                    <!-- Instructions Collapsible -->
-                    <VBox spacing="12" style="-fx-background-color: #f0f9ff; -fx-padding: 16px; -fx-background-radius: 10px; -fx-border-color: #bae6fd; -fx-border-width: 1px; -fx-border-radius: 10px;">
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Label text="💡" style="-fx-font-size: 20px;"/>
-                            <Label text="Quick Guide" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #0369a1;"/>
-                        </HBox>
-                        <VBox spacing="8">
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Label text="1" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
-                                <Label text="Prepare face images in a directory" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
-                            </HBox>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Label text="2" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
-                                <Label text="Organize by user ID subdirectories" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
-                            </HBox>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Label text="3" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
-                                <Label text="Click 'Train Model' to select directory" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
-                            </HBox>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Label text="4" style="-fx-min-width: 24px; -fx-min-height: 24px; -fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px; -fx-background-radius: 12px; -fx-alignment: center;"/>
-                                <Label text="Save/Load models for reuse" style="-fx-font-size: 13px; -fx-text-fill: #0c4a6e;" wrapText="true"/>
-                            </HBox>
-                        </VBox>
-                    </VBox>
                 </VBox>
             </VBox>
         </HBox>

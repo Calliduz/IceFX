@@ -679,6 +679,11 @@ public class AdminController {
             try {
                 // Navigate back to login
                 javafx.stage.Stage stage = (javafx.stage.Stage) userTable.getScene().getWindow();
+                
+                // Store current window state
+                boolean wasMaximized = stage.isMaximized();
+                boolean wasFullScreen = stage.isFullScreen();
+                
                 javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
                     getClass().getResource("/com/icefx/view/Login.fxml")
                 );
@@ -686,6 +691,14 @@ public class AdminController {
                 javafx.scene.Scene scene = new javafx.scene.Scene(root);
                 stage.setScene(scene);
                 stage.setTitle("IceFX - Login");
+                
+                // Restore window state
+                if (wasMaximized) {
+                    stage.setMaximized(true);
+                }
+                if (wasFullScreen) {
+                    stage.setFullScreen(true);
+                }
                 
                 ModernToast.success("Logged out successfully");
                 logger.info("Admin logged out successfully");
