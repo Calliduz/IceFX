@@ -25,7 +25,8 @@
                 <Label text="Administrator" styleClass="header-user-role"/>
             </VBox>
             
-            <Button text="Logout" styleClass="btn, btn-outlined, btn-error" onAction="#handleLogout">
+            <Button text="Logout" styleClass="btn, btn-error" onAction="#handleLogout"
+                    style="-fx-background-color: white; -fx-text-fill: #f44336; -fx-border-color: white; -fx-border-width: 2px;">
                 <graphic>
                     <Label text="🚪" style="-fx-font-size: 16px;"/>
                 </graphic>
@@ -42,19 +43,22 @@
             <VBox spacing="20" HBox.hgrow="ALWAYS">
                 
                 <HBox spacing="16">
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Total Users" styleClass="stat-label"/>
-                        <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 24px; -fx-background-color: #2196f3; -fx-background-radius: 16px;">
+                        <Label text="Total Users" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                        <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: 700;"/>
                     </VBox>
                     
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Active Users" styleClass="stat-label"/>
-                        <Label fx:id="activeUsersLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 24px; -fx-background-color: #4caf50; -fx-background-radius: 16px;">
+                        <Label text="Active Users" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                        <Label fx:id="activeUsersLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: 700;"/>
                     </VBox>
                     
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Administrators" styleClass="stat-label"/>
-                        <Label fx:id="adminCountLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 24px; -fx-background-color: #ff9800; -fx-background-radius: 16px;">
+                        <Label text="Administrators" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                        <Label fx:id="adminCountLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: 700;"/>
                     </VBox>
                 </HBox>
 
@@ -94,7 +98,7 @@
 
             <VBox spacing="20" minWidth="350" prefWidth="450">
                 
-                <VBox styleClass="card" spacing="16">
+                <VBox styleClass="card" spacing="16" style="-fx-padding: 24px;">
                     <Label text="User Details" styleClass="card-title"/>
                     
                     <VBox spacing="10">
@@ -137,7 +141,7 @@
                     <Button fx:id="clearButton" text="Clear Form" styleClass="btn, btn-outlined" onAction="#handleClear" maxWidth="Infinity"/>
                 </VBox>
 
-                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS" style="-fx-padding: 24px;">
                     <Label text="Face Training" styleClass="card-title"/>
                     
                     <HBox spacing="12">

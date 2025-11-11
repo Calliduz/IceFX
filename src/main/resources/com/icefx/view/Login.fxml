@@ -18,17 +18,17 @@
             
             <!-- Logo & Branding -->
             <VBox alignment="CENTER" spacing="12">
-                <Label text="🎯" style="-fx-font-size: 64px;"/>
-                <Label text="IceFX Attendance" style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #667eea;"/>
-                <Label text="Facial Recognition Powered System" styleClass="text-muted" style="-fx-font-size: 15px;"/>
+                <Label text="🎯" style="-fx-font-size: 64px; -fx-alignment: center;"/>
+                <Label text="IceFX Attendance" style="-fx-font-size: 32px; -fx-font-weight: 700; -fx-text-fill: #667eea; -fx-alignment: center;"/>
+                <Label text="Facial Recognition Powered System" styleClass="text-muted" style="-fx-font-size: 15px; -fx-alignment: center;"/>
             </VBox>
             
-            <Separator style="-fx-opacity: 0.15;"/>
+            <Separator prefWidth="340" style="-fx-opacity: 0.15;"/>
             
             <!-- Welcome Text -->
-            <VBox alignment="CENTER" spacing="6">
-                <Label text="Welcome Back! 👋" style="-fx-font-size: 26px; -fx-font-weight: 600; -fx-text-fill: #1e293b;"/>
-                <Label text="Sign in to access your dashboard" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
+            <VBox alignment="CENTER" spacing="6" maxWidth="380">
+                <Label text="Welcome Back!" style="-fx-font-size: 26px; -fx-font-weight: 600; -fx-text-fill: #1e293b; -fx-alignment: center;"/>
+                <Label text="Sign in to access your dashboard" style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-alignment: center;"/>
             </VBox>
             
             <!-- Login Form -->
@@ -79,14 +79,16 @@
             </VBox>
             
             <!-- Demo Credentials Card -->
-            <VBox spacing="10" styleClass="info-box" 
-                  style="-fx-background-color: #f8fafc; -fx-padding: 20px; -fx-background-radius: 12px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 12px;">
+            <VBox spacing="12" styleClass="info-box" maxWidth="380"
+                  style="-fx-background-color: #f8fafc; -fx-padding: 20px 24px; -fx-background-radius: 12px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 12px;">
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="💡" style="-fx-font-size: 20px;"/>
-                    <Label text="Demo Credentials" style="-fx-font-weight: 700; -fx-font-size: 14px; -fx-text-fill: #475569;"/>
+                    <Label text="Demo Credentials" style="-fx-font-weight: 700; -fx-font-size: 15px; -fx-text-fill: #475569;"/>
                 </HBox>
-                <Label text="Admin: ADMIN001 / admin123" style="-fx-font-size: 13px; -fx-text-fill: #64748b;"/>
-                <Label text="Student: STU001 / student123" style="-fx-font-size: 13px; -fx-text-fill: #64748b;"/>
+                <VBox spacing="8">
+                    <Label text="Admin: ADMIN001 / admin123" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-padding: 0 0 0 30;"/>
+                    <Label text="Student: STU001 / student123" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-padding: 0 0 0 30;"/>
+                </VBox>
             </VBox>
             
         </VBox>

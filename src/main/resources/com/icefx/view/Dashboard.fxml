@@ -26,7 +26,8 @@
                 <Label fx:id="userRoleLabel" text="Student" styleClass="header-user-role"/>
             </VBox>
             
-            <Button text="Logout" styleClass="btn, btn-outlined, btn-error" onAction="#handleLogout">
+            <Button text="Logout" styleClass="btn, btn-error" onAction="#handleLogout"
+                    style="-fx-background-color: white; -fx-text-fill: #f44336; -fx-border-color: white; -fx-border-width: 2px;">
                 <graphic>
                     <Label text="🚪" style="-fx-font-size: 16px;"/>
                 </graphic>
@@ -78,7 +79,7 @@
 
             <VBox spacing="20" minWidth="380" prefWidth="450">
                 
-                <VBox styleClass="card" spacing="16">
+                <VBox styleClass="card" spacing="16" style="-fx-padding: 24px;">
                     <Label text="Recognition Status" styleClass="card-title"/>
                     
                     <HBox spacing="16" alignment="CENTER_LEFT">
@@ -94,34 +95,39 @@
                 </VBox>
 
                 <HBox spacing="16">
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Today" styleClass="stat-label"/>
-                        <Label fx:id="todayCountLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-info" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 20px; -fx-background-color: #2196f3; -fx-background-radius: 12px;">
+                        <Label text="Today" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                        <Label fx:id="todayCountLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700;"/>
                     </VBox>
                     
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="This Week" styleClass="stat-label"/>
-                        <Label fx:id="weekCountLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-success" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 20px; -fx-background-color: #4caf50; -fx-background-radius: 12px;">
+                        <Label text="This Week" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                        <Label fx:id="weekCountLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700;"/>
                     </VBox>
                 </HBox>
                 
                 <HBox spacing="16">
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Total Records" styleClass="stat-label"/>
-                        <Label fx:id="recordCountLabel" text="0" styleClass="stat-value"/>
+                    <VBox styleClass="card, stat-card, stat-card-warning" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 20px; -fx-background-color: #ff9800; -fx-background-radius: 12px;">
+                        <Label text="Total Records" styleClass="stat-label" style="-fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                        <Label fx:id="recordCountLabel" text="0" styleClass="stat-value" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700;"/>
                     </VBox>
                     
-                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Last Update" styleClass="stat-label"/>
-                        <Label fx:id="lastUpdateLabel" text="Never" styleClass="stat-value-small"/>
+                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="12"
+                          style="-fx-padding: 20px; -fx-background-color: white; -fx-background-radius: 12px;">
+                        <Label text="Last Update" styleClass="stat-label" style="-fx-text-fill: #667eea; -fx-font-size: 13px; -fx-font-weight: 600;"/>
+                        <Label fx:id="lastUpdateLabel" text="Never" styleClass="stat-value-small" style="-fx-text-fill: #1e293b; -fx-font-size: 14px; -fx-font-weight: 600;"/>
                     </VBox>
                 </HBox>
 
-                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS" style="-fx-padding: 24px;">
                     <HBox alignment="CENTER_LEFT" spacing="12">
                         <Label text="Recent Attendance" styleClass="card-title" HBox.hgrow="ALWAYS"/>
-                        <Button text="🔄 Refresh" styleClass="btn, btn-outlined, btn-sm" 
-                                onAction="#handleRefresh"/>
+                        <Button text="🔄" styleClass="btn, btn-primary, btn-sm" 
+                                onAction="#handleRefresh"
+                                style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 6px 12px;"/>
                     </HBox>
                     
                     <TableView fx:id="attendanceTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
