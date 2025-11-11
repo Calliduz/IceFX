@@ -1,0 +1,725 @@
+/*
+ * IceFX Enterprise Theme
+ * Professional, production-ready design system
+ * Optimized for business applications
+ * 
+ * @version 3.0
+ * @author IceFX Team
+ */
+
+/* ========================================
+   ROOT VARIABLES - Design System
+   ======================================== */
+.root {
+  /* Primary Brand Colors */
+  -fx-primary: #1976d2;
+  -fx-primary-hover: #1565c0;
+  -fx-primary-pressed: #0d47a1;
+  -fx-primary-light: #bbdefb;
+
+  /* Semantic Colors */
+  -fx-success: #4caf50;
+  -fx-success-hover: #388e3c;
+  -fx-warning: #ff9800;
+  -fx-warning-hover: #f57c00;
+  -fx-error: #f44336;
+  -fx-error-hover: #d32f2f;
+  -fx-info: #2196f3;
+  -fx-info-hover: #1976d2;
+
+  /* Grayscale Palette */
+  -fx-gray-50: #fafafa;
+  -fx-gray-100: #f5f5f5;
+  -fx-gray-200: #eeeeee;
+  -fx-gray-300: #e0e0e0;
+  -fx-gray-400: #bdbdbd;
+  -fx-gray-500: #9e9e9e;
+  -fx-gray-600: #757575;
+  -fx-gray-700: #616161;
+  -fx-gray-800: #424242;
+  -fx-gray-900: #212121;
+
+  /* Surface Colors */
+  -fx-surface-primary: #ffffff;
+  -fx-surface-secondary: #fafafa;
+  -fx-surface-tertiary: #f5f5f5;
+  -fx-background: #f8f9fa;
+
+  /* Text Colors */
+  -fx-text-primary: #212121;
+  -fx-text-secondary: #616161;
+  -fx-text-tertiary: #9e9e9e;
+  -fx-text-disabled: #bdbdbd;
+  -fx-text-inverse: #ffffff;
+
+  /* Border Colors */
+  -fx-border-light: #e0e0e0;
+  -fx-border-medium: #bdbdbd;
+  -fx-border-dark: #9e9e9e;
+
+  /* Shadows */
+  -fx-shadow-sm: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0, 0, 2);
+  -fx-shadow-md: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 8, 0, 0, 4);
+  -fx-shadow-lg: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 16, 0, 0, 8);
+  -fx-shadow-xl: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 24, 0, 0, 12);
+
+  /* Spacing Scale */
+  -fx-space-xs: 4px;
+  -fx-space-sm: 8px;
+  -fx-space-md: 16px;
+  -fx-space-lg: 24px;
+  -fx-space-xl: 32px;
+  -fx-space-2xl: 48px;
+  -fx-space-3xl: 64px;
+
+  /* Border Radius */
+  -fx-radius-sm: 4px;
+  -fx-radius-md: 8px;
+  -fx-radius-lg: 12px;
+  -fx-radius-xl: 16px;
+  -fx-radius-full: 9999px;
+
+  /* Typography */
+  -fx-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -fx-font-size-xs: 11px;
+  -fx-font-size-sm: 13px;
+  -fx-font-size-base: 14px;
+  -fx-font-size-lg: 16px;
+  -fx-font-size-xl: 18px;
+  -fx-font-size-2xl: 24px;
+  -fx-font-size-3xl: 32px;
+
+  /* Base Overrides */
+  -fx-base: -fx-surface-primary;
+  -fx-background: -fx-background;
+  -fx-control-inner-background: -fx-surface-primary;
+  -fx-faint-focus-color: transparent;
+  -fx-focus-color: -fx-primary;
+}
+
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+.root {
+  -fx-background-color: -fx-background;
+  -fx-font-family: -fx-font-family;
+  -fx-font-size: -fx-font-size-base;
+  -fx-text-fill: -fx-text-primary;
+}
+
+/* Scroll Panes */
+.scroll-pane {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.scroll-bar {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+}
+
+.scroll-bar .thumb {
+  -fx-background-color: -fx-gray-400;
+  -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+  -fx-background-color: -fx-gray-500;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+  -fx-background-color: transparent;
+  -fx-padding: 0;
+}
+
+/* ========================================
+   HEADER STYLES
+   ======================================== */
+.header {
+  -fx-background-color: -fx-surface-primary;
+  -fx-padding: 20 32;
+  -fx-alignment: CENTER_LEFT;
+  -fx-border-color: transparent transparent -fx-border-light transparent;
+  -fx-border-width: 0 0 1 0;
+  -fx-effect: -fx-shadow-sm;
+}
+
+.header .app-title {
+  -fx-font-size: -fx-font-size-2xl;
+  -fx-font-weight: 700;
+  -fx-text-fill: -fx-primary;
+}
+
+.header .user-info {
+  -fx-font-size: -fx-font-size-sm;
+  -fx-text-fill: -fx-text-secondary;
+}
+
+.header .logout-button {
+  -fx-background-color: transparent;
+  -fx-text-fill: -fx-text-secondary;
+  -fx-font-size: -fx-font-size-sm;
+  -fx-font-weight: 600;
+  -fx-padding: 8 16;
+  -fx-border-radius: -fx-radius-md;
+  -fx-background-radius: -fx-radius-md;
+  -fx-cursor: hand;
+}
+
+.header .logout-button:hover {
+  -fx-background-color: -fx-gray-100;
+  -fx-text-fill: -fx-error;
+}
+
+/* ========================================
+   CARD COMPONENTS
+   ======================================== */
+.card {
+  -fx-background-color: -fx-surface-primary;
+  -fx-background-radius: -fx-radius-lg;
+  -fx-padding: -fx-space-lg;
+  -fx-effect: -fx-shadow-md;
+}
+
+.card-header {
+  -fx-padding: 0 0 -fx-space-md 0;
+}
+
+.card-title {
+  -fx-font-size: -fx-font-size-xl;
+  -fx-font-weight: 700;
+  -fx-text-fill: -fx-text-primary;
+}
+
+.card-subtitle {
+  -fx-font-size: -fx-font-size-sm;
+  -fx-text-fill: -fx-text-secondary;
+}
+
+.card-compact {
+  -fx-padding: -fx-space-md;
+}
+
+.card-elevated {
+  -fx-effect: -fx-shadow-lg;
+}
+
+/* ========================================
+   STATISTICS CARDS
+   ======================================== */
+.stat-card {
+  -fx-background-radius: -fx-radius-xl;
+  -fx-padding: -fx-space-xl;
+  -fx-effect: -fx-shadow-md;
+}
+
+.stat-card-success {
+  -fx-background-color: linear-gradient(to bottom right, #4caf50, #66bb6a);
+}
+
+.stat-card-info {
+  -fx-background-color: linear-gradient(to bottom right, #2196f3, #42a5f5);
+}
+
+.stat-card-warning {
+  -fx-background-color: linear-gradient(to bottom right, #ff9800, #ffb74d);
+}
+
+.stat-card-error {
+  -fx-background-color: linear-gradient(to bottom right, #f44336, #ef5350);
+}
+
+.stat-card .stat-label {
+  -fx-text-fill: rgba(255, 255, 255, 0.9);
+  -fx-font-size: -fx-font-size-sm;
+  -fx-font-weight: 600;
+}
+
+.stat-card .stat-value {
+  -fx-text-fill: white;
+  -fx-font-size: -fx-font-size-3xl;
+  -fx-font-weight: 700;
+}
+
+.stat-card .stat-description {
+  -fx-text-fill: rgba(255, 255, 255, 0.8);
+  -fx-font-size: -fx-font-size-xs;
+}
+
+/* ========================================
+   BUTTONS - Enterprise Grade
+   ======================================== */
+.button {
+  -fx-background-color: -fx-surface-primary;
+  -fx-text-fill: -fx-text-primary;
+  -fx-font-size: -fx-font-size-base;
+  -fx-font-weight: 600;
+  -fx-padding: 12 24;
+  -fx-background-radius: -fx-radius-md;
+  -fx-border-color: -fx-border-light;
+  -fx-border-width: 1;
+  -fx-border-radius: -fx-radius-md;
+  -fx-cursor: hand;
+  -fx-effect: -fx-shadow-sm;
+}
+
+.button:hover {
+  -fx-background-color: -fx-gray-50;
+  -fx-border-color: -fx-border-medium;
+  -fx-effect: -fx-shadow-md;
+}
+
+.button:pressed {
+  -fx-background-color: -fx-gray-100;
+  -fx-effect: none;
+}
+
+.button:disabled {
+  -fx-opacity: 0.5;
+  -fx-cursor: default;
+}
+
+/* Button Variants */
+.button-primary {
+  -fx-background-color: -fx-primary;
+  -fx-text-fill: -fx-text-inverse;
+  -fx-border-color: transparent;
+}
+
+.button-primary:hover {
+  -fx-background-color: -fx-primary-hover;
+}
+
+.button-primary:pressed {
+  -fx-background-color: -fx-primary-pressed;
+}
+
+.button-success {
+  -fx-background-color: -fx-success;
+  -fx-text-fill: -fx-text-inverse;
+  -fx-border-color: transparent;
+}
+
+.button-success:hover {
+  -fx-background-color: -fx-success-hover;
+}
+
+.button-warning {
+  -fx-background-color: -fx-warning;
+  -fx-text-fill: -fx-text-inverse;
+  -fx-border-color: transparent;
+}
+
+.button-warning:hover {
+  -fx-background-color: -fx-warning-hover;
+}
+
+.button-danger {
+  -fx-background-color: -fx-error;
+  -fx-text-fill: -fx-text-inverse;
+  -fx-border-color: transparent;
+}
+
+.button-danger:hover {
+  -fx-background-color: -fx-error-hover;
+}
+
+.button-info {
+  -fx-background-color: -fx-info;
+  -fx-text-fill: -fx-text-inverse;
+  -fx-border-color: transparent;
+}
+
+.button-info:hover {
+  -fx-background-color: -fx-info-hover;
+}
+
+/* Button Sizes */
+.button-sm {
+  -fx-padding: 8 16;
+  -fx-font-size: -fx-font-size-sm;
+}
+
+.button-lg {
+  -fx-padding: 16 32;
+  -fx-font-size: -fx-font-size-lg;
+}
+
+/* Icon Buttons */
+.icon-button {
+  -fx-padding: 10;
+  -fx-background-radius: -fx-radius-full;
+  -fx-border-radius: -fx-radius-full;
+  -fx-pref-width: 40;
+  -fx-pref-height: 40;
+}
+
+/* ========================================
+   FORM CONTROLS
+   ======================================== */
+.text-field,
+.password-field,
+.text-area {
+  -fx-background-color: -fx-surface-primary;
+  -fx-text-fill: -fx-text-primary;
+  -fx-prompt-text-fill: -fx-text-tertiary;
+  -fx-font-size: -fx-font-size-base;
+  -fx-padding: 12 16;
+  -fx-border-color: -fx-border-light;
+  -fx-border-width: 2;
+  -fx-border-radius: -fx-radius-md;
+  -fx-background-radius: -fx-radius-md;
+}
+
+.text-field:focused,
+.password-field:focused,
+.text-area:focused {
+  -fx-border-color: -fx-primary;
+  -fx-effect: dropshadow(gaussian, rgba(25, 118, 210, 0.2), 8, 0, 0, 0);
+}
+
+.text-field:disabled,
+.password-field:disabled,
+.text-area:disabled {
+  -fx-background-color: -fx-gray-100;
+  -fx-opacity: 0.6;
+}
+
+/* Text Area */
+.text-area {
+  -fx-padding: 12;
+}
+
+.text-area .content {
+  -fx-background-color: transparent;
+}
+
+/* Labels */
+.label {
+  -fx-text-fill: -fx-text-primary;
+  -fx-font-size: -fx-font-size-base;
+}
+
+.label-secondary {
+  -fx-text-fill: -fx-text-secondary;
+}
+
+.label-sm {
+  -fx-font-size: -fx-font-size-sm;
+}
+
+.label-lg {
+  -fx-font-size: -fx-font-size-lg;
+}
+
+.label-bold {
+  -fx-font-weight: 700;
+}
+
+/* ComboBox */
+.combo-box {
+  -fx-background-color: -fx-surface-primary;
+  -fx-border-color: -fx-border-light;
+  -fx-border-width: 2;
+  -fx-border-radius: -fx-radius-md;
+  -fx-background-radius: -fx-radius-md;
+}
+
+.combo-box:focused {
+  -fx-border-color: -fx-primary;
+}
+
+.combo-box .list-cell {
+  -fx-background-color: transparent;
+  -fx-text-fill: -fx-text-primary;
+  -fx-padding: 8 12;
+}
+
+.combo-box-popup .list-view {
+  -fx-background-color: -fx-surface-primary;
+  -fx-border-color: -fx-border-light;
+  -fx-effect: -fx-shadow-lg;
+}
+
+.combo-box-popup .list-cell:hover {
+  -fx-background-color: -fx-gray-50;
+}
+
+.combo-box-popup .list-cell:selected {
+  -fx-background-color: -fx-primary-light;
+  -fx-text-fill: -fx-primary;
+}
+
+/* ========================================
+   TABLE VIEWS - Professional
+   ======================================== */
+.table-view {
+  -fx-background-color: -fx-surface-primary;
+  -fx-border-color: -fx-border-light;
+  -fx-border-radius: -fx-radius-lg;
+  -fx-background-radius: -fx-radius-lg;
+  -fx-padding: 0;
+}
+
+.table-view .column-header-background {
+  -fx-background-color: -fx-gray-50;
+}
+
+.table-view .column-header {
+  -fx-background-color: -fx-gray-50;
+  -fx-text-fill: -fx-text-primary;
+  -fx-font-weight: 700;
+  -fx-font-size: -fx-font-size-sm;
+  -fx-padding: 16 12;
+  -fx-border-color: transparent transparent -fx-border-light transparent;
+  -fx-border-width: 0 0 2 0;
+}
+
+.table-view .column-header:hover {
+  -fx-background-color: -fx-gray-100;
+}
+
+.table-view .table-cell {
+  -fx-text-fill: -fx-text-primary;
+  -fx-padding: 14 12;
+  -fx-font-size: -fx-font-size-base;
+  -fx-border-color: transparent -fx-border-light transparent transparent;
+}
+
+.table-row-cell {
+  -fx-background-color: -fx-surface-primary;
+}
+
+.table-row-cell:odd {
+  -fx-background-color: -fx-gray-50;
+}
+
+.table-row-cell:hover {
+  -fx-background-color: -fx-gray-100;
+}
+
+.table-row-cell:selected {
+  -fx-background-color: -fx-primary-light;
+  -fx-text-fill: -fx-primary;
+}
+
+.table-view .placeholder .label {
+  -fx-text-fill: -fx-text-tertiary;
+  -fx-font-size: -fx-font-size-base;
+}
+
+/* ========================================
+   LOGIN SCREEN
+   ======================================== */
+.login-container {
+  -fx-background-color: -fx-background;
+  -fx-padding: -fx-space-3xl;
+  -fx-alignment: center;
+}
+
+.login-card {
+  -fx-background-color: -fx-surface-primary;
+  -fx-background-radius: -fx-radius-xl;
+  -fx-padding: -fx-space-3xl;
+  -fx-effect: -fx-shadow-xl;
+  -fx-max-width: 480px;
+}
+
+.login-header {
+  -fx-background-color: -fx-surface-primary;
+  -fx-padding: -fx-space-2xl;
+  -fx-alignment: center;
+  -fx-border-color: transparent transparent -fx-border-light transparent;
+  -fx-border-width: 0 0 1 0;
+}
+
+.login-title {
+  -fx-font-size: 28px;
+  -fx-font-weight: 700;
+  -fx-text-fill: -fx-primary;
+}
+
+.login-subtitle {
+  -fx-font-size: -fx-font-size-base;
+  -fx-text-fill: -fx-text-secondary;
+}
+
+.login-field {
+  -fx-pref-height: 56px;
+  -fx-font-size: -fx-font-size-lg;
+}
+
+.login-button {
+  -fx-pref-height: 56px;
+  -fx-pref-width: 200px;
+  -fx-font-size: -fx-font-size-lg;
+}
+
+.login-footer {
+  -fx-background-color: -fx-gray-50;
+  -fx-padding: -fx-space-md;
+  -fx-alignment: center;
+}
+
+.login-hint {
+  -fx-text-fill: -fx-text-tertiary;
+  -fx-font-size: -fx-font-size-sm;
+  -fx-padding: -fx-space-md;
+  -fx-background-color: -fx-gray-50;
+  -fx-background-radius: -fx-radius-md;
+}
+
+/* ========================================
+   DASHBOARD LAYOUT
+   ======================================== */
+.dashboard-grid {
+  -fx-hgap: -fx-space-lg;
+  -fx-vgap: -fx-space-lg;
+  -fx-padding: -fx-space-lg;
+}
+
+.camera-panel {
+  -fx-background-color: -fx-gray-900;
+  -fx-background-radius: -fx-radius-lg;
+  -fx-padding: 0;
+  -fx-effect: -fx-shadow-md;
+  -fx-min-height: 480px;
+}
+
+.camera-controls {
+  -fx-background-color: rgba(0, 0, 0, 0.8);
+  -fx-padding: -fx-space-md;
+  -fx-spacing: -fx-space-sm;
+}
+
+.stats-grid {
+  -fx-hgap: -fx-space-md;
+  -fx-spacing: -fx-space-md;
+}
+
+/* ========================================
+   PROGRESS INDICATORS
+   ======================================== */
+.progress-indicator {
+  -fx-progress-color: -fx-primary;
+}
+
+.progress-bar {
+  -fx-background-color: -fx-gray-200;
+  -fx-background-radius: -fx-radius-full;
+}
+
+.progress-bar .bar {
+  -fx-background-color: -fx-primary;
+  -fx-background-radius: -fx-radius-full;
+}
+
+/* ========================================
+   SEPARATORS
+   ======================================== */
+.separator .line {
+  -fx-border-color: -fx-border-light;
+}
+
+/* ========================================
+   BADGES
+   ======================================== */
+.badge {
+  -fx-padding: 4 12;
+  -fx-background-radius: -fx-radius-full;
+  -fx-font-size: -fx-font-size-xs;
+  -fx-font-weight: 700;
+}
+
+.badge-success {
+  -fx-background-color: #e8f5e9;
+  -fx-text-fill: #2e7d32;
+}
+
+.badge-error {
+  -fx-background-color: #ffebee;
+  -fx-text-fill: #c62828;
+}
+
+.badge-warning {
+  -fx-background-color: #fff3e0;
+  -fx-text-fill: #e65100;
+}
+
+.badge-info {
+  -fx-background-color: #e3f2fd;
+  -fx-text-fill: #1565c0;
+}
+
+/* ========================================
+   TOOLTIPS
+   ======================================== */
+.tooltip {
+  -fx-background-color: -fx-gray-800;
+  -fx-text-fill: white;
+  -fx-font-size: -fx-font-size-sm;
+  -fx-padding: 8 12;
+  -fx-background-radius: -fx-radius-md;
+  -fx-effect: -fx-shadow-lg;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-center {
+  -fx-alignment: center;
+}
+
+.text-left {
+  -fx-alignment: center-left;
+}
+
+.text-right {
+  -fx-alignment: center-right;
+}
+
+.mt-sm {
+  -fx-padding: -fx-space-sm 0 0 0;
+}
+.mt-md {
+  -fx-padding: -fx-space-md 0 0 0;
+}
+.mt-lg {
+  -fx-padding: -fx-space-lg 0 0 0;
+}
+
+.mb-sm {
+  -fx-padding: 0 0 -fx-space-sm 0;
+}
+.mb-md {
+  -fx-padding: 0 0 -fx-space-md 0;
+}
+.mb-lg {
+  -fx-padding: 0 0 -fx-space-lg 0;
+}
+
+.p-sm {
+  -fx-padding: -fx-space-sm;
+}
+.p-md {
+  -fx-padding: -fx-space-md;
+}
+.p-lg {
+  -fx-padding: -fx-space-lg;
+}
+
+.gap-sm {
+  -fx-spacing: -fx-space-sm;
+}
+.gap-md {
+  -fx-spacing: -fx-space-md;
+}
+.gap-lg {
+  -fx-spacing: -fx-space-lg;
+}

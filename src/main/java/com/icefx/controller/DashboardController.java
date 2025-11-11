@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,8 @@ public class DashboardController {
     @FXML private Label statusLabel;
     @FXML private Label fpsLabel;
     @FXML private Label recognitionLabel;
+    @FXML private Label recognitionDetails;
+    @FXML private Label recognitionIcon;
     @FXML private TableView<AttendanceLog> attendanceTable;
     @FXML private TableColumn<AttendanceLog, String> timeColumn;
     @FXML private TableColumn<AttendanceLog, String> nameColumn;
@@ -55,8 +58,15 @@ public class DashboardController {
     @FXML private TableColumn<AttendanceLog, Double> confidenceColumn;
     @FXML private Label todayCountLabel;
     @FXML private Label weekCountLabel;
+    @FXML private Label recordCountLabel;
+    @FXML private Label lastUpdateLabel;
+    @FXML private Label userNameLabel;
+    @FXML private Label userRoleLabel;
+    @FXML private Label statusIndicator;
+    @FXML private Label systemStatusIndicator;
     @FXML private VBox recognitionPanel;
-    @FXML private ProgressIndicator loadingIndicator;
+    @FXML private VBox cameraOffOverlay;
+    @FXML private StackPane loadingOverlay;
     
     // Services
     private CameraService cameraService;
@@ -112,8 +122,16 @@ public class DashboardController {
             
             // Initial UI state
             stopCameraButton.setDisable(true);
-            if (loadingIndicator != null) {
-                loadingIndicator.setVisible(false);
+            if (loadingOverlay != null) {
+                loadingOverlay.setVisible(false);
+            }
+            if (cameraOffOverlay != null) {
+                cameraOffOverlay.setVisible(true);
+            }
+            
+            // Initialize user info if available
+            if (currentUser != null) {
+                updateUserDisplay();
             }
             
             logger.info("✅ DashboardController initialized successfully");
@@ -250,44 +268,55 @@ public class DashboardController {
     private void updateRecognitionDisplay(FaceRecognitionService.RecognitionResult result) {
         if (recognitionLabel == null) return;
         
-        String message;
-        String style;
+        String mainText;
+        String detailText;
+        String icon;
         
         switch (result.getStatus()) {
             case RECOGNIZED:
-                message = String.format("✅ Recognized: %s\nConfidence: %.1f%%", 
-                    result.getUserName(), result.getConfidence());
-                style = "-fx-text-fill: #4CAF50; -fx-font-weight: bold; -fx-font-size: 16px;";
+                mainText = String.format("Recognized: %s", result.getUserName());
+                detailText = String.format("Confidence: %.1f%% - Attendance logged", result.getConfidence());
+                icon = "✅";
                 break;
                 
             case UNKNOWN:
-                message = "👤 Unknown Face Detected";
-                style = "-fx-text-fill: #FF9800; -fx-font-weight: bold; -fx-font-size: 16px;";
+                mainText = "Unknown Face Detected";
+                detailText = "No matching profile found in database";
+                icon = "❓";
                 break;
                 
             case LOW_CONFIDENCE:
-                message = String.format("⚠️ Low Confidence: %.1f%%", result.getConfidence());
-                style = "-fx-text-fill: #FFC107; -fx-font-weight: bold; -fx-font-size: 16px;";
+                mainText = "Low Confidence Match";
+                detailText = String.format("Only %.1f%% confident - Verification needed", result.getConfidence());
+                icon = "⚠️";
                 break;
                 
             case DEBOUNCED:
-                message = "⏳ Recently Recognized";
-                style = "-fx-text-fill: #2196F3; -fx-font-weight: bold; -fx-font-size: 16px;";
+                mainText = "Recently Recognized";
+                detailText = "Already logged - Cooldown period active";
+                icon = "⏳";
                 break;
                 
             case NO_FACE:
-                message = "🔍 Scanning...";
-                style = "-fx-text-fill: #757575; -fx-font-size: 14px;";
+                mainText = "Scanning for faces...";
+                detailText = "Position yourself in front of the camera";
+                icon = "🔍";
                 break;
                 
             default:
-                message = "Ready";
-                style = "-fx-text-fill: #757575;";
+                mainText = "Ready for face detection";
+                detailText = "System initialized and waiting";
+                icon = "😊";
                 break;
         }
         
-        recognitionLabel.setText(message);
-        recognitionLabel.setStyle(style);
+        recognitionLabel.setText(mainText);
+        if (recognitionDetails != null) {
+            recognitionDetails.setText(detailText);
+        }
+        if (recognitionIcon != null) {
+            recognitionIcon.setText(icon);
+        }
     }
     
     /**
@@ -346,6 +375,18 @@ public class DashboardController {
                 Platform.runLater(() -> {
                     attendanceData.clear();
                     attendanceData.addAll(logs);
+                    
+                    // Update record count
+                    if (recordCountLabel != null) {
+                        recordCountLabel.setText(String.valueOf(logs.size()));
+                    }
+                    
+                    // Update last update time
+                    if (lastUpdateLabel != null) {
+                        lastUpdateLabel.setText(java.time.LocalTime.now()
+                            .format(DateTimeFormatter.ofPattern("h:mm a")));
+                    }
+                    
                     logger.info("Loaded {} attendance records for today", logs.size());
                 });
                 
@@ -398,19 +439,46 @@ public class DashboardController {
         logger.info("Starting camera...");
         
         try {
+            // Show loading
+            if (loadingOverlay != null) {
+                loadingOverlay.setVisible(true);
+            }
+            if (cameraOffOverlay != null) {
+                cameraOffOverlay.setVisible(false);
+            }
+            
             cameraService.start();
             
-            startCameraButton.setDisable(true);
-            stopCameraButton.setDisable(false);
-            
-            if (statusLabel != null) {
-                statusLabel.setText("Camera started - Face recognition active");
-                statusLabel.setStyle("-fx-text-fill: #4CAF50; -fx-font-weight: bold;");
-            }
+            // Hide loading after short delay
+            Platform.runLater(() -> {
+                if (loadingOverlay != null) {
+                    loadingOverlay.setVisible(false);
+                }
+                
+                startCameraButton.setDisable(true);
+                stopCameraButton.setDisable(false);
+                
+                if (statusLabel != null) {
+                    statusLabel.setText("Camera active - Face recognition running");
+                }
+                if (statusIndicator != null) {
+                    statusIndicator.setStyle("-fx-text-fill: #4CAF50;");
+                }
+                
+                ModernToast.success("Camera started successfully");
+            });
             
         } catch (Exception e) {
             logger.error("Failed to start camera", e);
-            ModernToast.error("Failed to start camera: " + e.getMessage());
+            Platform.runLater(() -> {
+                if (loadingOverlay != null) {
+                    loadingOverlay.setVisible(false);
+                }
+                if (cameraOffOverlay != null) {
+                    cameraOffOverlay.setVisible(true);
+                }
+                ModernToast.error("Failed to start camera: " + e.getMessage());
+            });
         }
     }
     
@@ -427,14 +495,28 @@ public class DashboardController {
             startCameraButton.setDisable(false);
             stopCameraButton.setDisable(true);
             
+            if (cameraOffOverlay != null) {
+                cameraOffOverlay.setVisible(true);
+            }
+            
             if (statusLabel != null) {
-                statusLabel.setText("Camera stopped");
-                statusLabel.setStyle("-fx-text-fill: #757575;");
+                statusLabel.setText("Camera offline - Click 'Start Camera' to begin");
+            }
+            if (statusIndicator != null) {
+                statusIndicator.setStyle("-fx-text-fill: #BDBDBD;");
             }
             
             if (recognitionLabel != null) {
-                recognitionLabel.setText("Camera is off");
+                recognitionLabel.setText("Ready for face detection");
             }
+            if (recognitionDetails != null) {
+                recognitionDetails.setText("System initialized and waiting");
+            }
+            if (recognitionIcon != null) {
+                recognitionIcon.setText("😊");
+            }
+            
+            ModernToast.info("Camera stopped");
             
         } catch (Exception e) {
             logger.error("Failed to stop camera", e);
@@ -459,6 +541,67 @@ public class DashboardController {
     public void setCurrentUser(User user) {
         this.currentUser = user;
         logger.info("Current user set: {}", user.getFullName());
+        updateUserDisplay();
+    }
+    
+    /**
+     * Update user display in header.
+     */
+    private void updateUserDisplay() {
+        if (currentUser == null) return;
+        
+        Platform.runLater(() -> {
+            if (userNameLabel != null) {
+                userNameLabel.setText(currentUser.getFullName());
+            }
+            if (userRoleLabel != null) {
+                String role = currentUser.getRole() == User.UserRole.ADMIN ? 
+                    "Administrator" : currentUser.getRole().getDisplayName();
+                userRoleLabel.setText(role);
+            }
+        });
+    }
+    
+    /**
+     * Handle logout button.
+     */
+    @FXML
+    private void handleLogout() {
+        logger.info("Logout requested by user: {}", 
+            currentUser != null ? currentUser.getFullName() : "Unknown");
+        
+        // Stop camera if running
+        if (cameraService != null && !startCameraButton.isDisabled()) {
+            handleStopCamera();
+        }
+        
+        // Show confirmation toast
+        ModernToast.info("Logging out...");
+        
+        // Small delay to show toast
+        Platform.runLater(() -> {
+            try {
+                // Cleanup
+                cleanup();
+                
+                // Navigate back to login
+                javafx.stage.Stage stage = (javafx.stage.Stage) startCameraButton.getScene().getWindow();
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/com/icefx/view/Login.fxml")
+                );
+                javafx.scene.Parent root = loader.load();
+                javafx.scene.Scene scene = new javafx.scene.Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("IceFX - Login");
+                
+                ModernToast.success("Logged out successfully");
+                logger.info("User logged out successfully");
+                
+            } catch (Exception e) {
+                logger.error("Error during logout", e);
+                ModernToast.error("Error during logout: " + e.getMessage());
+            }
+        });
     }
     
     /**
