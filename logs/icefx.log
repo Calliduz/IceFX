@@ -186,3 +186,46 @@
 2025-11-11 14:20:56.866 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
 2025-11-11 14:20:56.867 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
 2025-11-11 14:20:57.812 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-11 14:28:02.029 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.033 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.076 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.077 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.088 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.090 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.100 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.101 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.115 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.116 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.126 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.127 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.133 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.134 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.137 [main] INFO  com.icefx.config.AppConfig - Configuration saved to: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.140 [main] INFO  com.icefx.config.AppConfig - Configuration saved to: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.141 [main] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.142 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.147 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.148 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.158 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.159 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.166 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.168 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:02.182 [main] INFO  com.icefx.config.AppConfig - Default configuration created at: /home/josh/.icefx/config.properties
+2025-11-11 14:28:02.182 [main] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 14:28:04.107 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:04.128 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:04.460 [main] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: USER001
+2025-11-11 14:28:04.469 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:04.589 [main] WARN  com.icefx.service.UserService - Authentication failed: User account is inactive: USER001
+2025-11-11 14:28:04.594 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:04.938 [main] INFO  com.icefx.service.UserService - ✅ Password changed for user 1
+2025-11-11 14:28:04.950 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.176 [main] WARN  com.icefx.service.UserService - Change password failed: Invalid old password for user 1
+2025-11-11 14:28:05.180 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.399 [main] WARN  com.icefx.service.UserService - Authentication failed: Invalid password for user: USER001
+2025-11-11 14:28:05.407 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.411 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.415 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.530 [main] INFO  com.icefx.service.UserService - ✅ User created: NEW001 (ID: 100)
+2025-11-11 14:28:05.537 [main] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:28:05.539 [main] WARN  com.icefx.service.UserService - Authentication failed: User code not found: NOTFOUND
