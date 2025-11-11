@@ -174,11 +174,14 @@ Connection conn = DriverManager.getConnection(URL, USER, PASS);
 #### NEW CODE:
 
 ```java
-// External configuration file
-// src/main/resources/database.properties
-db.url=jdbc:mysql://localhost:3306/facial_attendance
-db.username=root
-db.password=YOUR_PASSWORD
+// External configuration file (generated automatically)
+// ~/.icefx/config.properties
+db.type=mysql
+db.mysql.host=localhost
+db.mysql.port=3306
+db.mysql.database=facial_attendance
+db.mysql.username=root
+db.mysql.password=YOUR_PASSWORD
 
 // Connection pooling (10x faster!)
 Connection conn = DatabaseConfig.getConnection();

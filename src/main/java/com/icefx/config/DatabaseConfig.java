@@ -2,81 +2,125 @@ package com.icefx.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
- * Database configuration with HikariCP connection pooling for optimal performance.
- * Supports loading from properties file for flexible configuration.
+ * Centralized database configuration using HikariCP. Supports MySQL (default)
+ * and SQLite (portable deployments) with settings sourced from {@link AppConfig}.
  */
-public class DatabaseConfig {
-    
+public final class DatabaseConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConfig.class);
+    private static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String SQLITE_DRIVER = "org.sqlite.JDBC";
+
     private static HikariDataSource dataSource;
-    private static final String CONFIG_FILE = "database.properties";
-    
+
     static {
         initializeDataSource();
     }
-    
-    private static void initializeDataSource() {
+
+    private DatabaseConfig() {
+        // Utility class
+    }
+
+    private static synchronized void initializeDataSource() {
+        closePool();
+
         try {
-            Properties props = loadProperties();
-            
+            AppConfig.initialize();
+            String dbType = AppConfig.getDatabaseType().toLowerCase();
+
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl(props.getProperty("db.url", 
-                "jdbc:mysql://localhost:3306/facial_attendance?useSSL=false&serverTimezone=UTC"));
-            config.setUsername(props.getProperty("db.username", "root"));
-            config.setPassword(props.getProperty("db.password", ""));
-            config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-            
-            // Connection pool settings
-            config.setMaximumPoolSize(Integer.parseInt(props.getProperty("db.pool.maxSize", "10")));
-            config.setMinimumIdle(Integer.parseInt(props.getProperty("db.pool.minIdle", "2")));
-            config.setConnectionTimeout(Long.parseLong(props.getProperty("db.pool.connectionTimeout", "30000")));
-            config.setIdleTimeout(Long.parseLong(props.getProperty("db.pool.idleTimeout", "600000")));
-            config.setMaxLifetime(Long.parseLong(props.getProperty("db.pool.maxLifetime", "1800000")));
-            
-            // Performance settings
-            config.addDataSourceProperty("cachePrepStmts", "true");
-            config.addDataSourceProperty("prepStmtCacheSize", "250");
-            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            config.addDataSourceProperty("useServerPrepStmts", "true");
-            
+
+            if ("sqlite".equals(dbType)) {
+                configureSQLite(config);
+            } else {
+                configureMySql(config);
+            }
+
+            applyPoolSettings(config, "sqlite".equals(dbType));
             dataSource = new HikariDataSource(config);
-            
-            System.out.println("✓ Database connection pool initialized successfully");
-            
+            logger.info("✅ Database connection pool initialized ({})", config.getPoolName());
+
         } catch (Exception e) {
-            System.err.println("✗ Failed to initialize database connection pool: " + e.getMessage());
+            logger.error("Failed to initialize database connection pool", e);
             throw new RuntimeException("Database initialization failed", e);
         }
     }
-    
-    private static Properties loadProperties() {
-        Properties props = new Properties();
-        
-        // Try to load from external file first
-        try (InputStream input = DatabaseConfig.class.getClassLoader()
-                .getResourceAsStream(CONFIG_FILE)) {
-            if (input != null) {
-                props.load(input);
-                System.out.println("✓ Loaded database config from " + CONFIG_FILE);
-            } else {
-                System.out.println("⚠ No database.properties found, using defaults");
-            }
-        } catch (IOException e) {
-            System.out.println("⚠ Could not load database.properties, using defaults");
-        }
-        
-        return props;
+
+    private static void configureMySql(HikariConfig config) {
+        String host = AppConfig.get("db.mysql.host", "localhost");
+        String port = AppConfig.get("db.mysql.port", "3306");
+        String database = AppConfig.get("db.mysql.database", "facial_attendance");
+        String params = AppConfig.get("db.mysql.params",
+            "useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+
+        String jdbcUrl = String.format("jdbc:mysql://%s:%s/%s?%s", host, port, database, params);
+
+        config.setPoolName("IceFX-MySQL");
+        config.setJdbcUrl(jdbcUrl);
+        config.setUsername(AppConfig.get("db.mysql.username", "root"));
+        config.setPassword(AppConfig.get("db.mysql.password", ""));
+        config.setDriverClassName(MYSQL_DRIVER);
+
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("useServerPrepStmts", "true");
     }
-    
+
+    private static void configureSQLite(HikariConfig config) throws IOException {
+        String configuredPath = AppConfig.get("db.sqlite.path", "data/facial_attendance.db");
+        Path sqlitePath = Paths.get(configuredPath).toAbsolutePath();
+        if (sqlitePath.getParent() != null) {
+            Files.createDirectories(sqlitePath.getParent());
+        }
+
+        config.setPoolName("IceFX-SQLite");
+        config.setJdbcUrl("jdbc:sqlite:" + sqlitePath);
+        config.setDriverClassName(SQLITE_DRIVER);
+        config.setConnectionTestQuery("SELECT 1");
+    }
+
+    private static void applyPoolSettings(HikariConfig config, boolean sqlite) {
+        int defaultMax = sqlite ? 5 : 10;
+        int defaultMin = sqlite ? 1 : 2;
+
+        int maxPool = AppConfig.getInt("db.pool.maxSize", defaultMax);
+        int minIdle = AppConfig.getInt("db.pool.minIdle", defaultMin);
+
+        if (sqlite) {
+            maxPool = Math.min(maxPool, defaultMax);
+            minIdle = Math.min(minIdle, maxPool);
+        }
+
+        config.setMaximumPoolSize(maxPool);
+        config.setMinimumIdle(minIdle);
+        config.setConnectionTimeout(getLong("db.pool.connectionTimeout", 30_000L));
+        config.setIdleTimeout(getLong("db.pool.idleTimeout", 600_000L));
+        config.setMaxLifetime(getLong("db.pool.maxLifetime", 1_800_000L));
+    }
+
+    private static long getLong(String key, long defaultValue) {
+        try {
+            return Long.parseLong(AppConfig.get(key, String.valueOf(defaultValue)));
+        } catch (NumberFormatException e) {
+            logger.warn("Invalid numeric value for {} - using default {}", key, defaultValue);
+            return defaultValue;
+        }
+    }
+
     /**
-     * Get a connection from the pool
+     * Obtain a connection from the pool.
      */
     public static Connection getConnection() throws SQLException {
         if (dataSource == null || dataSource.isClosed()) {
@@ -84,31 +128,31 @@ public class DatabaseConfig {
         }
         return dataSource.getConnection();
     }
-    
+
     /**
-     * Close the connection pool (call on application shutdown)
+     * Close the pool (invoked during application shutdown).
      */
     public static void closePool() {
         if (dataSource != null && !dataSource.isClosed()) {
             dataSource.close();
-            System.out.println("✓ Database connection pool closed");
+            logger.info("Database connection pool closed");
         }
     }
-    
+
     /**
-     * Test database connectivity
+     * Simple connectivity check.
      */
     public static boolean testConnection() {
         try (Connection conn = getConnection()) {
             return conn != null && !conn.isClosed();
         } catch (SQLException e) {
-            System.err.println("✗ Database connection test failed: " + e.getMessage());
+            logger.error("Database connection test failed", e);
             return false;
         }
     }
-    
+
     /**
-     * Get pool statistics for monitoring
+     * Expose basic pool usage statistics.
      */
     public static String getPoolStats() {
         if (dataSource != null) {

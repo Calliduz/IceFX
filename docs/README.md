@@ -47,8 +47,7 @@ IceFX/
 │       ├── fxml/            # FXML Layouts
 │       ├── css/             # Stylesheets
 │       ├── images/          # Icons & Images
-│       ├── haar/            # Haar Cascade Models
-│       └── database.properties
+│       └── haar/            # Haar Cascade Models
 ├── resources/trained_faces/ # Face templates
 ├── exports/                 # CSV reports
 ├── pom.xml
@@ -141,12 +140,17 @@ CREATE TABLE schedules (
 
 ### Configuration
 
-Update `src/main/resources/database.properties`:
+IceFX stores runtime settings in `~/.icefx/config.properties`. The file is created automatically on first launch.
+
+Update the database section:
 
 ```properties
-db.url=jdbc:mysql://localhost:3306/facial_attendance
-db.username=root
-db.password=YOUR_PASSWORD
+db.type=mysql
+db.mysql.host=localhost
+db.mysql.port=3306
+db.mysql.database=facial_attendance
+db.mysql.username=root
+db.mysql.password=YOUR_PASSWORD
 ```
 
 ### Build & Run
@@ -214,7 +218,7 @@ recognition.liveness.minDiff=1200.0      # Anti-spoofing sensitivity
 **Database Connection Failed:**
 
 - Ensure MySQL is running
-- Check credentials in database.properties
+- Check credentials in `~/.icefx/config.properties`
 - Verify database exists
 
 **Face Recognition Inaccurate:**

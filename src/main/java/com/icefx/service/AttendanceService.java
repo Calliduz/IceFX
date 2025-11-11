@@ -1,5 +1,6 @@
 package com.icefx.service;
 
+import com.icefx.config.AppConfig;
 import com.icefx.dao.AttendanceDAO;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.AttendanceLog;
@@ -19,7 +20,8 @@ import java.util.Optional;
  */
 public class AttendanceService {
     private static final Logger logger = LoggerFactory.getLogger(AttendanceService.class);
-    private static final long DUPLICATE_PREVENTION_MINUTES = 60;
+    
+    private final long duplicatePreventionMinutes;
     
     private final AttendanceDAO attendanceDAO;
     private final UserDAO userDAO;
@@ -71,7 +73,8 @@ public class AttendanceService {
     public AttendanceService(AttendanceDAO attendanceDAO, UserDAO userDAO) {
         this.attendanceDAO = attendanceDAO;
         this.userDAO = userDAO;
-        logger.info("AttendanceService initialized");
+        this.duplicatePreventionMinutes = AppConfig.getInt("attendance.duplicate.prevention.minutes", 60);
+        logger.info("AttendanceService initialized (duplicate prevention: {} minutes)", duplicatePreventionMinutes);
     }
     
     public AttendanceResult logAttendance(int userId, double confidence) {
@@ -118,14 +121,14 @@ public class AttendanceService {
             }
             
             AttendanceLog mostRecent = todayLogs.get(0);
-            LocalDateTime cutoff = LocalDateTime.now().minusMinutes(DUPLICATE_PREVENTION_MINUTES);
+            LocalDateTime cutoff = LocalDateTime.now().minusMinutes(duplicatePreventionMinutes);
             
             boolean isDuplicate = mostRecent.getEventTime().isAfter(cutoff);
             
             if (isDuplicate) {
                 long minutesAgo = ChronoUnit.MINUTES.between(mostRecent.getEventTime(), LocalDateTime.now());
                 logger.debug("Last attendance was {} minutes ago (threshold: {})", 
-                    minutesAgo, DUPLICATE_PREVENTION_MINUTES);
+                    minutesAgo, duplicatePreventionMinutes);
             }
             
             return isDuplicate;

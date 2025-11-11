@@ -51,19 +51,28 @@ mysql -u root -p facial_attendance < "facial_attendance May 18 2025, 3.45AM.sql"
 
 ### 3. Configure Database Connection
 
-Edit `src/main/resources/database.properties`:
+IceFX stores runtime settings in `~/.icefx/config.properties`. Launch the app (or run `mvn -q -DskipTests compile`) once to generate the file, then edit it:
 
 ```properties
-# Database Configuration
-db.url=jdbc:mysql://localhost:3306/facial_attendance
-db.username=root
-db.password=your_password_here
-db.driver=com.mysql.cj.jdbc.Driver
+# Select backend
+db.type=mysql
 
-# HikariCP Connection Pool Settings
-db.pool.minimumIdle=5
-db.pool.maximumPoolSize=10
+# MySQL settings
+db.mysql.host=localhost
+db.mysql.port=3306
+db.mysql.database=facial_attendance
+db.mysql.username=root
+db.mysql.password=your_password_here
+
+# Optional SQLite fallback (when db.type=sqlite)
+db.sqlite.path=data/facial_attendance.db
+
+# Connection pool tuning
+db.pool.maxSize=10
+db.pool.minIdle=2
 db.pool.connectionTimeout=30000
+db.pool.idleTimeout=600000
+db.pool.maxLifetime=1800000
 ```
 
 ---
@@ -268,8 +277,8 @@ mysql -u root -p
 GRANT ALL PRIVILEGES ON facial_attendance.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 
-# 4. Check database.properties credentials
-cat src/main/resources/database.properties
+# 4. Check config.properties credentials
+cat ~/.icefx/config.properties
 ```
 
 ---

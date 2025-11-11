@@ -33,6 +33,18 @@ public class AppConfig {
     private static final String DEFAULT_CONFIDENCE_THRESHOLD = "80.0";
     private static final String DEFAULT_DEBOUNCE_TIME = "3000";
     private static final String DEFAULT_MODEL_PATH = "resources/trained_faces.xml";
+    private static final String DEFAULT_DB_MYSQL_HOST = "localhost";
+    private static final String DEFAULT_DB_MYSQL_PORT = "3306";
+    private static final String DEFAULT_DB_MYSQL_DATABASE = "facial_attendance";
+    private static final String DEFAULT_DB_MYSQL_USERNAME = "root";
+    private static final String DEFAULT_DB_MYSQL_PASSWORD = "";
+    private static final String DEFAULT_DB_MYSQL_PARAMS = "useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String DEFAULT_DB_SQLITE_PATH = "data/facial_attendance.db";
+    private static final String DEFAULT_DB_POOL_MAX = "10";
+    private static final String DEFAULT_DB_POOL_MIN = "2";
+    private static final String DEFAULT_DB_POOL_TIMEOUT = "30000";
+    private static final String DEFAULT_DB_POOL_IDLE = "600000";
+    private static final String DEFAULT_DB_POOL_MAX_LIFETIME = "1800000";
     
     /**
      * Initialize configuration - load from file or create defaults
@@ -94,12 +106,18 @@ public class AppConfig {
         
         // Database configuration
         properties.setProperty("db.type", DEFAULT_DB_TYPE);
-        properties.setProperty("db.mysql.host", "localhost");
-        properties.setProperty("db.mysql.port", "3306");
-        properties.setProperty("db.mysql.database", "facial_attendance");
-        properties.setProperty("db.mysql.username", "root");
-        properties.setProperty("db.mysql.password", "");
-        properties.setProperty("db.sqlite.path", "data/facial_attendance.db");
+        properties.setProperty("db.mysql.host", DEFAULT_DB_MYSQL_HOST);
+        properties.setProperty("db.mysql.port", DEFAULT_DB_MYSQL_PORT);
+        properties.setProperty("db.mysql.database", DEFAULT_DB_MYSQL_DATABASE);
+        properties.setProperty("db.mysql.username", DEFAULT_DB_MYSQL_USERNAME);
+        properties.setProperty("db.mysql.password", DEFAULT_DB_MYSQL_PASSWORD);
+        properties.setProperty("db.mysql.params", DEFAULT_DB_MYSQL_PARAMS);
+        properties.setProperty("db.sqlite.path", DEFAULT_DB_SQLITE_PATH);
+        properties.setProperty("db.pool.maxSize", DEFAULT_DB_POOL_MAX);
+        properties.setProperty("db.pool.minIdle", DEFAULT_DB_POOL_MIN);
+        properties.setProperty("db.pool.connectionTimeout", DEFAULT_DB_POOL_TIMEOUT);
+        properties.setProperty("db.pool.idleTimeout", DEFAULT_DB_POOL_IDLE);
+        properties.setProperty("db.pool.maxLifetime", DEFAULT_DB_POOL_MAX_LIFETIME);
         
         // Camera configuration
         properties.setProperty("camera.index", DEFAULT_CAMERA_INDEX);
@@ -108,9 +126,9 @@ public class AppConfig {
         properties.setProperty("camera.fps", "30");
         
         // Recognition configuration
-    properties.setProperty("recognition.confidence.threshold", DEFAULT_CONFIDENCE_THRESHOLD);
-    properties.setProperty("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME);
-    properties.setProperty("recognition.model.path", DEFAULT_MODEL_PATH);
+        properties.setProperty("recognition.confidence.threshold", DEFAULT_CONFIDENCE_THRESHOLD);
+        properties.setProperty("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME);
+        properties.setProperty("recognition.model.path", DEFAULT_MODEL_PATH);
         properties.setProperty("recognition.haar.cascade", "resources/haar/haarcascade_frontalface_default.xml");
         
         // Attendance configuration
@@ -202,7 +220,7 @@ public class AppConfig {
     public static String getDatabaseType() {
         return get("db.type", DEFAULT_DB_TYPE);
     }
-    
+
     public static int getCameraIndex() {
         return getInt("camera.index", Integer.parseInt(DEFAULT_CAMERA_INDEX));
     }

@@ -30,11 +30,14 @@ mysql -u root -p < database_setup.sql
 ### Step 3: Configure Application
 
 ```bash
-# Edit database connection
-nano src/main/resources/database.properties
+# Launch once to generate the config file (creates ~/.icefx/config.properties)
+mvn -q -DskipTests compile
+
+# Edit connection details
+nano ~/.icefx/config.properties
 
 # Update these lines:
-db.password=YOUR_MYSQL_PASSWORD
+db.mysql.password=YOUR_MYSQL_PASSWORD
 ```
 
 ### Step 4: Build & Run
@@ -106,7 +109,6 @@ IceFX/
 │   ├── controller/      ⏳ TODO - UI controllers
 │   └── util/            ⏳ TODO - Utilities
 ├── src/main/resources/
-│   ├── database.properties  ✅ DONE
 │   ├── fxml/            ⏳ TODO - New layouts
 │   ├── css/             ⏳ TODO - New themes
 │   └── haar/            ✅ EXISTS - Face detection models
@@ -115,6 +117,8 @@ IceFX/
 ├── README.md            ✅ UPDATED - Full documentation
 └── REFACTORING_SUMMARY.md  ✅ DONE - Complete guide
 ```
+
+> Configuration settings live in `~/.icefx/config.properties` (created automatically on first run).
 
 ---
 
@@ -265,7 +269,7 @@ mvn dependency:tree | grep opencv
 
 2. **Common Issues:**
 
-   - Database connection → Check database.properties
+   - Database connection → Check `~/.icefx/config.properties`
    - Camera not working → Check permissions
    - Build errors → Run mvn clean install -U
 

@@ -1,5 +1,6 @@
 package com.icefx.service;
 
+import com.icefx.config.AppConfig;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
@@ -93,10 +94,17 @@ public class CameraService {
     }
     
     /**
-     * Convenience constructor with default FPS.
+     * Convenience constructor that reads camera settings from AppConfig.
+     */
+    public CameraService() {
+        this(AppConfig.getCameraIndex(), AppConfig.getInt("camera.fps", 30));
+    }
+    
+    /**
+     * Convenience constructor with default FPS from AppConfig.
      */
     public CameraService(int cameraIndex) {
-        this(cameraIndex, 30);
+        this(cameraIndex, AppConfig.getInt("camera.fps", 30));
     }
     
     /**
@@ -150,8 +158,8 @@ public class CameraService {
             // Initialize camera
             logger.info("Initializing camera {} ...", cameraIndex);
             grabber = new OpenCVFrameGrabber(cameraIndex);
-            grabber.setImageWidth(640);
-            grabber.setImageHeight(480);
+            grabber.setImageWidth(AppConfig.getInt("camera.width", 640));
+            grabber.setImageHeight(AppConfig.getInt("camera.height", 480));
             grabber.setFrameRate(targetFps);
             
             try {

@@ -1,5 +1,6 @@
 package com.icefx.controller;
 
+import com.icefx.config.AppConfig;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import com.icefx.service.UserService;
@@ -85,7 +86,10 @@ public class AdminController {
     public AdminController() {
         this.userDAO = new UserDAO();
         this.userService = new UserService(userDAO);
-        this.faceRecognitionService = new FaceRecognitionService(userDAO, "resources/haar/haarcascade_frontalface_default.xml");
+        
+        String cascadePath = AppConfig.get("recognition.haar.cascade", 
+            "resources/haar/haarcascade_frontalface_default.xml");
+        this.faceRecognitionService = new FaceRecognitionService(userDAO, cascadePath);
     }
     
     /**

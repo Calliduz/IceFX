@@ -123,7 +123,7 @@ com.icefx/
 **Files Created:**
 
 - `DatabaseConfig.java` - Connection pool management
-- `database.properties` - External configuration
+- `~/.icefx/config.properties` - External configuration (auto-generated)
 
 **Key Features:**
 
@@ -312,9 +312,9 @@ mvn package            # Create JAR file
 **External Configuration:**
 
 ```
-database.properties     # Database settings
-logback.xml            # Logging configuration
-application.properties # App settings
+~/.icefx/config.properties  # App & database settings (auto-generated)
+logback.xml                # Logging configuration
+application.properties     # Additional app settings (if needed)
 ```
 
 **Benefits:**
@@ -652,7 +652,7 @@ Before deploying to production:
 
 - [ ] Database tables created with proper indexes
 - [ ] Default admin user created
-- [ ] database.properties configured
+- [ ] `~/.icefx/config.properties` configured
 - [ ] Dependencies downloaded (mvn install)
 - [ ] Application runs (mvn javafx:run)
 - [ ] Camera detected and working

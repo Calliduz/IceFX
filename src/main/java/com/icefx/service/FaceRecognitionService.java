@@ -1,5 +1,6 @@
 package com.icefx.service;
 
+import com.icefx.config.AppConfig;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import org.bytedeco.javacpp.IntPointer;
@@ -36,9 +37,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.*;
 public class FaceRecognitionService {
     private static final Logger logger = LoggerFactory.getLogger(FaceRecognitionService.class);
     
-    // Recognition settings
-    private static final double DEFAULT_CONFIDENCE_THRESHOLD = 100.0;  // Lower = more confident
-    private static final long DEFAULT_DEBOUNCE_MS = 3000;  // 3 seconds between same person
+    // Recognition settings (loaded from AppConfig)
     private static final int FACE_SIZE = 100;  // Standard face size for recognition
     
     // Cascade classifier for face detection
@@ -134,10 +133,12 @@ public class FaceRecognitionService {
     }
     
     /**
-     * Create face recognition service.
+     * Create face recognition service with defaults from AppConfig.
      */
     public FaceRecognitionService(UserDAO userDAO, String cascadePath) {
-        this(userDAO, cascadePath, DEFAULT_CONFIDENCE_THRESHOLD, DEFAULT_DEBOUNCE_MS);
+        this(userDAO, cascadePath, 
+             AppConfig.getConfidenceThreshold(), 
+             AppConfig.getDebounceMillis());
     }
     
     /**
