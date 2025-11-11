@@ -4,6 +4,7 @@ import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import com.icefx.service.UserService;
 import com.icefx.util.SessionManager;
+import com.icefx.util.ModernToast;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,12 +19,12 @@ import java.io.IOException;
 
 /**
  * Controller for the login screen.
- * Demonstrates integration with the new UserService for authentication.
+ * Modern UI with Toast notifications and smooth transitions.
  * 
  * Features:
  * - BCrypt password verification
  * - Role-based access control
- * - User-friendly error messages
+ * - Modern toast notifications
  * - Session management
  * 
  * @author IceFX Team
@@ -63,9 +64,11 @@ public class LoginController {
             userDAO = new UserDAO();
             userService = new UserService(userDAO);
             logger.info("✅ UserService initialized successfully");
+            ModernToast.success("Authentication system ready");
         } catch (Exception e) {
             logger.error("Failed to initialize UserService", e);
             showError("Failed to initialize authentication system: " + e.getMessage());
+            ModernToast.error("Failed to initialize authentication system");
             return;
         }
         
@@ -98,12 +101,14 @@ public class LoginController {
         // Validation
         if (userCode.isEmpty()) {
             showError("Please enter your user code");
+            ModernToast.warning("User code is required");
             userCodeField.requestFocus();
             return;
         }
         
         if (password.isEmpty()) {
             showError("Please enter your password");
+            ModernToast.warning("Password is required");
             passwordField.requestFocus();
             return;
         }
@@ -124,9 +129,11 @@ public class LoginController {
                     setLoading(false);
                     
                     if (result.isSuccess()) {
+                        ModernToast.success("Login successful! Welcome, " + result.getUser().getFullName());
                         handleSuccessfulLogin(result.getUser());
                     } else {
                         showError(result.getMessage());
+                        ModernToast.error(result.getMessage());
                         passwordField.clear();
                         passwordField.requestFocus();
                     }
@@ -137,6 +144,7 @@ public class LoginController {
                 Platform.runLater(() -> {
                     setLoading(false);
                     showError("Authentication failed: " + e.getMessage());
+                    ModernToast.error("Authentication failed");
                 });
             }
         }).start();
@@ -176,6 +184,7 @@ public class LoginController {
         } catch (Exception e) {
             logger.error("Error navigating to dashboard", e);
             showError("Failed to load dashboard: " + e.getMessage());
+            ModernToast.error("Failed to load dashboard");
             SessionManager.clear();
         }
     }
@@ -207,10 +216,10 @@ public class LoginController {
             scene.setRoot(root);
         }
 
-    stage.setTitle(windowTitle);
-    stage.sizeToScene();
-    stage.centerOnScreen();
-    stage.show();
+        stage.setTitle(windowTitle);
+        stage.sizeToScene();
+        stage.centerOnScreen();
+        stage.show();
     }
     
     /**
@@ -220,7 +229,6 @@ public class LoginController {
         if (errorLabel != null) {
             errorLabel.setText(message);
             errorLabel.setVisible(true);
-            errorLabel.setStyle("-fx-text-fill: #d32f2f; -fx-font-weight: bold;");
         }
         logger.warn("Login error shown to user: {}", message);
     }
@@ -272,7 +280,9 @@ public class LoginController {
     @FXML
     private void handleCancel() {
         logger.info("Login cancelled by user");
+        ModernToast.info("Application closing...");
         SessionManager.clear();
         Platform.exit();
     }
 }
+

@@ -97,7 +97,7 @@ COMMENT='User schedules for attendance validation';
 -- =====================================================
 -- Insert Default Admin User
 -- =====================================================
--- Password: 'admin' (Please change after first login!)
+-- Password: 'admin123' (Please change after first login!)
 -- BCrypt hash generated with cost factor 10
 INSERT INTO persons (person_code, full_name, department, position, role, password, active) 
 VALUES (
@@ -106,7 +106,7 @@ VALUES (
     'IT Department', 
     'Administrator', 
     'ADMIN',
-    '$2a$10$XPmqQl5j9Q4wF8x8vGxJv.d8YjkYQvGxJv.d8YjkYQvGxJv.d8Yjk',
+    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhLW',
     TRUE
 ) ON DUPLICATE KEY UPDATE person_id = person_id;
 

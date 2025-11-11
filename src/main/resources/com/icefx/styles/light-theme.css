@@ -531,3 +531,163 @@
 .stat-card.error {
   -fx-background-color: linear-gradient(to bottom, #f44336, #e57373);
 }
+
+/* ========================
+   LOGIN SCREEN STYLES
+   ======================== */
+
+/* Login Header */
+.login-header {
+  -fx-background-color: linear-gradient(to bottom right, #1976d2, #1565c0);
+  -fx-padding: 30;
+  -fx-alignment: center;
+}
+
+.login-header .title {
+  -fx-text-fill: white;
+  -fx-font-size: 32px;
+  -fx-font-weight: bold;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 2);
+}
+
+.login-header .subtitle {
+  -fx-text-fill: #e3f2fd;
+  -fx-font-size: 16px;
+}
+
+/* Login Container */
+.login-container {
+  -fx-background-color: -fx-background;
+  -fx-padding: 40;
+  -fx-alignment: center;
+}
+
+/* Login Card */
+.login-card {
+  -fx-background-color: -fx-surface;
+  -fx-background-radius: 12px;
+  -fx-padding: 40 50 40 50;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 20, 0, 0, 4);
+  -fx-max-width: 450px;
+}
+
+.login-card .form-title {
+  -fx-font-size: 26px;
+  -fx-font-weight: bold;
+  -fx-text-fill: -fx-text-primary;
+}
+
+/* Login Form Fields */
+.login-field {
+  -fx-background-color: -fx-control-inner-background;
+  -fx-border-color: -fx-border;
+  -fx-border-width: 2px;
+  -fx-border-radius: 6px;
+  -fx-background-radius: 6px;
+  -fx-padding: 12 16 12 16;
+  -fx-font-size: 15px;
+  -fx-pref-height: 50px;
+}
+
+.login-field:focused {
+  -fx-border-color: -fx-primary;
+  -fx-border-width: 2px;
+  -fx-effect: dropshadow(gaussian, rgba(25, 118, 210, 0.3), 8, 0, 0, 0);
+}
+
+/* Login Buttons */
+.login-button {
+  -fx-background-color: linear-gradient(to bottom, #1976d2, #1565c0);
+  -fx-text-fill: white;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-padding: 14 0 14 0;
+  -fx-pref-width: 180px;
+  -fx-pref-height: 50px;
+  -fx-background-radius: 6px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(three-pass-box, rgba(25, 118, 210, 0.4), 8, 0, 0, 3);
+}
+
+.login-button:hover {
+  -fx-background-color: linear-gradient(to bottom, #1565c0, #0d47a1);
+  -fx-effect: dropshadow(three-pass-box, rgba(25, 118, 210, 0.6), 10, 0, 0, 4);
+  -fx-scale-x: 1.03;
+  -fx-scale-y: 1.03;
+}
+
+.login-button:pressed {
+  -fx-background-color: #0d47a1;
+  -fx-effect: dropshadow(three-pass-box, rgba(25, 118, 210, 0.3), 4, 0, 0, 2);
+  -fx-scale-x: 0.98;
+  -fx-scale-y: 0.98;
+}
+
+.cancel-button {
+  -fx-background-color: -fx-surface;
+  -fx-text-fill: -fx-text-primary;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-padding: 14 0 14 0;
+  -fx-pref-width: 180px;
+  -fx-pref-height: 50px;
+  -fx-background-radius: 6px;
+  -fx-border-color: -fx-border;
+  -fx-border-width: 2px;
+  -fx-border-radius: 6px;
+  -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+  -fx-background-color: -fx-surface-hover;
+  -fx-border-color: -fx-text-secondary;
+}
+
+.cancel-button:pressed {
+  -fx-background-color: -fx-background-tertiary;
+}
+
+/* Login Footer */
+.login-footer {
+  -fx-background-color: -fx-background-tertiary;
+  -fx-padding: 15;
+  -fx-alignment: center;
+}
+
+.login-footer .version-label {
+  -fx-text-fill: -fx-text-secondary;
+  -fx-font-size: 12px;
+}
+
+/* Field Label */
+.field-label {
+  -fx-text-fill: -fx-text-primary;
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+}
+
+/* Error Message */
+.error-message {
+  -fx-text-fill: -fx-error;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-padding: 10;
+  -fx-background-color: #ffebee;
+  -fx-background-radius: 6px;
+  -fx-border-color: -fx-error;
+  -fx-border-width: 1px;
+  -fx-border-radius: 6px;
+}
+
+/* Success Message */
+.success-message {
+  -fx-text-fill: -fx-success;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-padding: 10;
+  -fx-background-color: #e8f5e9;
+  -fx-background-radius: 6px;
+  -fx-border-color: -fx-success;
+  -fx-border-width: 1px;
+  -fx-border-radius: 6px;
+}
