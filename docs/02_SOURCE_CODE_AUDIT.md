@@ -1,9 +1,10 @@
 # 📁 IceFX Source Code Audit
 
 ## Overview
+
 **Total Java Files:** 25 (15 in `application`, 10 in `com.icefx`)  
 **Total FXML Files:** 1  
-**Architecture Status:** ⚠️ Mixed - Legacy monolithic + New layered (partial)  
+**Architecture Status:** ⚠️ Mixed - Legacy monolithic + New layered (partial)
 
 ---
 
@@ -13,12 +14,13 @@
 
 #### **1. Core Application Files**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `Main.java` | ~40 | Application entry point, loads FXML | ❌ No native lib checking | 🔴 HIGH |
-| `SampleController.java` | ~1200 | Monolithic UI controller | ❌ 1200+ lines, mixed concerns | 🔴 HIGH |
+| File                    | Lines | Purpose                             | Issues                         | Priority |
+| ----------------------- | ----- | ----------------------------------- | ------------------------------ | -------- |
+| `Main.java`             | ~40   | Application entry point, loads FXML | ❌ No native lib checking      | 🔴 HIGH  |
+| `SampleController.java` | ~1200 | Monolithic UI controller            | ❌ 1200+ lines, mixed concerns | 🔴 HIGH  |
 
 **Main.java Analysis:**
+
 ```java
 // CURRENT STATE:
 public class Main extends Application {
@@ -34,12 +36,14 @@ public class Main extends Application {
 ```
 
 **Issues:**
+
 - No OpenCV native library initialization
 - No exception handling for FXML loading failures
 - No splash screen or loading indicator
 - Direct dependency on specific FXML file
 
 **Recommended Fix:**
+
 ```java
 // FIXED VERSION:
 public class Main extends Application {
@@ -47,16 +51,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         // 1. Show splash screen
         showSplashScreen();
-        
+
         // 2. Load natives FIRST
         if (!NativeLoader.loadOpenCV()) {
             Platform.exit();
             return;
         }
-        
+
         // 3. Initialize services
         ServiceRegistry.initialize();
-        
+
         // 4. Load main UI
         loadMainUI(primaryStage);
     }
@@ -66,6 +70,7 @@ public class Main extends Application {
 ---
 
 **SampleController.java Analysis:**
+
 ```java
 // PROBLEMS:
 // ✗ 1200+ lines - violates Single Responsibility Principle
@@ -76,6 +81,7 @@ public class Main extends Application {
 ```
 
 **Current Responsibilities (should be split):**
+
 1. UI event handling (300 lines)
 2. Database operations (200 lines)
 3. Camera management (250 lines)
@@ -83,6 +89,7 @@ public class Main extends Application {
 5. Schedule management (150 lines)
 
 **Refactor Plan:**
+
 ```
 SampleController (1200 lines)
     ↓ SPLIT INTO ↓
@@ -97,24 +104,25 @@ SampleController (1200 lines)
 
 #### **2. Database Layer**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `Database.java` | ~350 | All DB operations | ❌ No connection pooling | 🔴 HIGH |
-| `Person.java` | ~80 | User entity (old) | ⚠️ Superseded by User.java | 🟡 LOW |
-| `AttendanceRecord.java` | ~60 | Attendance entity (old) | ⚠️ Superseded by AttendanceLog.java | 🟡 LOW |
-| `Schedule.java` | ~90 | Schedule entity (old) | ⚠️ Superseded by new Schedule.java | 🟡 LOW |
+| File                    | Lines | Purpose                 | Issues                              | Priority |
+| ----------------------- | ----- | ----------------------- | ----------------------------------- | -------- |
+| `Database.java`         | ~350  | All DB operations       | ❌ No connection pooling            | 🔴 HIGH  |
+| `Person.java`           | ~80   | User entity (old)       | ⚠️ Superseded by User.java          | 🟡 LOW   |
+| `AttendanceRecord.java` | ~60   | Attendance entity (old) | ⚠️ Superseded by AttendanceLog.java | 🟡 LOW   |
+| `Schedule.java`         | ~90   | Schedule entity (old)   | ⚠️ Superseded by new Schedule.java  | 🟡 LOW   |
 
 **Database.java Analysis:**
+
 ```java
 // CRITICAL ISSUES:
 public class Database {
     private Connection conn;
-    
+
     public Database() throws SQLException {
         // ❌ Creates new connection EVERY TIME
         conn = DriverManager.getConnection(URL, USER, PASS);
     }
-    
+
     // ❌ No connection pooling
     // ❌ No prepared statement reuse
     // ❌ No transaction management
@@ -123,6 +131,7 @@ public class Database {
 ```
 
 **Performance Impact:**
+
 - Each Database() call = 300-500ms overhead
 - 10 operations = 3-5 seconds wasted
 - No connection reuse
@@ -133,14 +142,15 @@ public class Database {
 
 #### **3. Face Recognition Components**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `FaceDetector.java` | ~250 | Camera + detection | ❌ Crash source, wrong thread | 🔴 CRITICAL |
-| `FaceRecognizer.java` | ~120 | LBPH recognition | ⚠️ No confidence threshold | 🟠 MEDIUM |
-| `FaceDetectionController.java` | ~100 | Demo controller | ℹ️ Unused in main app | 🟢 LOW |
-| `RecognitionResult.java` | ~40 | Result wrapper | ✅ OK | 🟢 LOW |
+| File                           | Lines | Purpose            | Issues                        | Priority    |
+| ------------------------------ | ----- | ------------------ | ----------------------------- | ----------- |
+| `FaceDetector.java`            | ~250  | Camera + detection | ❌ Crash source, wrong thread | 🔴 CRITICAL |
+| `FaceRecognizer.java`          | ~120  | LBPH recognition   | ⚠️ No confidence threshold    | 🟠 MEDIUM   |
+| `FaceDetectionController.java` | ~100  | Demo controller    | ℹ️ Unused in main app         | 🟢 LOW      |
+| `RecognitionResult.java`       | ~40   | Result wrapper     | ✅ OK                         | 🟢 LOW      |
 
 **FaceDetector.java - CRASH SOURCE:**
+
 ```java
 // LINE 45-60: CRITICAL ISSUE
 public class FaceDetector implements Runnable {
@@ -151,10 +161,10 @@ public class FaceDetector implements Runnable {
             if (capture.read(frame)) {  // ❌ NATIVE CALL
                 // ❌ cvHaarDetectObjects with NULL checks missing
                 CvSeq faces = cvHaarDetectObjects(...);
-                
+
                 // ❌ NO NULL CHECK HERE!
                 int total = faces.total();  // CRASH!
-                
+
                 for (int i = 0; i < total; i++) {
                     CvRect r = new CvRect(cvGetSeqElem(faces, i));  // CRASH!
                 }
@@ -165,6 +175,7 @@ public class FaceDetector implements Runnable {
 ```
 
 **Why This Crashes:**
+
 1. Uses old CV API (`CvSeq`, `cvHaarDetectObjects`)
 2. Incompatible with OpenCV 4.x that Maven downloads
 3. No null pointer checks
@@ -172,31 +183,32 @@ public class FaceDetector implements Runnable {
 5. Wrong thread (blocks JavaFX)
 
 **Fix Required:**
+
 ```java
 // SAFE VERSION:
 public void detectFaces(Mat frame) {
     if (frame == null || frame.empty()) {
         return;  // Early exit
     }
-    
+
     try {
         Mat gray = new Mat();
         cvtColor(frame, gray, COLOR_BGR2GRAY);
-        
+
         RectVector faces = new RectVector();
         faceCascade.detectMultiScale(gray, faces);  // Modern API
-        
+
         // ✅ NULL CHECK
         if (faces == null || faces.size() == 0) {
             return;
         }
-        
+
         // ✅ Safe iteration
         for (long i = 0; i < faces.size(); i++) {
             Rect face = faces.get(i);
             // Process face...
         }
-        
+
     } catch (Exception e) {
         logger.error("Face detection failed", e);
     }
@@ -206,36 +218,38 @@ public void detectFaces(Mat frame) {
 ---
 
 **FaceRecognizer.java Analysis:**
+
 ```java
 // ISSUES:
 public int predict(Mat face) {
     IntPointer lbl = new IntPointer(1);
     DoublePointer conf = new DoublePointer(1);
     recognizer.predict(face, lbl, conf);
-    
+
     // ❌ NO CONFIDENCE THRESHOLD
     // Returns label even if confidence is terrible
     // Should reject low-confidence matches
-    
+
     return lbl.get(0);  // ❌ Returns label without validation
 }
 ```
 
 **Fix:**
+
 ```java
 public RecognitionResult predict(Mat face) {
     IntPointer lbl = new IntPointer(1);
     DoublePointer conf = new DoublePointer(1);
     recognizer.predict(face, lbl, conf);
-    
+
     int label = lbl.get(0);
     double confidence = conf.get(0);
-    
+
     // ✅ THRESHOLD CHECK
     if (confidence > CONFIDENCE_THRESHOLD) {
         return RecognitionResult.unknown(confidence);
     }
-    
+
     return RecognitionResult.recognized(label, confidence);
 }
 ```
@@ -244,16 +258,17 @@ public RecognitionResult predict(Mat face) {
 
 #### **4. Utility Files**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `Toast.java` | ~60 | Simple notifications | ⚠️ Basic, no styling | 🟡 LOW |
-| `AdvancedToast.java` | ~150 | Better notifications | ✅ Good | 🟢 LOW |
-| `MotionDetector.java` | ~180 | Motion detection | ℹ️ Unused feature | 🟢 LOW |
-| `ColoredObjectTracker.java` | ~200 | Color tracking | ℹ️ Unused feature | 🟢 LOW |
-| `SquareDetector.java` | ~120 | Shape detection | ℹ️ Unused feature | 🟢 LOW |
-| `OCR.java` | ~100 | Text recognition | ℹ️ Unused feature | 🟢 LOW |
+| File                        | Lines | Purpose              | Issues               | Priority |
+| --------------------------- | ----- | -------------------- | -------------------- | -------- |
+| `Toast.java`                | ~60   | Simple notifications | ⚠️ Basic, no styling | 🟡 LOW   |
+| `AdvancedToast.java`        | ~150  | Better notifications | ✅ Good              | 🟢 LOW   |
+| `MotionDetector.java`       | ~180  | Motion detection     | ℹ️ Unused feature    | 🟢 LOW   |
+| `ColoredObjectTracker.java` | ~200  | Color tracking       | ℹ️ Unused feature    | 🟢 LOW   |
+| `SquareDetector.java`       | ~120  | Shape detection      | ℹ️ Unused feature    | 🟢 LOW   |
+| `OCR.java`                  | ~100  | Text recognition     | ℹ️ Unused feature    | 🟢 LOW   |
 
-**Recommendation:** 
+**Recommendation:**
+
 - Keep: `AdvancedToast.java`
 - Remove: Unused detection features
 - Add: Proper utility classes (ImageUtils, ValidationUtils, etc.)
@@ -264,13 +279,13 @@ public RecognitionResult predict(Mat face) {
 
 #### **✅ Model Layer (5 files) - COMPLETE**
 
-| File | Status | Quality | Notes |
-|------|--------|---------|-------|
-| `User.java` | ✅ Complete | Excellent | JavaFX properties, role enum |
-| `AttendanceLog.java` | ✅ Complete | Excellent | Proper date/time handling |
-| `Schedule.java` | ✅ Complete | Excellent | DayOfWeek enum, validation |
-| `FaceTemplate.java` | ✅ Complete | Good | Binary data handling |
-| `CameraStatus.java` | ✅ Complete | Good | Status enum with colors |
+| File                 | Status      | Quality   | Notes                        |
+| -------------------- | ----------- | --------- | ---------------------------- |
+| `User.java`          | ✅ Complete | Excellent | JavaFX properties, role enum |
+| `AttendanceLog.java` | ✅ Complete | Excellent | Proper date/time handling    |
+| `Schedule.java`      | ✅ Complete | Excellent | DayOfWeek enum, validation   |
+| `FaceTemplate.java`  | ✅ Complete | Good      | Binary data handling         |
+| `CameraStatus.java`  | ✅ Complete | Good      | Status enum with colors      |
 
 **Assessment:** ✅ **This layer is production-ready**
 
@@ -278,14 +293,15 @@ public RecognitionResult predict(Mat face) {
 
 #### **✅ DAO Layer (4 files) - COMPLETE**
 
-| File | Status | Quality | Notes |
-|------|--------|---------|-------|
-| `UserDAO.java` | ✅ Complete | Excellent | CRUD, search, validation |
-| `AttendanceDAO.java` | ✅ Complete | Excellent | Queries, date ranges |
-| `ScheduleDAO.java` | ✅ Complete | Excellent | Conflict detection |
-| `FaceTemplateDAO.java` | ✅ Complete | Good | Template management |
+| File                   | Status      | Quality   | Notes                    |
+| ---------------------- | ----------- | --------- | ------------------------ |
+| `UserDAO.java`         | ✅ Complete | Excellent | CRUD, search, validation |
+| `AttendanceDAO.java`   | ✅ Complete | Excellent | Queries, date ranges     |
+| `ScheduleDAO.java`     | ✅ Complete | Excellent | Conflict detection       |
+| `FaceTemplateDAO.java` | ✅ Complete | Good      | Template management      |
 
 **Features:**
+
 - ✅ Connection pooling (HikariCP)
 - ✅ Prepared statements (SQL injection safe)
 - ✅ Transaction management
@@ -298,11 +314,12 @@ public RecognitionResult predict(Mat face) {
 
 #### **✅ Config Layer (1 file) - COMPLETE**
 
-| File | Status | Quality | Notes |
-|------|--------|---------|-------|
+| File                  | Status      | Quality   | Notes                |
+| --------------------- | ----------- | --------- | -------------------- |
 | `DatabaseConfig.java` | ✅ Complete | Excellent | HikariCP, properties |
 
 **Features:**
+
 - ✅ Connection pooling (10x performance)
 - ✅ External configuration
 - ✅ Auto-reconnection
@@ -315,6 +332,7 @@ public RecognitionResult predict(Mat face) {
 #### **❌ Service Layer (0 files) - MISSING**
 
 **Required Files:**
+
 ```
 com.icefx.service/
 ├── UserService.java          - User management, password hashing
@@ -332,6 +350,7 @@ com.icefx.service/
 #### **❌ Controller Layer (0 files) - NEEDS REFACTOR**
 
 **Required Files:**
+
 ```
 com.icefx.controller/
 ├── LoginController.java      - Auth screen
@@ -350,6 +369,7 @@ com.icefx.controller/
 #### **❌ Util Layer (0 files) - MISSING**
 
 **Required Files:**
+
 ```
 com.icefx.util/
 ├── NativeLoader.java     - Safe OpenCV loading ⚠️ CRITICAL
@@ -369,11 +389,12 @@ com.icefx.util/
 
 #### **Current FXML (1 file)**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `Sample.fxml` | ~400 | Main UI layout | ⚠️ Monolithic, needs split | 🟠 MEDIUM |
+| File          | Lines | Purpose        | Issues                     | Priority  |
+| ------------- | ----- | -------------- | -------------------------- | --------- |
+| `Sample.fxml` | ~400  | Main UI layout | ⚠️ Monolithic, needs split | 🟠 MEDIUM |
 
 **Sample.fxml Analysis:**
+
 ```xml
 <!-- CURRENT: Everything in one file -->
 <BorderPane> <!-- 400+ lines -->
@@ -386,6 +407,7 @@ com.icefx.util/
 ```
 
 **Refactor Plan:**
+
 ```
 Sample.fxml (400 lines)
     ↓ SPLIT INTO ↓
@@ -400,6 +422,7 @@ Sample.fxml (400 lines)
 #### **❌ Missing FXML Files**
 
 **Required:**
+
 ```
 src/main/resources/fxml/
 ├── Login.fxml            - Auth screen
@@ -416,17 +439,19 @@ src/main/resources/fxml/
 
 #### **Current CSS (1 file)**
 
-| File | Lines | Purpose | Issues | Priority |
-|------|-------|---------|--------|----------|
-| `application.css` | ~350 | All styling | ⚠️ Needs modernization | 🟡 LOW |
+| File              | Lines | Purpose     | Issues                 | Priority |
+| ----------------- | ----- | ----------- | ---------------------- | -------- |
+| `application.css` | ~350  | All styling | ⚠️ Needs modernization | 🟡 LOW   |
 
 **Issues:**
+
 - No dark theme
 - Inconsistent colors
 - No animations
 - Hard-coded values
 
 **Required:**
+
 ```
 src/main/resources/css/
 ├── base.css        - Common styles
@@ -441,13 +466,13 @@ src/main/resources/css/
 
 ### **Complexity Analysis**
 
-| Metric | Current | Target | Status |
-|--------|---------|--------|--------|
-| Largest File | 1200 lines | <400 lines | ❌ 3x over |
-| Avg Method Length | ~80 lines | <30 lines | ❌ 3x over |
-| Cyclomatic Complexity | ~45 | <10 | ❌ 5x over |
-| Code Duplication | ~35% | <5% | ❌ 7x over |
-| Test Coverage | 0% | >80% | ❌ No tests |
+| Metric                | Current    | Target     | Status      |
+| --------------------- | ---------- | ---------- | ----------- |
+| Largest File          | 1200 lines | <400 lines | ❌ 3x over  |
+| Avg Method Length     | ~80 lines  | <30 lines  | ❌ 3x over  |
+| Cyclomatic Complexity | ~45        | <10        | ❌ 5x over  |
+| Code Duplication      | ~35%       | <5%        | ❌ 7x over  |
+| Test Coverage         | 0%         | >80%       | ❌ No tests |
 
 ---
 
@@ -476,6 +501,7 @@ Database
 ## 🎯 Refactoring Roadmap
 
 ### **Phase 1: Stabilize (Week 1) - CRITICAL**
+
 1. ✅ Implement NativeLoader (**DONE**)
 2. ✅ Fix FaceDetector crashes (**IN PROGRESS**)
 3. ✅ Update pom.xml (**DONE**)
@@ -483,6 +509,7 @@ Database
 5. ⏳ Verify no more crashes
 
 ### **Phase 2: Service Layer (Week 2)**
+
 1. ⏳ Create UserService
 2. ⏳ Create CameraService
 3. ⏳ Create FaceRecognitionService
@@ -490,12 +517,14 @@ Database
 5. ⏳ Create ExportService
 
 ### **Phase 3: Controller Split (Week 3)**
+
 1. ⏳ Extract LoginController
 2. ⏳ Extract DashboardController
 3. ⏳ Extract AdminController
 4. ⏳ Refactor SampleController → AttendanceController
 
 ### **Phase 4: UI Modernization (Week 4)**
+
 1. ⏳ Create Login.fxml
 2. ⏳ Create Dashboard.fxml
 3. ⏳ Create AdminPanel.fxml
@@ -506,17 +535,20 @@ Database
 ## 🚨 Critical Action Items
 
 ### **Must Fix Immediately:**
+
 1. 🔴 **NativeLoader.java** - Prevent JVM crashes
 2. 🔴 **Update FaceDetector** - Fix null pointer issues
 3. 🔴 **CameraService** - Move to background thread
 4. 🔴 **Null checks** - Add to all native calls
 
 ### **High Priority:**
+
 1. 🟠 **Split SampleController** - Reduce complexity
 2. 🟠 **Implement Services** - Business logic layer
 3. 🟠 **Add authentication** - Login system
 
 ### **Medium Priority:**
+
 1. 🟡 **Modernize UI** - New FXML layouts
 2. 🟡 **Add dark theme** - Better UX
 3. 🟡 **Export reports** - CSV functionality
@@ -526,6 +558,7 @@ Database
 ## 📈 Progress Tracking
 
 **Overall Completion:**
+
 ```
 ┌─────────────────────────────────┐
 │ ████████░░░░░░░░░░░░░░░░░░░░ 30% │
@@ -547,12 +580,14 @@ Database
 Before merging any changes:
 
 **Stability:**
+
 - [ ] No JVM crashes for 30 minutes continuous run
 - [ ] Native libraries load successfully
 - [ ] Camera starts/stops without errors
 - [ ] No memory leaks (test with VisualVM)
 
 **Code Quality:**
+
 - [ ] No file > 400 lines
 - [ ] No method > 30 lines
 - [ ] All native calls have null checks
@@ -561,6 +596,7 @@ Before merging any changes:
 - [ ] Proper logging added
 
 **Architecture:**
+
 - [ ] No UI code in services
 - [ ] No database code in controllers
 - [ ] Proper layer separation
@@ -568,6 +604,7 @@ Before merging any changes:
 - [ ] Controllers use services
 
 **Testing:**
+
 - [ ] Unit tests for services
 - [ ] Integration tests for DAOs
 - [ ] UI tests for critical paths
