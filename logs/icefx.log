@@ -1,0 +1,74 @@
+2025-11-11 12:32:04.475 [JavaFX Application Thread] INFO  application.Main - IceFX Attendance System Starting...
+2025-11-11 12:32:04.487 [JavaFX Application Thread] INFO  application.Main - System Information:
+  OS: Linux 6.14.0-35-generic (amd64)
+  Java: 23.0.1 (Oracle Corporation)
+  Architecture: 64-bit
+  Working Directory: /home/josh/IceFX
+  Java Library Path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2025-11-11 12:32:04.488 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:32:04.489 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 12:32:04.489 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:32:04.490 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 12:32:04.491 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 12:32:04.496 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 12:32:04.497 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 12:32:04.497 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 12:32:04.498 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 12:34:25.708 [JavaFX Application Thread] INFO  application.Main - IceFX Attendance System Starting...
+2025-11-11 12:34:25.718 [JavaFX Application Thread] INFO  application.Main - System Information:
+  OS: Linux 6.14.0-35-generic (amd64)
+  Java: 23.0.1 (Oracle Corporation)
+  Architecture: 64-bit
+  Working Directory: /home/josh/IceFX
+  Java Library Path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2025-11-11 12:34:25.718 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:34:25.719 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 12:34:25.719 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:34:25.719 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 12:34:25.719 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 12:34:25.724 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 12:34:25.725 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 12:34:25.726 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 12:34:25.726 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 12:36:10.448 [JavaFX Application Thread] INFO  application.Main - IceFX Attendance System Starting...
+2025-11-11 12:36:10.453 [JavaFX Application Thread] INFO  application.Main - System Information:
+  OS: Linux 6.14.0-35-generic (amd64)
+  Java: 23.0.1 (Oracle Corporation)
+  Architecture: 64-bit
+  Working Directory: /home/josh/IceFX
+  Java Library Path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2025-11-11 12:36:10.453 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:36:10.454 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 12:36:10.454 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:36:10.454 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 12:36:10.454 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 12:36:10.457 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 12:36:10.458 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 12:36:10.459 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 12:36:10.459 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 12:36:13.768 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-11 12:36:13.768 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 12:36:13.768 [JavaFX Application Thread] INFO  application.Main - Native libraries loaded successfully, initializing UI...
+2025-11-11 12:36:17.121 [JavaFX Application Thread] INFO  application.Main - ✅ Application started successfully
+2025-11-11 12:36:38.235 [JavaFX Application Thread] INFO  application.Main - Application shutting down...
+2025-11-11 13:00:18.800 [JavaFX Application Thread] INFO  application.Main - IceFX Attendance System Starting...
+2025-11-11 13:00:18.835 [JavaFX Application Thread] INFO  application.Main - System Information:
+  OS: Linux 6.14.0-35-generic (amd64)
+  Java: 23.0.1 (Oracle Corporation)
+  Architecture: 64-bit
+  Working Directory: /home/josh/IceFX
+  Java Library Path: /usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2025-11-11 13:00:18.835 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 13:00:18.835 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 13:00:18.836 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 13:00:18.836 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 13:00:18.836 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 13:00:18.840 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 13:00:18.841 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 13:00:18.841 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 13:00:18.842 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 13:00:22.534 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-11 13:00:22.535 [JavaFX Application Thread] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 13:00:22.535 [JavaFX Application Thread] INFO  application.Main - Native libraries loaded successfully, initializing UI...
+2025-11-11 13:00:25.531 [JavaFX Application Thread] INFO  application.Main - ✅ Application started successfully
+2025-11-11 13:01:03.155 [JavaFX Application Thread] INFO  application.Main - Application shutting down...
