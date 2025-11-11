@@ -192,7 +192,6 @@ public class IceFXApplication extends Application {
      */
     public static void main(String[] args) {
         // Set system properties for better JavaFX performance on JDK 23
-        System.setProperty("javafx.preloader", "com.sun.javafx.application.LauncherImpl");
         System.setProperty("prism.lcdtext", "false"); // Better text rendering
         System.setProperty("prism.text", "t2k"); // Better text quality
         
