@@ -1,33 +1,46 @@
-# Maven build output
-/target/
-dependency-reduced-pom.xml
+# IceFX .gitignore
 
-# IDE files
+# Maven
+target/
+dependency-reduced-pom.xml
+.mvn/
+
+# Java
+*.class
+*.log
+hs_err_pid*.log
+
+# IDE
+.idea/
+*.iml
 .settings/
 .classpath
 .project
 nbactions.xml
 build.fxbuild
-
-# VS Code (keep settings but ignore workspace)
 .vscode/
 *.code-workspace
 
-# Logs and crash dumps
-*.log
-logs/*.log
-hs_err_pid*.log
-replay_pid*.log
-
-# Runtime data
-/data/
-/.icefx/
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
+*~
 
-# Temporary files
+# Application
+/.icefx/
+logs/
+faces/
+models/
+training_data/
+
+# Temporary
 *.tmp
 *.bak
-*~
+*.swp
+*-old.*
+AdminPanel-old.fxml
+README-old.md
+
+# Native
+native/
+libs/
