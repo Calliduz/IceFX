@@ -132,7 +132,7 @@ public class AppConfig {
         properties.setProperty("recognition.confidence.threshold", DEFAULT_CONFIDENCE_THRESHOLD);
         properties.setProperty("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME);
         properties.setProperty("recognition.model.path", DEFAULT_MODEL_PATH);
-        properties.setProperty("recognition.haar.cascade", "/com/icefx/haar/haarcascade_frontalface_default.xml");
+        properties.setProperty("recognition.haar.cascade", "/haar/haarcascade_frontalface_default.xml");
         
         // Attendance configuration
         properties.setProperty("attendance.duplicate.prevention.minutes", "60");
