@@ -1,8 +1,38 @@
-# IceFX - Professional Facial Recognition Attendance System
+# IceFX Documentation
 
-![Java](https://img.shields.io/badge/Java-17-orange) ![JavaFX](https://img.shields.io/badge/JavaFX-21-blue) ![OpenCV](https://img.shields.io/badge/OpenCV-4.9-green) ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![Java](https://img.shields.io/badge/Java-23.0.1-orange) ![JavaFX](https://img.shields.io/badge/JavaFX-23.0.1-blue) ![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0-green) ![MySQL](https://img.shields.io/badge/MySQL-9.1.0-blue)
 
-A modern, enterprise-grade facial recognition attendance management system built with JavaFX and OpenCV.
+## 📚 Documentation Index
+
+This directory contains all documentation for the IceFX Facial Recognition Attendance System.
+
+### 🚀 Getting Started
+
+- **[QUICK_START.md](QUICK_START.md)** - Quick setup guide for new users
+- **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** - Upgrading from older versions
+
+### 📖 Technical Documentation
+
+- **[PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)** - Complete project organization and file structure
+- **[REFACTORING_SUMMARY.md](REFACTORING_SUMMARY.md)** - Technical details of the modernization
+- **[CLEANUP_SUMMARY.md](CLEANUP_SUMMARY.md)** - File structure cleanup report
+- **[FILE_STRUCTURE_CLEANUP_COMPLETE.md](FILE_STRUCTURE_CLEANUP_COMPLETE.md)** - Comprehensive cleanup summary
+
+### 📦 Archive
+
+- **[archive/](archive/)** - Historical planning documents and analysis
+  - 00_INDEX.md - Documentation index
+  - 01_CRASH_ANALYSIS.md - Initial crash analysis
+  - 02_SOURCE_CODE_AUDIT.md - Code audit report
+  - 03_IMPLEMENTATION_PLAN.md - Implementation roadmap
+  - 04_QA_TEST_CHECKLIST.md - Quality assurance checklist
+  - 05_PROJECT_STRUCTURE.md - Original structure planning
+
+---
+
+## 🎯 Overview
+
+A modern, enterprise-grade facial recognition attendance management system built with JavaFX 23 and OpenCV 4.9.
 
 ## 🎯 Features
 

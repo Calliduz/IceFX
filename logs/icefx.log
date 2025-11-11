@@ -246,3 +246,39 @@
 2025-11-11 14:31:43.983 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
 2025-11-11 14:31:43.984 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
 2025-11-11 14:31:43.984 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 14:31:46.486 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-11 14:31:46.487 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 14:31:46.487 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-11 14:31:46.510 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-11 14:31:47.125 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-11 14:31:47.127 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 14:31:47.128 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-11 14:31:47.129 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-11 14:31:47.836 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-11 14:31:56.051 [Thread-2] INFO  c.icefx.controller.LoginController - Attempting authentication for user: Test1
+2025-11-11 14:31:56.165 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-11 14:31:58.760 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Unknown database 'facial_attendance'
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.UserDAO.findByUserCode(UserDAO.java:83)
+	at com.icefx.service.UserService.authenticate(UserService.java:56)
+	at com.icefx.controller.LoginController.lambda$handleLogin$3(LoginController.java:120)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown database 'facial_attendance'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted

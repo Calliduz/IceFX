@@ -19,6 +19,7 @@ IceFX is a production-ready facial recognition attendance application built on J
 - [Troubleshooting](#troubleshooting)
 - [Testing](#testing)
 - [Technology Stack](#technology-stack)
+- [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -254,6 +255,18 @@ Add unit tests for services and DAO classes under `src/test/java`. Use the Maven
 | Connection Pool | HikariCP            | 6.2.1           |
 | Logging         | SLF4J + Logback     | 2.0.16 / 1.5.12 |
 | Build           | Maven               | 3.9+            |
+
+---
+
+## Documentation
+
+📚 **For detailed documentation, see the [docs/](docs/) directory:**
+
+- **[Quick Start Guide](docs/QUICK_START.md)** - Detailed setup instructions
+- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Complete file organization
+- **[Migration Guide](docs/MIGRATION_GUIDE.md)** - Upgrading from older versions
+- **[Refactoring Summary](docs/REFACTORING_SUMMARY.md)** - Technical modernization details
+- **[Cleanup Report](docs/CLEANUP_SUMMARY.md)** - File structure cleanup summary
 
 ---
 
