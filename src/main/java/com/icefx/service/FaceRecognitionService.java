@@ -150,12 +150,38 @@ public class FaceRecognitionService {
         this.confidenceThreshold = confidenceThreshold;
         this.debounceMs = debounceMs;
         
-        // Initialize face detector
+        // Initialize face detector - load from resources
         logger.info("Initializing face detector with cascade: {}", cascadePath);
-        this.faceDetector = new CascadeClassifier(cascadePath);
+        
+        // Try to load from resources first
+        String actualPath = cascadePath;
+        if (cascadePath.startsWith("/")) {
+            // Resource path - need to extract to temp file
+            try {
+                java.io.InputStream is = getClass().getResourceAsStream(cascadePath);
+                if (is == null) {
+                    throw new IllegalStateException("Cascade file not found in resources: " + cascadePath);
+                }
+                
+                // Create temp file
+                java.io.File tempFile = java.io.File.createTempFile("cascade", ".xml");
+                tempFile.deleteOnExit();
+                
+                // Copy resource to temp file
+                java.nio.file.Files.copy(is, tempFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                is.close();
+                
+                actualPath = tempFile.getAbsolutePath();
+                logger.info("Extracted cascade to temp file: {}", actualPath);
+            } catch (Exception e) {
+                throw new IllegalStateException("Failed to load cascade from resources: " + cascadePath, e);
+            }
+        }
+        
+        this.faceDetector = new CascadeClassifier(actualPath);
         
         if (faceDetector.empty()) {
-            throw new IllegalStateException("Failed to load cascade classifier from: " + cascadePath);
+            throw new IllegalStateException("Failed to load cascade classifier from: " + actualPath);
         }
         
         // Create LBPH recognizer with optimized parameters

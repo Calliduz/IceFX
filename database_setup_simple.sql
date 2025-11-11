@@ -80,9 +80,13 @@ CREATE TABLE IF NOT EXISTS schedules (
 -- =====================================================
 -- Insert Default Admin User
 -- =====================================================
--- IMPORTANT: This is a WORKING BCrypt hash!
--- Password: 'admin123'
--- Generated with BCrypt cost factor 10
+-- IMPORTANT: These are REAL WORKING BCrypt hashes!
+-- Generated and verified with BCrypt cost factor 10
+-- 
+-- ADMIN001:
+--   Username: ADMIN001
+--   Password: admin123
+--   Hash: $2a$10$APvfzT88SxjsFmp/mWHUBuyz35R1NIbsXkcUuTLGajbdDPik0M5aq
 INSERT INTO persons (person_code, full_name, department, position, role, password, active) 
 VALUES (
     'ADMIN001', 
@@ -90,12 +94,14 @@ VALUES (
     'IT Department', 
     'Administrator', 
     'ADMIN',
-    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhLW',
+    '$2a$10$APvfzT88SxjsFmp/mWHUBuyz35R1NIbsXkcUuTLGajbdDPik0M5aq',
     TRUE
 );
 
--- Alternative admin with simpler password
--- Password: 'admin'
+-- ADM001:
+--   Username: ADM001
+--   Password: admin
+--   Hash: $2a$10$JLOZTgmxlNjU2v3AD8pkyO7Xzz8dsdfE6BtDIMkJv.3C3.GgD7Z2u
 INSERT INTO persons (person_code, full_name, department, position, role, password, active) 
 VALUES (
     'ADM001', 
@@ -103,7 +109,7 @@ VALUES (
     'IT Department', 
     'Administrator', 
     'ADMIN',
-    '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+    '$2a$10$JLOZTgmxlNjU2v3AD8pkyO7Xzz8dsdfE6BtDIMkJv.3C3.GgD7Z2u',
     TRUE
 );
 

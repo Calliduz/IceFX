@@ -5,9 +5,10 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -84,45 +85,53 @@ public class ModernToast {
                     return;
                 }
                 
-                // Create popup
-                Popup popup = new Popup();
+                // Create a transparent stage for the toast
+                Stage toastStage = new Stage();
+                toastStage.initOwner(ownerStage);
+                toastStage.setResizable(false);
+                toastStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
+                toastStage.setAlwaysOnTop(true);
                 
                 // Create toast content
                 VBox toastBox = createToastBox(message, type);
-                popup.getContent().add(toastBox);
+                
+                // Create transparent scene
+                StackPane root = new StackPane(toastBox);
+                root.setStyle("-fx-background-color: transparent;");
+                Scene scene = new Scene(root);
+                scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+                toastStage.setScene(scene);
                 
                 // Position at top-right
-                double x = ownerStage.getX() + ownerStage.getWidth() - 320;
+                double targetX = ownerStage.getX() + ownerStage.getWidth() - 320;
                 double y = ownerStage.getY() + 80;
+                toastStage.setX(targetX);
+                toastStage.setY(y);
                 
-                // Initial opacity for fade-in
-                toastBox.setOpacity(0);
+                // Start with toast off-screen to the right
+                toastBox.setTranslateX(400);
                 
-                // Show popup
-                popup.show(ownerStage, x, y);
+                // Show stage
+                toastStage.show();
                 
-                // Fade-in animation
-                FadeTransition fadeIn = new FadeTransition(FADE_IN_DURATION, toastBox);
-                fadeIn.setFromValue(0);
-                fadeIn.setToValue(1);
-                
-                // Fade-out animation
-                FadeTransition fadeOut = new FadeTransition(FADE_OUT_DURATION, toastBox);
-                fadeOut.setFromValue(1);
-                fadeOut.setToValue(0);
-                fadeOut.setOnFinished(e -> popup.hide());
-                
-                // Slide-in animation
+                // Slide-in animation (from right)
                 TranslateTransition slideIn = new TranslateTransition(FADE_IN_DURATION, toastBox);
-                slideIn.setFromX(50);
+                slideIn.setFromX(400);
                 slideIn.setToX(0);
+                slideIn.setInterpolator(javafx.animation.Interpolator.EASE_OUT);
                 
-                // Play animations
-                ParallelTransition showTransition = new ParallelTransition(fadeIn, slideIn);
+                // Slide-out animation (to right)
+                TranslateTransition slideOut = new TranslateTransition(FADE_OUT_DURATION, toastBox);
+                slideOut.setFromX(0);
+                slideOut.setToX(400);
+                slideOut.setInterpolator(javafx.animation.Interpolator.EASE_IN);
+                slideOut.setOnFinished(e -> toastStage.close());
+                
+                // Play animations in sequence
                 SequentialTransition sequence = new SequentialTransition(
-                    showTransition,
+                    slideIn,
                     new PauseTransition(duration),
-                    fadeOut
+                    slideOut
                 );
                 sequence.play();
                 
@@ -140,38 +149,52 @@ public class ModernToast {
     }
     
     /**
-     * Create the toast UI component
+     * Create the toast UI component - Modern white design with colored accent
      */
     private static VBox createToastBox(String message, ToastType type) {
-        // Icon label
+        // Icon label with colored background
         Label iconLabel = new Label(type.icon);
         iconLabel.setStyle(
-            "-fx-font-size: 24px; " +
+            "-fx-font-size: 20px; " +
             "-fx-text-fill: white; " +
             "-fx-font-weight: bold; " +
-            "-fx-min-width: 40px; " +
-            "-fx-alignment: center;"
+            "-fx-min-width: 36px; " +
+            "-fx-min-height: 36px; " +
+            "-fx-max-width: 36px; " +
+            "-fx-max-height: 36px; " +
+            "-fx-alignment: center; " +
+            "-fx-background-color: " + type.color + "; " +
+            "-fx-background-radius: 18px;"
         );
         
-        // Message label
+        // Message label - dark text on white
         Label messageLabel = new Label(message);
         messageLabel.setStyle(
-            "-fx-text-fill: white; " +
+            "-fx-text-fill: #212121; " +
             "-fx-font-size: 14px; " +
+            "-fx-font-weight: 500; " +
             "-fx-wrap-text: true; " +
-            "-fx-max-width: 220px;"
+            "-fx-max-width: 200px;"
         );
         
-        // Container
-        VBox container = new VBox(5, iconLabel, messageLabel);
-        container.setAlignment(Pos.CENTER);
+        // Horizontal layout with icon and message
+        HBox content = new HBox(12, iconLabel, messageLabel);
+        content.setAlignment(Pos.CENTER_LEFT);
+        content.setStyle("-fx-padding: 4 8 4 4;");
+        
+        // White container with subtle shadow and colored left border
+        VBox container = new VBox(content);
+        container.setAlignment(Pos.CENTER_LEFT);
         container.setStyle(
-            "-fx-background-color: " + type.color + "; " +
+            "-fx-background-color: white; " +
             "-fx-background-radius: 8px; " +
-            "-fx-padding: 15px 20px; " +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4); " +
-            "-fx-min-width: 280px; " +
-            "-fx-max-width: 280px;"
+            "-fx-padding: 12px 16px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4); " +
+            "-fx-border-color: " + type.color + " transparent transparent transparent; " +
+            "-fx-border-width: 3px 0 0 0; " +
+            "-fx-border-radius: 8px 8px 0 0; " +
+            "-fx-min-width: 300px; " +
+            "-fx-max-width: 300px;"
         );
         
         return container;
