@@ -32,7 +32,11 @@ This directory contains all documentation for the IceFX Facial Recognition Atten
 
 ## 🎯 Overview
 
-A modern, enterprise-grade facial recognition attendance management system built with JavaFX 23 and OpenCV 4.9.
+A modern, enterprise-grade facial recognition attendance management system built with **JavaFX 23.0.1** and **OpenCV 4.9.0** on **JDK 23.0.1**.
+
+### Main Entry Point
+
+**`com.icefx.IceFXApplication`** - The sole application entry point (no legacy `application.Main`)
 
 ## 🎯 Features
 

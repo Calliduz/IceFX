@@ -245,4 +245,122 @@ public class AttendanceDAO {
         public int getTimeInCount() { return timeInCount; }
         public int getTimeOutCount() { return timeOutCount; }
     }
+    
+    /**
+     * Get all attendance logs
+     * 
+     * @return List of all attendance logs
+     * @throws SQLException if database error occurs
+     */
+    public List<AttendanceLog> getAllAttendanceLogs() throws SQLException {
+        String sql = "SELECT a.log_id, a.person_id, a.event_time, a.event_type, " +
+                    "a.camera_id, a.confidence, a.activity, u.full_name " +
+                    "FROM attendance_logs a " +
+                    "LEFT JOIN persons u ON a.person_id = u.person_id " +
+                    "ORDER BY a.event_time DESC";
+        
+        return mapResultSet(DatabaseConfig.getConnection()
+            .createStatement().executeQuery(sql));
+    }
+    
+    /**
+     * Get attendance logs by user ID
+     * 
+     * @param userId User ID to filter by
+     * @return List of attendance logs for the user
+     * @throws SQLException if database error occurs
+     */
+    public List<AttendanceLog> getAttendanceByUserId(int userId) throws SQLException {
+        return executeQuery(
+            "SELECT a.log_id, a.person_id, a.event_time, a.event_type, " +
+            "a.camera_id, a.confidence, a.activity, u.full_name " +
+            "FROM attendance_logs a " +
+            "LEFT JOIN persons u ON a.person_id = u.person_id " +
+            "WHERE a.person_id = ? " +
+            "ORDER BY a.event_time DESC", userId);
+    }
+    
+    /**
+     * Get attendance logs by date range
+     * 
+     * @param startDate Start date (inclusive)
+     * @param endDate End date (inclusive)
+     * @return List of attendance logs in the date range
+     * @throws SQLException if database error occurs
+     */
+    public List<AttendanceLog> getAttendanceByDateRange(LocalDateTime startDate, LocalDateTime endDate) 
+            throws SQLException {
+        String sql = "SELECT a.log_id, a.person_id, a.event_time, a.event_type, " +
+                    "a.camera_id, a.confidence, a.activity, u.full_name " +
+                    "FROM attendance_logs a " +
+                    "LEFT JOIN persons u ON a.person_id = u.person_id " +
+                    "WHERE a.event_time BETWEEN ? AND ? " +
+                    "ORDER BY a.event_time DESC";
+        
+        List<AttendanceLog> logs = new ArrayList<>();
+        
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setTimestamp(1, Timestamp.valueOf(startDate));
+            ps.setTimestamp(2, Timestamp.valueOf(endDate));
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    logs.add(mapResultSetToAttendanceLog(rs));
+                }
+            }
+        }
+        
+        return logs;
+    }
+    
+    /**
+     * Get attendance logs by activity
+     * 
+     * @param activity Activity name to filter by
+     * @return List of attendance logs for the activity
+     * @throws SQLException if database error occurs
+     */
+    public List<AttendanceLog> getAttendanceByActivity(String activity) throws SQLException {
+        String sql = "SELECT a.log_id, a.person_id, a.event_time, a.event_type, " +
+                    "a.camera_id, a.confidence, a.activity, u.full_name " +
+                    "FROM attendance_logs a " +
+                    "LEFT JOIN persons u ON a.person_id = u.person_id " +
+                    "WHERE a.activity = ? " +
+                    "ORDER BY a.event_time DESC";
+        
+        List<AttendanceLog> logs = new ArrayList<>();
+        
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, activity);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    logs.add(mapResultSetToAttendanceLog(rs));
+                }
+            }
+        }
+        
+        return logs;
+    }
+    
+    /**
+     * Helper method to map ResultSet row to AttendanceLog
+     */
+    private AttendanceLog mapResultSetToAttendanceLog(ResultSet rs) throws SQLException {
+        int logId = rs.getInt("log_id");
+        int userId = rs.getInt("person_id");
+        String userName = rs.getString("full_name");
+        LocalDateTime eventTime = rs.getTimestamp("event_time").toLocalDateTime();
+        String eventType = rs.getString("event_type");
+        String activity = rs.getString("activity");
+        String cameraId = rs.getString("camera_id");
+        double confidence = rs.getDouble("confidence");
+        
+        return new AttendanceLog(logId, userId, userName, eventTime, 
+                                eventType, activity, cameraId, confidence);
+    }
 }
