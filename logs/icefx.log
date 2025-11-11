@@ -1907,3 +1907,192 @@ javafx.fxml.LoadException: Error resolving onAction='#handleAddUser', either the
 2025-11-11 17:00:11.486 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
 2025-11-11 17:00:11.487 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
 2025-11-11 17:00:11.487 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-11 17:10:32.286 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-11 17:10:32.327 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-11 17:10:32.328 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-11 17:10:32.331 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-11 17:10:32.331 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-11 17:10:32.487 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-11 17:10:32.489 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 17:10:32.490 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-11 17:10:32.563 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:32.564 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 17:10:32.564 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:32.565 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 17:10:32.566 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 17:10:32.566 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 17:10:32.567 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 17:10:32.568 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 17:10:32.568 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 17:10:35.977 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-11 17:10:35.977 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:35.978 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-11 17:10:36.020 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-11 17:10:36.708 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-11 17:10:36.710 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 17:10:36.710 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-11 17:10:36.714 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-11 17:10:38.395 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-11 17:10:51.293 [Thread-2] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-11 17:10:51.425 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-11 17:10:52.189 [Thread-2] INFO  com.zaxxer.hikari.pool.HikariPool - IceFX-MySQL - Added connection com.mysql.cj.jdbc.ConnectionImpl@221cb350
+2025-11-11 17:10:52.197 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Start completed.
+2025-11-11 17:10:52.198 [Thread-2] INFO  com.icefx.config.DatabaseConfig - ✅ Database connection pool initialized (IceFX-MySQL)
+2025-11-11 17:10:52.751 [Thread-2] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: ADMIN001
+2025-11-11 17:10:52.772 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: ADMIN001 (Role: Administrator)
+2025-11-11 17:10:52.779 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user ADMIN001 (ADMIN)
+2025-11-11 17:10:52.795 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 17:10:52.799 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-11 17:10:52.833 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade16803272107639932241.xml
+2025-11-11 17:10:53.091 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-11 17:10:53.092 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-11 17:10:53.092 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-11 17:10:53.416 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-11 17:10:53.422 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-11 17:10:53.422 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-11 17:10:53.432 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-11 17:10:53.432 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-11 17:10:53.439 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-11 17:10:53.441 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-11 17:10:53.446 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-11 17:10:53.475 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:53.476 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-11 17:10:53.477 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:53.478 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-11 17:10:53.480 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-11 17:10:53.481 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-11 17:10:53.482 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-11 17:10:53.482 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-11 17:10:53.482 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-11 17:10:53.504 [JavaFX Application Thread] ERROR c.icefx.controller.LoginController - Error navigating to dashboard
+javafx.fxml.LoadException: 
+/home/josh/IceFX/target/classes/com/icefx/view/AdminPanel.fxml:189
+
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2670)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.loadDashboard(LoginController.java:197)
+	at com.icefx.controller.LoginController.handleSuccessfulLogin(LoginController.java:181)
+	at com.icefx.controller.LoginController.lambda$handleLogin$1(LoginController.java:133)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[189,32]
+Message: The entity name must immediately follow the '&' in the entity reference.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2640)
+	... 12 common frames omitted
+2025-11-11 17:10:53.524 [JavaFX Application Thread] WARN  c.icefx.controller.LoginController - Login error shown to user: Failed to load dashboard: 
+/home/josh/IceFX/target/classes/com/icefx/view/AdminPanel.fxml:189
+
+2025-11-11 17:10:53.524 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:10:56.669 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-11 17:10:56.669 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-11 17:10:56.670 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-11 17:10:56.705 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-11 17:10:57.210 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-11 17:10:57.212 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 17:10:57.212 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-11 17:10:57.214 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-11 17:10:58.678 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-11 17:11:05.482 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-11 17:11:05.482 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-11 17:11:05.483 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-11 17:11:05.489 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:11:05.490 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-11 17:11:05.492 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-11 17:11:05.492 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-11 17:11:05.492 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-11 17:11:05.492 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:11:05.492 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-11 17:11:09.476 [Thread-3] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-11 17:11:09.612 [Thread-3] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: ADMIN001
+2025-11-11 17:11:09.614 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: ADMIN001 (Role: Administrator)
+2025-11-11 17:11:09.615 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user ADMIN001 (ADMIN)
+2025-11-11 17:11:09.626 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-11 17:11:09.626 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-11 17:11:09.655 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade17874284708282414443.xml
+2025-11-11 17:11:09.686 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-11 17:11:09.686 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-11 17:11:09.686 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-11 17:11:09.717 [JavaFX Application Thread] ERROR c.icefx.controller.LoginController - Error navigating to dashboard
+javafx.fxml.LoadException: 
+/home/josh/IceFX/target/classes/com/icefx/view/AdminPanel.fxml:189
+
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2670)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.loadDashboard(LoginController.java:197)
+	at com.icefx.controller.LoginController.handleSuccessfulLogin(LoginController.java:181)
+	at com.icefx.controller.LoginController.lambda$handleLogin$1(LoginController.java:133)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[189,32]
+Message: The entity name must immediately follow the '&' in the entity reference.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2640)
+	... 12 common frames omitted
+2025-11-11 17:11:09.718 [JavaFX Application Thread] WARN  c.icefx.controller.LoginController - Login error shown to user: Failed to load dashboard: 
+/home/josh/IceFX/target/classes/com/icefx/view/AdminPanel.fxml:189
+
+2025-11-11 17:11:09.718 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:11:45.852 [Thread-4] INFO  c.icefx.controller.LoginController - Attempting authentication for user: STU001
+2025-11-11 17:11:46.000 [Thread-4] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: STU001
+2025-11-11 17:11:46.001 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: STU001 (Role: Student)
+2025-11-11 17:11:46.001 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user STU001 (STUDENT)
+2025-11-11 17:11:47.405 [JavaFX Application Thread] ERROR c.icefx.controller.LoginController - Error navigating to dashboard
+javafx.fxml.LoadException: 
+/home/josh/IceFX/target/classes/com/icefx/view/Dashboard.fxml:50
+
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2705)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.loadDashboard(LoginController.java:197)
+	at com.icefx.controller.LoginController.handleSuccessfulLogin(LoginController.java:181)
+	at com.icefx.controller.LoginController.lambda$handleLogin$1(LoginController.java:133)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.layout.StackPane field com.icefx.controller.DashboardController.loadingOverlay to javafx.scene.layout.VBox
+	at java.base/jdk.internal.reflect.FieldAccessorImpl.throwSetIllegalArgumentException(FieldAccessorImpl.java:228)
+	at java.base/jdk.internal.reflect.FieldAccessorImpl.throwSetIllegalArgumentException(FieldAccessorImpl.java:232)
+	at java.base/jdk.internal.reflect.MethodHandleObjectFieldAccessorImpl.set(MethodHandleObjectFieldAccessorImpl.java:115)
+	at java.base/java.lang.reflect.Field.set(Field.java:836)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1180)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:870)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:764)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2858)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2654)
+	... 12 common frames omitted
+2025-11-11 17:11:47.406 [JavaFX Application Thread] WARN  c.icefx.controller.LoginController - Login error shown to user: Failed to load dashboard: 
+/home/josh/IceFX/target/classes/com/icefx/view/Dashboard.fxml:50
+
+2025-11-11 17:11:47.407 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:12:49.798 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-11 17:12:49.798 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-11 17:12:49.798 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-11 17:12:49.798 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:12:49.799 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-11 17:12:49.799 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-11 17:12:49.800 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-11 17:12:49.800 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-11 17:12:49.800 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-11 17:12:49.800 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed

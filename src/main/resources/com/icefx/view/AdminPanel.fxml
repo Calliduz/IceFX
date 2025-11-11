@@ -7,7 +7,8 @@
 <BorderPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icefx.controller.AdminController"
             styleClass="root-container"
-            stylesheets="@../styles/enterprise-theme.css">
+            stylesheets="@../styles/enterprise-theme.css"
+            prefHeight="800" prefWidth="1400">
 
     <top>
         <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="20">
@@ -33,123 +34,145 @@
     </top>
 
     <center>
-        <HBox spacing="20" styleClass="content-area">
+        <HBox spacing="24" styleClass="content-area">
             <padding>
-                <Insets topRightBottomLeft="20"/>
+                <Insets topRightBottomLeft="24"/>
             </padding>
 
-            <VBox spacing="16" HBox.hgrow="ALWAYS">
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
                 
                 <HBox spacing="16">
                     <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
                         <Label text="Total Users" styleClass="stat-label"/>
-                        <Label fx:id="userCountLabel" text="0" styleClass="stat-value"/>
+                        <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
                     </VBox>
                     
                     <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
-                        <Label text="Selected User" styleClass="stat-label"/>
-                        <Label fx:id="selectedUserLabel" text="None" styleClass="stat-value-small"/>
+                        <Label text="Active Users" styleClass="stat-label"/>
+                        <Label fx:id="activeUsersLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="card, stat-card" HBox.hgrow="ALWAYS" spacing="8">
+                        <Label text="Administrators" styleClass="stat-label"/>
+                        <Label fx:id="adminCountLabel" text="0" styleClass="stat-value"/>
                     </VBox>
                 </HBox>
 
-                <VBox styleClass="card" spacing="12" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
                     <HBox alignment="CENTER_LEFT" spacing="12">
                         <Label text="User Management" styleClass="card-title" HBox.hgrow="ALWAYS"/>
-                        <Button text="➕ Add User" styleClass="btn, btn-primary, btn-sm" onAction="#handleAddUser"/>
+                        <Button text="➕ Add" styleClass="btn, btn-primary, btn-sm" onAction="#handleAdd"/>
+                        <Button text="🔄 Refresh" styleClass="btn, btn-outlined, btn-sm" onAction="#handleRefresh"/>
+                    </HBox>
+                    
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <TextField fx:id="searchField" promptText="Search by name or code..." 
+                                   styleClass="form-input" HBox.hgrow="ALWAYS" prefWidth="300"/>
+                        <ComboBox fx:id="roleFilterComboBox" promptText="Filter by role" 
+                                  styleClass="form-input" prefWidth="150"/>
                     </HBox>
                     
                     <TableView fx:id="userTable" styleClass="modern-table" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100"/>
-                            <TableColumn fx:id="userNameColumn" text="Name" prefWidth="150"/>
+                            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="userCodeColumn" text="User Code" prefWidth="120"/>
+                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="180"/>
+                            <TableColumn fx:id="emailColumn" text="Department" prefWidth="150"/>
                             <TableColumn fx:id="roleColumn" text="Role" prefWidth="100"/>
                             <TableColumn fx:id="statusColumn" text="Status" prefWidth="80"/>
-                            <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="150"/>
                         </columns>
                         <placeholder>
                             <VBox alignment="CENTER" spacing="12" style="-fx-padding: 60px;">
                                 <Label text="👥" style="-fx-font-size: 48px; -fx-opacity: 0.3;"/>
                                 <Label text="No users found" styleClass="text-muted" style="-fx-font-size: 16px;"/>
-                                <Label text="Click 'Add User' to create your first user" styleClass="text-muted"/>
+                                <Label text="Click 'Add' to create your first user" styleClass="text-muted"/>
                             </VBox>
                         </placeholder>
                     </TableView>
                 </VBox>
             </VBox>
 
-            <VBox spacing="16" prefWidth="400" minWidth="400" maxWidth="400">
+            <VBox spacing="20" prefWidth="420" minWidth="420" maxWidth="420">
                 
                 <VBox styleClass="card" spacing="16">
                     <Label text="User Details" styleClass="card-title"/>
                     
-                    <VBox spacing="8">
-                        <Label text="User ID" styleClass="form-label"/>
-                        <TextField fx:id="userIdField" styleClass="form-input" promptText="e.g., STU001"/>
+                    <VBox spacing="10">
+                        <Label text="User Code" styleClass="form-label"/>
+                        <TextField fx:id="userCodeField" styleClass="form-input" promptText="e.g., STU001"/>
                     </VBox>
                     
-                    <VBox spacing="8">
+                    <VBox spacing="10">
                         <Label text="Full Name" styleClass="form-label"/>
                         <TextField fx:id="nameField" styleClass="form-input" promptText="Enter full name"/>
                     </VBox>
                     
-                    <VBox spacing="8">
+                    <VBox spacing="10">
+                        <Label text="Department" styleClass="form-label"/>
+                        <TextField fx:id="emailField" styleClass="form-input" promptText="Department or Email"/>
+                    </VBox>
+                    
+                    <VBox spacing="10">
                         <Label text="Password" styleClass="form-label"/>
                         <PasswordField fx:id="passwordField" styleClass="form-input" promptText="Enter password"/>
                     </VBox>
                     
-                    <VBox spacing="8">
+                    <VBox spacing="10">
                         <Label text="Role" styleClass="form-label"/>
                         <ComboBox fx:id="roleComboBox" styleClass="form-input" maxWidth="Infinity"/>
                     </VBox>
                     
-                    <VBox spacing="8">
+                    <VBox spacing="10">
                         <Label text="Status" styleClass="form-label"/>
                         <ComboBox fx:id="statusComboBox" styleClass="form-input" maxWidth="Infinity"/>
                     </VBox>
                     
+                    <Separator/>
+                    
                     <HBox spacing="12">
-                        <Button text="💾 Save" styleClass="btn, btn-success" onAction="#handleSaveUser" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                        <Button text="🗑️ Delete" styleClass="btn, btn-error" onAction="#handleDeleteUser" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                        <Button text="Clear" styleClass="btn, btn-outlined" onAction="#handleClearForm" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button fx:id="updateButton" text="💾 Update" styleClass="btn, btn-success" onAction="#handleUpdate" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true"/>
+                        <Button fx:id="deleteButton" text="🗑️ Delete" styleClass="btn, btn-error" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" disable="true"/>
                     </HBox>
+                    
+                    <Button fx:id="clearButton" text="Clear Form" styleClass="btn, btn-outlined" onAction="#handleClear" maxWidth="Infinity"/>
                 </VBox>
 
                 <VBox styleClass="card" spacing="16" VBox.vgrow="ALWAYS">
                     <Label text="Face Training" styleClass="card-title"/>
                     
                     <HBox spacing="12">
-                        <VBox styleClass="info-box" HBox.hgrow="ALWAYS" spacing="4">
-                            <Label text="Total Faces" styleClass="text-muted" style="-fx-font-size: 11px;"/>
-                            <Label fx:id="totalFacesLabel" text="0" styleClass="text-large" style="-fx-font-weight: bold;"/>
-                        </VBox>
-                        
-                        <VBox styleClass="info-box" HBox.hgrow="ALWAYS" spacing="4">
-                            <Label text="Last Trained" styleClass="text-muted" style="-fx-font-size: 11px;"/>
-                            <Label fx:id="lastTrainedLabel" text="Never" styleClass="text-small" style="-fx-font-weight: bold;"/>
+                        <VBox styleClass="info-box" HBox.hgrow="ALWAYS" spacing="6" alignment="CENTER">
+                            <Label text="Model Status" styleClass="text-muted" style="-fx-font-size: 11px;"/>
+                            <Label fx:id="modelStatusLabel" text="✗ No Model" styleClass="text-small" style="-fx-font-weight: bold;"/>
                         </VBox>
                     </HBox>
                     
-                    <VBox fx:id="trainingProgressBox" spacing="8" visible="false" managed="false">
-                        <Label text="Training in progress..." styleClass="text-muted"/>
-                        <ProgressBar fx:id="trainingProgress" maxWidth="Infinity" progress="0"/>
+                    <VBox spacing="8">
+                        <Label fx:id="trainingStatusLabel" text="Ready to train" styleClass="text-muted" style="-fx-font-size: 12px;"/>
+                        <ProgressBar fx:id="trainingProgressBar" maxWidth="Infinity" progress="0" visible="false"/>
                     </VBox>
                     
-                    <VBox spacing="8" styleClass="info-box">
+                    <Separator/>
+                    
+                    <VBox spacing="10" styleClass="info-box">
                         <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="ℹ️" style="-fx-font-size: 16px;"/>
-                            <Label text="Face Training Information" styleClass="text-small" style="-fx-font-weight: bold;"/>
+                            <Label text="ℹ️" style="-fx-font-size: 18px;"/>
+                            <Label text="Training Instructions" styleClass="text-small" style="-fx-font-weight: 600;"/>
                         </HBox>
-                        <Label text="• Select a user from the table" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
-                        <Label text="• Capture multiple face samples" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
-                        <Label text="• Train the recognition model" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
+                        <Label text="1. Prepare face images in a directory" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
+                        <Label text="2. Organize by user ID subdirectories" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
+                        <Label text="3. Click 'Train Model' to select directory" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
+                        <Label text="4. Save/Load trained models as needed" styleClass="text-muted" style="-fx-font-size: 12px;" wrapText="true"/>
                     </VBox>
                     
                     <Region VBox.vgrow="ALWAYS"/>
                     
                     <VBox spacing="12">
-                        <Button text="📸 Capture Face" styleClass="btn, btn-primary" onAction="#handleCaptureFace" maxWidth="Infinity"/>
-                        <Button text="🎯 Train Model" styleClass="btn, btn-success" onAction="#handleTrainModel" maxWidth="Infinity"/>
-                        <Button text="🔄 Retrain All" styleClass="btn, btn-warning" onAction="#handleRetrainAll" maxWidth="Infinity"/>
+                        <Button fx:id="trainButton" text="🎯 Train Model" styleClass="btn, btn-success" onAction="#handleTrainModel" maxWidth="Infinity"/>
+                        <HBox spacing="12">
+                            <Button fx:id="saveModelButton" text="💾 Save" styleClass="btn, btn-outlined" onAction="#handleSaveModel" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                            <Button fx:id="loadModelButton" text="📂 Load" styleClass="btn, btn-outlined" onAction="#handleLoadModel" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
                     </VBox>
                 </VBox>
             </VBox>
@@ -163,7 +186,7 @@
             </padding>
             <Label text="IceFX Administration Panel v2.0" styleClass="footer-text"/>
             <Label text="•" styleClass="footer-text"/>
-            <Label text="User & Face Management System" styleClass="footer-text"/>
+            <Label text="User &amp; Face Management System" styleClass="footer-text"/>
         </HBox>
     </bottom>
 
