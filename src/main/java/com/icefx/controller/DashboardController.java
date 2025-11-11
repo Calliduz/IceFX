@@ -1,5 +1,6 @@
 package com.icefx.controller;
 
+import com.icefx.config.AppConfig;
 import com.icefx.dao.AttendanceDAO;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.AttendanceLog;
@@ -69,11 +70,12 @@ public class DashboardController {
     private ObservableList<AttendanceLog> attendanceData;
     private User currentUser; // The logged-in user
     
-    // Configuration
-    private static final int CAMERA_INDEX = 0;
-    private static final int CAMERA_FPS = 30;
-    private static final String CASCADE_PATH = "resources/haar/haarcascade_frontalface_default.xml";
-    private static final String MODEL_PATH = "resources/trained_faces.xml";
+    // Configuration (loaded from AppConfig)
+    private final int cameraIndex = AppConfig.getInt("camera.index", 0);
+    private final int cameraFps = AppConfig.getInt("camera.fps", 30);
+    private final String cascadePath = AppConfig.get("recognition.haar.cascade",
+        "resources/haar/haarcascade_frontalface_default.xml");
+    private final String modelPath = AppConfig.getModelPath();
     
     /**
      * Initialize the controller.
@@ -89,13 +91,13 @@ public class DashboardController {
             
             // Initialize services
             attendanceService = new AttendanceService(attendanceDAO, userDAO);
-            faceRecognitionService = new FaceRecognitionService(userDAO, CASCADE_PATH);
+            faceRecognitionService = new FaceRecognitionService(userDAO, cascadePath);
             
             // Load trained model
             loadFaceRecognitionModel();
             
             // Initialize camera service
-            cameraService = new CameraService(CAMERA_INDEX, CAMERA_FPS);
+            cameraService = new CameraService(cameraIndex, cameraFps);
             
             // Set up UI bindings
             setupUIBindings();
@@ -126,8 +128,8 @@ public class DashboardController {
      */
     private void loadFaceRecognitionModel() {
         try {
-            logger.info("Loading face recognition model from: {}", MODEL_PATH);
-            faceRecognitionService.loadModel(MODEL_PATH);
+            logger.info("Loading face recognition model from: {}", modelPath);
+            faceRecognitionService.loadModel(modelPath);
             logger.info("✅ Face recognition model loaded successfully");
         } catch (Exception e) {
             logger.warn("Failed to load face recognition model: {}", e.getMessage());

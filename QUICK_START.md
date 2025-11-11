@@ -60,7 +60,7 @@ IceFX supports MySQL or SQLite. The application creates `~/.icefx/config.propert
 1. Capture 5–10 clear photos per user.
 2. Store them under `faces/<userId>/face_<timestamp>.png`.
 3. Launch the app, log in as an Admin, and use the **Train Model** action to build the LBPH model.
-4. Save the model to the path configured by `recognition.model.path` (default `models/trained_faces.xml`).
+4. Save the model to the path configured by `recognition.model.path` (default `resources/trained_faces.xml`).
 
 ---
 

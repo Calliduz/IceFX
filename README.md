@@ -109,7 +109,7 @@ camera.fps=30
 # Recognition tuning
 recognition.confidence.threshold=80.0
 recognition.debounce.millis=3000
-recognition.model.path=models/trained_faces.xml
+recognition.model.path=resources/trained_faces.xml
 ```
 
 Change values and restart the application. The `AppConfig` utility handles reloads safely.

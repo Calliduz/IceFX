@@ -32,6 +32,7 @@ public class AppConfig {
     private static final String DEFAULT_CAMERA_INDEX = "0";
     private static final String DEFAULT_CONFIDENCE_THRESHOLD = "80.0";
     private static final String DEFAULT_DEBOUNCE_TIME = "3000";
+    private static final String DEFAULT_MODEL_PATH = "resources/trained_faces.xml";
     
     /**
      * Initialize configuration - load from file or create defaults
@@ -107,9 +108,9 @@ public class AppConfig {
         properties.setProperty("camera.fps", "30");
         
         // Recognition configuration
-        properties.setProperty("recognition.confidence.threshold", DEFAULT_CONFIDENCE_THRESHOLD);
-        properties.setProperty("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME);
-        properties.setProperty("recognition.model.path", "models/trained_faces.xml");
+    properties.setProperty("recognition.confidence.threshold", DEFAULT_CONFIDENCE_THRESHOLD);
+    properties.setProperty("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME);
+    properties.setProperty("recognition.model.path", DEFAULT_MODEL_PATH);
         properties.setProperty("recognition.haar.cascade", "resources/haar/haarcascade_frontalface_default.xml");
         
         // Attendance configuration
@@ -213,6 +214,10 @@ public class AppConfig {
     
     public static long getDebounceMillis() {
         return Long.parseLong(get("recognition.debounce.millis", DEFAULT_DEBOUNCE_TIME));
+    }
+
+    public static String getModelPath() {
+        return get("recognition.model.path", DEFAULT_MODEL_PATH);
     }
     
     /**
