@@ -40,6 +40,15 @@ public class LoginController {
     
     private UserService userService;
     private UserDAO userDAO;
+    private Stage primaryStage;
+    
+    /**
+     * Set the primary stage reference
+     * @param stage The primary application stage
+     */
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
+    }
     
     /**
      * Initialize the controller.
