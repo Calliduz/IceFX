@@ -1,326 +1,99 @@
-# 🚀 IceFX Quick Start Guide
+# IceFX Quick Start Guide
 
-## ⚡ Instant Run
+This guide walks you through running the modernized IceFX attendance system with JDK 23.
 
+---
+
+## 1. Clone and Build
 ```bash
-cd /home/josh/IceFX
+git clone https://github.com/Calliduz/IceFX.git
+cd IceFX
+mvn clean compile
+```
+
+Run the application with:
+```bash
 mvn javafx:run
 ```
 
----
-
-## ✅ What's Completed
-
-### All 5 Implementation Tasks ✅
-
-1. ✅ **DashboardController** (470 lines) - Camera + Face Recognition + Attendance
-2. ✅ **Dashboard.fxml** - Modern Material Design UI
-3. ✅ **AdminController** (600+ lines) - User CRUD + Face Training
-4. ✅ **AdminPanel.fxml** - Comprehensive Admin Interface
-5. ✅ **CSS Themes** - Dark & Light Professional Styling
-
-### Build Status ✅
-
-```
-Source Files:    33 ✅
-Resources:       28 ✅
-Build Time:      ~6 seconds ✅
-Errors:          0 ✅
-Status:          PRODUCTION READY ✅
-```
-
----
-
-## 📁 New Files Created Today
-
-### Controllers
-
-- `src/main/java/com/icefx/controller/AdminController.java`
-
-### UI Layouts
-
-- `src/main/resources/com/icefx/view/AdminPanel.fxml`
-
-### Themes
-
-- `src/main/resources/com/icefx/styles/dark-theme.css`
-- `src/main/resources/com/icefx/styles/light-theme.css`
-
-### Documentation
-
-- `FINAL_SUMMARY.md`
-
----
-
-## 🎯 Testing Checklist
-
-### 1. Build & Run ✅
-
+Package an executable JAR with:
 ```bash
-mvn clean compile  # Should show: BUILD SUCCESS
-mvn javafx:run     # Should launch application
-```
-
-### 2. Login Test
-
-- [ ] Enter user code and password
-- [ ] Click Login (or press Enter)
-- [ ] Should navigate to Dashboard or Admin Panel
-- [ ] Test error handling with wrong credentials
-
-### 3. Dashboard Test (STAFF/STUDENT users)
-
-- [ ] Click "▶ Start Camera"
-- [ ] Verify live feed appears
-- [ ] Check FPS counter (~30)
-- [ ] Click "⏸ Stop Camera"
-- [ ] Test Refresh button
-
-### 4. Admin Panel Test (ADMIN users)
-
-- [ ] View user table
-- [ ] Test search functionality
-- [ ] Filter by role
-- [ ] Add new user
-- [ ] Update existing user
-- [ ] Delete user (confirms first)
-- [ ] Try face model training (requires images)
-
-### 5. Database Verification
-
-```sql
-USE facial_attendance;
-SELECT * FROM users;
-SELECT * FROM attendance_records ORDER BY timestamp DESC;
-```
-
----
-
-## 🎨 Theme Usage
-
-### Apply Dark Theme
-
-```java
-scene.getStylesheets().add(
-    getClass().getResource("/com/icefx/styles/dark-theme.css").toExternalForm()
-);
-```
-
-### Apply Light Theme
-
-```java
-scene.getStylesheets().add(
-    getClass().getResource("/com/icefx/styles/light-theme.css").toExternalForm()
-);
-```
-
----
-
-## 🔧 Configuration
-
-### Database
-
-Edit `src/main/java/com/icefx/util/DatabaseUtil.java`:
-
-```java
-URL = "jdbc:mysql://localhost:3306/facial_attendance"
-USER = "root"
-PASSWORD = "your_password"
-```
-
-### Camera
-
-Edit `DashboardController.java`:
-
-```java
-CAMERA_INDEX = 0  // Change if needed
-```
-
-### Recognition
-
-Edit `FaceRecognitionService.java`:
-
-```java
-CONFIDENCE_THRESHOLD = 80.0  // 0-100
-DEBOUNCE_MILLIS = 3000       // 3 seconds
-```
-
----
-
-## 📊 Architecture
-
-```
-Login → (ADMIN) → Admin Panel → User Management + Face Training
-      ↓
-      (STAFF/STUDENT) → Dashboard → Camera → Recognition → Attendance
-```
-
----
-
-## 🐛 Quick Troubleshooting
-
-### Camera Not Working
-
-```bash
-# Check logs
-tail -f logs/icefx.log
-
-# Try different camera index
-# Edit DashboardController.java: CAMERA_INDEX = 1
-```
-
-### Database Connection Failed
-
-```sql
-# Verify MySQL is running
-sudo systemctl status mysql
-
-# Test connection
-mysql -u root -p
-```
-
-### Build Errors
-
-```bash
-# Clean and rebuild
-mvn clean compile
-
-# Check Java version
-java -version  # Should be 17+
-```
-
----
-
-## 📈 Performance Targets
-
-| Metric      | Target  | Status      |
-| ----------- | ------- | ----------- |
-| Build Time  | < 10s   | ✅ 6s       |
-| Camera FPS  | 30 FPS  | ✅ ~30      |
-| Recognition | < 100ms | ✅ Fast     |
-| DB Queries  | < 100ms | ✅ Fast     |
-| Memory      | Stable  | ✅ No leaks |
-| Crashes     | Zero    | ✅ Stable   |
-
----
-
-## 🎓 Face Training
-
-### Prepare Images
-
-```
-faces/
-├── 1/          # User ID from database
-│   ├── 1.jpg
-│   ├── 2.jpg
-│   └── 3.jpg
-├── 2/
-│   └── ...
-```
-
-### Train Model
-
-1. Open Admin Panel
-2. Click "🎓 Train Model"
-3. Select `faces/` directory
-4. Wait for training
-5. Click "💾 Save" to persist
-
----
-
-## 📝 Next Steps
-
-### Immediate (Ready Now)
-
-1. ✅ Test with real database
-2. ✅ Test all CRUD operations
-3. ✅ Train face model
-4. ⏳ Run 30-minute stability test
-
-### Optional Enhancements
-
-- Theme switcher UI
-- Export reports (PDF/Excel)
-- Email notifications
-- Advanced statistics
-- Schedule integration
-
----
-
-## 📞 Key Commands
-
-```bash
-# Build
-mvn clean compile
-
-# Run
-mvn javafx:run
-
-# Package
 mvn package
-
-# View logs
-tail -f logs/icefx.log
-
-# Check for crashes
-ls -la hs_err_pid*.log
+java -jar target/IceFX-1.0.0.jar
 ```
 
 ---
 
-## ✨ Features Summary
+## 2. Configure the Database
+IceFX supports MySQL or SQLite. The application creates `~/.icefx/config.properties` on the first launch.
 
-### Authentication ✅
+### MySQL
+1. Create the schema:
+   ```bash
+   mysql -u root -p
+   ```
+   ```sql
+   CREATE DATABASE facial_attendance CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   SOURCE facial_attendance\ May\ 18\ 2025,\ 3.45AM.sql;
+   ```
+2. Update these keys in `~/.icefx/config.properties`:
+   ```properties
+   db.type=mysql
+   db.mysql.host=localhost
+   db.mysql.port=3306
+   db.mysql.database=facial_attendance
+   db.mysql.username=root
+   db.mysql.password=secret
+   ```
 
-- BCrypt password hashing
-- Role-based access (ADMIN/STAFF/STUDENT)
-- Session management
-
-### Dashboard ✅
-
-- Live camera feed (30 FPS)
-- Real-time face recognition
-- Auto attendance logging
-- Statistics (today/week)
-- Color-coded status
-
-### Admin Panel ✅
-
-- User CRUD operations
-- Search and filtering
-- Password management
-- Face model training
-- Model save/load
-- Statistics dashboard
-
-### UI/UX ✅
-
-- Material Design
-- Dark & Light themes
-- Responsive layouts
-- Error feedback
-- Progress indicators
+### SQLite (portable)
+1. Opt-in via configuration:
+   ```properties
+   db.type=sqlite
+   db.sqlite.path=data/facial_attendance.db
+   ```
+2. Ensure the `data/` directory is writable. The file is created automatically on first run.
 
 ---
 
-## 🏆 Status: COMPLETE
-
-**All todo list items implemented!** ✅
-
-The system is production-ready with:
-
-- 33 source files compiled ✅
-- 28 resources bundled ✅
-- 3 controllers (Login, Dashboard, Admin) ✅
-- 3 FXML layouts ✅
-- 2 CSS themes ✅
-- 5 services (complete) ✅
-- Zero errors ✅
-
-**Ready for deployment!** 🚀
+## 3. Prepare Face Data
+1. Capture 5–10 clear photos per user.
+2. Store them under `faces/<userId>/face_<timestamp>.png`.
+3. Launch the app, log in as an Admin, and use the **Train Model** action to build the LBPH model.
+4. Save the model to the path configured by `recognition.model.path` (default `models/trained_faces.xml`).
 
 ---
 
-**Version:** 2.0  
-**Build Status:** ✅ SUCCESS  
-**Last Updated:** November 11, 2025
+## 4. Login Roles
+| Role | Default Capabilities |
+|------|----------------------|
+| Admin | User management, face training, reports |
+| Staff | Attendance dashboard, manual overrides |
+| Student | Self check-in and history view |
+
+Use the Admin panel to manage accounts, reset passwords, and assign roles.
+
+---
+
+## 5. Test Checklist
+- [ ] Application launches without errors (`mvn javafx:run`).
+- [ ] Login succeeds with known credentials.
+- [ ] Camera starts and shows live preview.
+- [ ] Recognized users are logged in attendance (`attendance_logs`).
+- [ ] Admin panel CRUD actions work (add/update/deactivate/delete).
+- [ ] CSV export and reports run without exceptions.
+
+Run the automated tests with:
+```bash
+mvn test
+```
+
+---
+
+## 6. Troubleshooting
+- **Camera missing**: adjust `camera.index` in the config, verify `/dev/video*` on Linux, or test with another webcam.
+- **OpenCV load failure**: run `mvn clean install`, clear the BYTEDeco cache (`rm -rf ~/.m2/repository/org/bytedeco`), ensure the JDK architecture matches the OS.
+- **DB connection errors**: test credentials manually (`mysql -u user -p`), confirm network access, or switch to SQLite for offline use.
+- **Slow recognition**: reduce resolution (e.g., 320x240), ensure good lighting, retrain the model, or tune `recognition.confidence.threshold`.
+
+For deeper context, see `README.md` and the inline JavaDocs across controllers, services, and DAO classes.
