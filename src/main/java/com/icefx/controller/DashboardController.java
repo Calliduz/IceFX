@@ -8,6 +8,7 @@ import com.icefx.model.User;
 import com.icefx.service.AttendanceService;
 import com.icefx.service.CameraService;
 import com.icefx.service.FaceRecognitionService;
+import com.icefx.util.ModernToast;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -116,10 +117,11 @@ public class DashboardController {
             }
             
             logger.info("✅ DashboardController initialized successfully");
+            ModernToast.success("Dashboard loaded successfully!");
             
         } catch (Exception e) {
             logger.error("Failed to initialize DashboardController", e);
-            showError("Failed to initialize dashboard: " + e.getMessage());
+            ModernToast.error("Failed to initialize dashboard: " + e.getMessage());
         }
     }
     
@@ -305,8 +307,8 @@ public class DashboardController {
                 
                 Platform.runLater(() -> {
                     if (result.isSuccess()) {
-                        showSuccess(String.format(
-                            "✅ Welcome, %s!\nAttendance logged successfully.",
+                        ModernToast.success(String.format(
+                            "Welcome, %s! Attendance logged successfully.",
                             recognition.getUserName()
                         ));
                         
@@ -315,19 +317,19 @@ public class DashboardController {
                         updateStatistics();
                         
                     } else if (result.getStatus() == AttendanceService.AttendanceResult.Status.DUPLICATE) {
-                        showInfo(String.format(
-                            "👋 Welcome back, %s!\nYou already checked in recently.",
+                        ModernToast.info(String.format(
+                            "Welcome back, %s! You already checked in recently.",
                             recognition.getUserName()
                         ));
                     } else {
-                        showWarning("Failed to log attendance: " + result.getMessage());
+                        ModernToast.warning("Failed to log attendance: " + result.getMessage());
                     }
                 });
                 
             } catch (Exception e) {
                 logger.error("Error logging attendance", e);
                 Platform.runLater(() -> 
-                    showError("Failed to log attendance: " + e.getMessage())
+                    ModernToast.error("Failed to log attendance: " + e.getMessage())
                 );
             }
         }).start();
@@ -350,7 +352,7 @@ public class DashboardController {
             } catch (Exception e) {
                 logger.error("Error loading attendance records", e);
                 Platform.runLater(() -> 
-                    showError("Failed to load attendance: " + e.getMessage())
+                    ModernToast.error("Failed to load attendance: " + e.getMessage())
                 );
             }
         }).start();
@@ -408,7 +410,7 @@ public class DashboardController {
             
         } catch (Exception e) {
             logger.error("Failed to start camera", e);
-            showError("Failed to start camera: " + e.getMessage());
+            ModernToast.error("Failed to start camera: " + e.getMessage());
         }
     }
     
@@ -436,7 +438,7 @@ public class DashboardController {
             
         } catch (Exception e) {
             logger.error("Failed to stop camera", e);
-            showError("Failed to stop camera: " + e.getMessage());
+            ModernToast.error("Failed to stop camera: " + e.getMessage());
         }
     }
     
@@ -446,6 +448,7 @@ public class DashboardController {
     @FXML
     private void handleRefresh() {
         logger.info("Refreshing attendance data...");
+        ModernToast.info("Refreshing attendance data...");
         loadTodayAttendance();
         updateStatistics();
     }
@@ -469,31 +472,5 @@ public class DashboardController {
         }
         
         logger.info("DashboardController cleanup complete");
-    }
-    
-    // UI Helper Methods
-    
-    private void showSuccess(String message) {
-        showAlert(Alert.AlertType.INFORMATION, "Success", message);
-    }
-    
-    private void showInfo(String message) {
-        showAlert(Alert.AlertType.INFORMATION, "Information", message);
-    }
-    
-    private void showWarning(String message) {
-        showAlert(Alert.AlertType.WARNING, "Warning", message);
-    }
-    
-    private void showError(String message) {
-        showAlert(Alert.AlertType.ERROR, "Error", message);
-    }
-    
-    private void showAlert(Alert.AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.show();
     }
 }

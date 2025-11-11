@@ -1,286 +1,356 @@
-# IceFX Facial Attendance System
+# IceFX Attendance System 🎯
 
-![Version](https://img.shields.io/badge/version-2.0-blue) ![Java](https://img.shields.io/badge/Java-23.0.1-orange) ![JavaFX](https://img.shields.io/badge/JavaFX-23.0.1-green) ![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0-red) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+> **Modern Face Recognition Attendance Management System**  
+> Powered by JavaFX 23 | OpenCV 4.9 | JDK 23.0.1
 
-IceFX is a production-ready facial recognition attendance application built on JavaFX and OpenCV. The latest refactor targets JDK 23.0.1, cleans the architecture, and modernizes the UI for a fast and reliable experience.
+[![Java](https://img.shields.io/badge/Java-23.0.1-orange.svg)](https://openjdk.org/)
+[![JavaFX](https://img.shields.io/badge/JavaFX-23.0.1-blue.svg)](https://openjfx.io/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0-green.svg)](https://opencv.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
----
+## 📋 Overview
 
-## Contents
+IceFX is a professional-grade facial recognition attendance management system built with modern Java technologies. It features a clean, intuitive white-themed UI, real-time face detection, and comprehensive user management capabilities.
 
-- [Highlights](#highlights)
-- [System Requirements](#system-requirements)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Building & Running](#building--running)
-- [Project Layout](#project-layout)
-- [Features](#features)
-- [Face Model Training](#face-model-training)
-- [Troubleshooting](#troubleshooting)
-- [Testing](#testing)
-- [Technology Stack](#technology-stack)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
+### ✨ Key Features
 
----
-
-## Highlights
-
-- Clean layered architecture (controller / service / dao / model / util)
-- Role-aware navigation (Admin, Staff, Student)
-- Real-time camera capture with OpenCV 4.9 via JavaCV 1.5.10
-- Attendance logging backed by MySQL (with optional SQLite portability)
-- Modern JavaFX 23 UI with light and dark themes
-- Centralized configuration using `~/.icefx/config.properties`
-- Hardened native loading and graceful error handling
+- **🎥 Real-Time Face Detection** - Live camera feed with instant face recognition
+- **👤 User Management** - Complete CRUD operations for user accounts
+- **📊 Dashboard Analytics** - Real-time attendance statistics and insights
+- **🎓 Model Training** - Built-in face recognition model training
+- **🔐 Secure Authentication** - BCrypt password hashing
+- **💾 Database Integration** - MySQL/MariaDB with HikariCP connection pooling
+- **🎨 Modern UI** - Clean white design with Material Design principles
+- **📱 Responsive Layout** - Adaptive interface for different screen sizes
 
 ---
 
-## System Requirements
+## 🚀 Quick Start
 
-| Software | Version                | Notes                             |
-| -------- | ---------------------- | --------------------------------- |
-| JDK      | 23.0.1+                | Oracle JDK or Temurin/OpenJDK     |
-| Maven    | 3.9+                   | Used for dependency management    |
-| MySQL    | 8.0+                   | Optional when using MySQL backend |
-| Camera   | 720p USB or integrated | Required for recognition          |
+### Prerequisites
 
-Hardware: 4 GB RAM minimum (8 GB recommended) and 500 MB free disk.
+- **JDK 23.0.1** or later
+- **Maven 3.8+**
+- **MySQL 8.0** or **MariaDB 10.4+**
+- **Webcam** (for face recognition features)
 
----
+### Installation
 
-## Quick Start
+#### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Calliduz/IceFX.git
+git clone https://github.com/yourusername/IceFX.git
 cd IceFX
-mvn clean compile
-mvn javafx:run
 ```
 
-### Database Options
+#### 2. Setup Database
 
-**MySQL (production)**
+```bash
+# Login to MySQL/MariaDB
+mysql -u root -p
 
-1. Create the database and load the schema:
-   ```bash
-   mysql -u root -p
-   ```
-   ```sql
-   CREATE DATABASE facial_attendance CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   SOURCE facial_attendance\ May\ 18\ 2025,\ 3.45AM.sql;
-   ```
-2. Update the configuration file (see [Configuration](#configuration)).
-
-**SQLite (portable)**
-
-1. Ensure the `data` directory exists (created automatically on first run).
-2. Switch to SQLite in the configuration file and point to a writable path, for example `data/facial_attendance.db`.
-
----
-
-## Configuration
-
-IceFX loads settings from `~/.icefx/config.properties`. The file is created on first launch with safe defaults.
-
-Important keys:
-
+# Create database and import schema
+CREATE DATABASE icefx_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE icefx_db;
+SOURCE database_setup_simple.sql;
 ```
-# Application theme
-app.theme=light            # or dark
 
-# Database selection
-db.type=mysql              # mysql or sqlite
-# MySQL connection
-db.mysql.host=localhost
-db.mysql.port=3306
-db.mysql.database=facial_attendance
-db.mysql.username=root
-db.mysql.password=secret
-# SQLite location (used when db.type=sqlite)
-db.sqlite.path=data/facial_attendance.db
+#### 3. Configure Application
 
-# Camera configuration
+Edit `src/main/resources/application.properties` (created on first run):
+
+```properties
+# Database Configuration
+db.url=jdbc:mysql://localhost:3306/icefx_db
+db.username=root
+db.password=yourpassword
+
+# Camera Configuration
 camera.index=0
-camera.width=640
-camera.height=480
 camera.fps=30
 
-# Recognition tuning
-recognition.confidence.threshold=80.0
-recognition.debounce.millis=3000
-recognition.model.path=resources/trained_faces.xml
+# Face Recognition
+recognition.threshold=80.0
+recognition.model.path=models/trained_model.xml
 ```
 
-Change values and restart the application. The `AppConfig` utility handles reloads safely.
+#### 4. Build & Run
+
+```bash
+# Clean and compile
+mvn clean compile
+
+# Run application
+mvn javafx:run
+```
+
+### Default Login Credentials
+
+```
+Username: ADMIN001
+Password: admin123
+```
 
 ---
 
-## Building & Running
+## 📁 Project Structure
+
+```
+IceFX/
+├── src/
+│   ├── main/
+│   │   ├── java/com/icefx/
+│   │   │   ├── config/           # Configuration management
+│   │   │   ├── controller/       # JavaFX controllers
+│   │   │   ├── dao/              # Data access objects
+│   │   │   ├── model/            # Data models
+│   │   │   ├── service/          # Business logic
+│   │   │   ├── util/             # Utility classes
+│   │   │   └── IceFXApplication.java
+│   │   └── resources/
+│   │       ├── com/icefx/
+│   │       │   ├── view/         # FXML layouts
+│   │       │   ├── styles/       # CSS stylesheets
+│   │       │   └── images/       # Application icons
+│   │       ├── haar/             # OpenCV classifiers
+│   │       └── logback.xml       # Logging configuration
+│   └── test/                     # Unit tests
+├── docs/                         # Documentation
+├── database_setup_simple.sql    # Database schema
+├── pom.xml                       # Maven configuration
+└── README.md
+```
+
+---
+
+## 🎨 UI Showcase
+
+### Modern Clean Design
+- **White-dominant theme** with subtle shadows and gradients
+- **Material Design** inspired components
+- **Smooth animations** and transitions
+- **Responsive layouts** that adapt to screen size
+
+### Screens
+1. **Login** - Clean authentication with user code and password
+2. **Dashboard** - Live camera feed with real-time face recognition
+3. **Admin Panel** - Comprehensive user and model management
+
+---
+
+## 🛠️ Technology Stack
+
+### Core Technologies
+- **Java 23.0.1** - Latest LTS with modern language features
+- **JavaFX 23.0.1** - Rich desktop UI framework
+- **Maven 3.8+** - Dependency management and build tool
+
+### Libraries & Frameworks
+- **OpenCV 4.9.0** - Computer vision and face recognition
+- **JavaCV 1.5.10** - Java interface to OpenCV
+- **MySQL Connector 9.1.0** - Database connectivity
+- **HikariCP 6.2.1** - High-performance connection pooling
+- **BCrypt** - Secure password hashing
+- **SLF4J + Logback** - Comprehensive logging
+- **JUnit 5** - Testing framework
+
+---
+
+## 📊 Features in Detail
+
+### Face Recognition System
+- **Haar Cascade** classifiers for face detection
+- **LBPH** (Local Binary Patterns Histograms) recognizer
+- **Confidence threshold** filtering
+- **Debounce logic** to prevent duplicate recognition
+- **Model persistence** for trained data
+
+### User Management
+- **Role-based access** (Admin, User, Student)
+- **Status management** (Active, Inactive, Suspended)
+- **Secure password** hashing with BCrypt cost factor 10
+- **Email validation** and user search
+- **Bulk operations** support
+
+### Attendance Logging
+- **Automatic logging** on face recognition
+- **Timestamp tracking** with timezone support
+- **Confidence score** recording
+- **Duplicate prevention** with configurable cooldown
+- **Export capabilities** (CSV, PDF)
+
+---
+
+## 🔧 Configuration
+
+### Application Config (`~/.icefx/config.properties`)
+
+```properties
+# Database
+db.url=jdbc:mysql://localhost:3306/icefx_db
+db.username=root
+db.password=password
+
+# Camera
+camera.index=0
+camera.fps=30
+camera.width=640
+camera.height=480
+
+# Recognition
+recognition.threshold=80.0
+recognition.model.path=models/trained_model.xml
+recognition.debounce.seconds=5
+
+# UI
+theme=light
+```
+
+### Logging Config (`src/main/resources/logback.xml`)
+
+Customize logging levels, file outputs, and patterns.
+
+---
+
+## 🧪 Testing
 
 ```bash
-# Full build
-mvn clean install
+# Run all tests
+mvn test
 
-# Run with JavaFX plugin
-mvn javafx:run
+# Run specific test
+mvn test -Dtest=UserServiceTest
 
-# Package fat JAR with bundled dependencies
-mvn package
+# Generate coverage report
+mvn clean test jacoco:report
+```
+
+---
+
+## 📦 Building for Production
+
+### Create Executable JAR
+
+```bash
+mvn clean package
+```
+
+Output: `target/IceFX-1.0.0.jar`
+
+### Run JAR
+
+```bash
 java -jar target/IceFX-1.0.0.jar
 ```
 
-Set extra JVM options with `-Djavafx.vmargs`, for example:
+### Platform-Specific Packages
 
 ```bash
-mvn javafx:run -Djavafx.vmargs="-Xmx2g -Dprism.vsync=false"
+# Windows Installer
+mvn jpackage:jpackage -Pwindows
+
+# macOS App
+mvn jpackage:jpackage -Pmacos
+
+# Linux Package
+mvn jpackage:jpackage -Plinux
 ```
 
 ---
 
-## Project Layout
+## 🐛 Troubleshooting
 
+### Common Issues
+
+#### OpenCV Not Loading
 ```
-src/main/java/com/icefx/
-├── IceFXApplication.java      # JavaFX entry point
-├── config/                    # AppConfig, DatabaseConfig
-├── controller/                # JavaFX controllers
-├── dao/                       # Database access objects
-├── model/                     # Entities and observable models
-├── service/                   # Business logic modules
-└── util/                      # Native loader, helpers
-
-src/main/resources/com/icefx/
-├── view/                      # FXML layouts (Login, Dashboard, Admin)
-└── styles/                    # Light and dark CSS themes
-
-faces/                         # Training images (per-user subfolders)
-native/                        # Optional manual native libraries
-resources/trained_faces.xml    # Default recognition model (if present)
+Solution: Ensure OpenCV native libraries are in java.library.path
 ```
 
----
-
-## Features
-
-**Authentication & Roles**
-
-- Secure login with BCrypt hashing
-- Session management with role-based dashboards
-
-**Recognition & Attendance**
-
-- Live preview with FPS indicator
-- LBPH recognition with configurable confidence threshold
-- Automatic attendance logging with duplicate protection
-- CSV export and date-range queries (via services/DAO)
-
-**Administration**
-
-- Manage users (create, update, deactivate, delete)
-- Train, load, and save face recognition models
-- Monitor user statistics and system status
-
-**UI/UX**
-
-- Modern Material-inspired layouts
-- Theme-aware styling (light/dark)
-- Responsive panes sized for 1366x768 and above
-- Toasts, alerts, and progress indicators for feedback
-
----
-
-## Face Model Training
-
-1. Gather face samples per user under `faces/<userId>/face_<n>.png`.
-2. Sign in as an Admin and open the Admin Panel.
-3. Use the training controls to point to the `faces/` directory.
-4. Train the LBPH model and save it to the path configured in `recognition.model.path`.
-5. Distribute the updated model with the application or store it on shared storage.
-
-Tips:
-
-- Capture 5–10 well-lit photos per user.
-- Mix angles and expressions for higher accuracy.
-- Keep backgrounds uncluttered to reduce noise.
-
----
-
-## Troubleshooting
-
-**Camera not detected**
-
-- Verify the device index (`camera.index`).
-- On Linux, check `/dev/video*` and confirm permissions.
-
-**OpenCV native load failure**
-
-- Run `mvn clean install` to re-fetch natives.
-- Clear the JavaCV cache: `rm -rf ~/.m2/repository/org/bytedeco`.
-- Ensure the architecture (x86_64 vs arm64) matches your JDK.
-
-**Database connection errors**
-
-- Confirm credentials in `config.properties`.
-- For MySQL, run `mysql -u user -p -h host` to test connectivity.
-- For SQLite, ensure the path is writable and not on a read-only volume.
-
-**Low recognition accuracy**
-
-- Increase lighting and ensure faces occupy most of the frame.
-- Train with updated samples and re-save the LBPH model.
-- Adjust `recognition.confidence.threshold` (lower values accept more matches).
-
----
-
-## Testing
-
-```bash
-mvn test
+#### Database Connection Failed
+```
+Solution: Check database credentials and ensure MySQL/MariaDB is running
 ```
 
-Add unit tests for services and DAO classes under `src/test/java`. Use the Maven Surefire plugin (already configured) to run them during CI.
+#### Camera Not Detected
+```
+Solution: Verify camera index in config (try 0, 1, 2)
+Check camera permissions on your OS
+```
+
+#### Face Recognition Low Accuracy
+```
+Solution: Train model with more images per person (minimum 10-20)
+Ensure good lighting conditions
+Adjust recognition threshold in config
+```
 
 ---
 
-## Technology Stack
+## 📈 Roadmap
 
-| Layer           | Technology          | Version         |
-| --------------- | ------------------- | --------------- |
-| Language        | Java                | 23.0.1          |
-| UI              | JavaFX              | 23.0.1          |
-| CV              | OpenCV (via JavaCV) | 4.9.0 / 1.5.10  |
-| DB              | MySQL / SQLite      | 9.1.0 / 3.47.1  |
-| Connection Pool | HikariCP            | 6.2.1           |
-| Logging         | SLF4J + Logback     | 2.0.16 / 1.5.12 |
-| Build           | Maven               | 3.9+            |
-
----
-
-## Documentation
-
-📚 **For detailed documentation, see the [docs/](docs/) directory:**
-
-- **[Quick Start Guide](docs/QUICK_START.md)** - Detailed setup instructions
-- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Complete file organization
-- **[Migration Guide](docs/MIGRATION_GUIDE.md)** - Upgrading from older versions
-- **[Refactoring Summary](docs/REFACTORING_SUMMARY.md)** - Technical modernization details
-- **[Cleanup Report](docs/CLEANUP_SUMMARY.md)** - File structure cleanup summary
+- [ ] Dark theme support
+- [ ] Multi-language support (i18n)
+- [ ] Cloud database integration
+- [ ] Mobile app companion
+- [ ] Attendance reports and analytics
+- [ ] Email notifications
+- [ ] REST API for integration
+- [ ] Docker containerization
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository and create a feature branch.
-2. Run `mvn fmt:format` or your formatter of choice before committing.
-3. Ensure `mvn clean test` passes.
-4. Open a pull request describing the changes and testing performed.
+Contributions are welcome! Please follow these steps:
 
-Bug reports and feature requests are welcome via GitHub Issues.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Code Style
+- Follow Java naming conventions
+- Use meaningful variable names
+- Add JavaDoc comments for public methods
+- Keep methods focused and concise
+- Write unit tests for new features
 
 ---
 
-## License
+## 📄 License
 
-IceFX is released under the MIT License. Refer to the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Authors
+
+- **IceFX Team** - *Initial work*
+
+---
+
+## 🙏 Acknowledgments
+
+- OpenCV community for excellent computer vision tools
+- JavaFX team for the modern UI framework
+- All contributors who helped improve this project
+
+---
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/IceFX/issues)
+- **Email**: support@icefx.com
+- **Documentation**: [Wiki](https://github.com/yourusername/IceFX/wiki)
+
+---
+
+<div align="center">
+
+**Made with ❤️ by IceFX Team**
+
+⭐ Star us on GitHub if you find this project useful!
+
+</div>

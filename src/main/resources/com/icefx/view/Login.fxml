@@ -7,39 +7,46 @@
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icefx.controller.LoginController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="700.0" prefWidth="1000.0"
+            styleClass="root">
     
     <!-- Top: Header -->
     <top>
-        <VBox styleClass="login-header" spacing="8" alignment="CENTER">
-            <Label text="IceFX Attendance System" styleClass="title"/>
-            <Label text="Face Recognition Attendance" styleClass="subtitle"/>
+        <VBox styleClass="login-header gap-3">
+            <Label text="IceFX Attendance System" styleClass="login-title"/>
+            <Label text="Face Recognition Powered Attendance Management" styleClass="login-subtitle"/>
         </VBox>
     </top>
     
     <!-- Center: Login Form -->
     <center>
-        <VBox styleClass="login-container" alignment="CENTER" spacing="20">
-            <VBox styleClass="login-card" alignment="CENTER" spacing="20" maxWidth="450">
+        <VBox styleClass="login-container gap-4">
+            <VBox styleClass="login-card gap-4" maxWidth="500">
                 
                 <!-- Title -->
-                <Label text="Welcome Back" styleClass="form-title"/>
-                <Separator prefWidth="350"/>
+                <VBox styleClass="gap-2 text-center">
+                    <Label text="Welcome Back" styleClass="form-title"/>
+                    <Label text="Sign in to continue to your account" styleClass="label-tertiary"/>
+                </VBox>
+                
+                <Separator/>
                 
                 <!-- User Code Field -->
-                <VBox spacing="8" prefWidth="380">
+                <VBox styleClass="gap-2">
                     <Label text="User Code" styleClass="field-label"/>
                     <TextField fx:id="userCodeField" 
                               styleClass="login-field"
-                              promptText="Enter your user code (e.g., ADMIN001)"/>
+                              promptText="Enter your user code (e.g., ADMIN001)"
+                              prefWidth="400"/>
                 </VBox>
                 
                 <!-- Password Field -->
-                <VBox spacing="8" prefWidth="380">
+                <VBox styleClass="gap-2">
                     <Label text="Password" styleClass="field-label"/>
                     <PasswordField fx:id="passwordField" 
                                   styleClass="login-field"
-                                  promptText="Enter your password"/>
+                                  promptText="Enter your password"
+                                  prefWidth="400"/>
                 </VBox>
                 
                 <!-- Error Label -->
@@ -48,38 +55,52 @@
                       text="Error message will appear here"
                       wrapText="true"
                       visible="false"
-                      maxWidth="380"/>
+                      maxWidth="400"/>
                 
-                <!-- Login Button -->
-                <HBox spacing="12" alignment="CENTER">
+                <Region prefHeight="8"/>
+                
+                <!-- Action Buttons -->
+                <HBox styleClass="gap-3" alignment="CENTER">
                     <Button fx:id="loginButton" 
                            text="Sign In" 
                            styleClass="login-button"
                            onAction="#handleLogin"
-                           defaultButton="true"/>
+                           defaultButton="true"
+                           prefWidth="180"/>
                     
                     <Button text="Cancel" 
                            styleClass="cancel-button"
                            onAction="#handleCancel"
-                           cancelButton="true"/>
+                           cancelButton="true"
+                           prefWidth="180"/>
                 </HBox>
                 
                 <!-- Progress Indicator -->
-                <ProgressIndicator fx:id="progressIndicator" 
-                                  visible="false"
-                                  prefWidth="50"
-                                  prefHeight="50"/>
+                <StackPane>
+                    <ProgressIndicator fx:id="progressIndicator" 
+                                      visible="false"
+                                      maxWidth="60"
+                                      maxHeight="60"/>
+                </StackPane>
+                
+                <!-- Helpful Text -->
+                <VBox styleClass="gap-1 text-center m-3">
+                    <Label text="Default Credentials" styleClass="label-tertiary"/>
+                    <Label text="User: ADMIN001  |  Pass: admin123" styleClass="label-tertiary"/>
+                </VBox>
                 
             </VBox>
         </VBox>
     </center>
     
-    <!-- Bottom: Info -->
+    <!-- Bottom: Footer -->
     <bottom>
-        <HBox styleClass="login-footer" spacing="20" alignment="CENTER">
-            <Label text="Version 2.0" styleClass="version-label"/>
+        <HBox styleClass="login-footer gap-4" alignment="CENTER">
+            <Label text="Version 3.0" styleClass="version-label"/>
             <Separator orientation="VERTICAL"/>
-            <Label text="Powered by OpenCV &amp; JavaFX 23" styleClass="version-label"/>
+            <Label text="Powered by OpenCV 4.9 &amp; JavaFX 23" styleClass="version-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Label text="JDK 23.0.1" styleClass="version-label"/>
         </HBox>
     </bottom>
     
