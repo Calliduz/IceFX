@@ -93,7 +93,10 @@ public class AppConfig {
      */
     private static void createDefaultConfig() throws IOException {
         setDefaults();
-        saveConfig();
+        // Save directly without calling saveConfig() to avoid recursion
+        try (OutputStream output = Files.newOutputStream(CONFIG_PATH)) {
+            properties.store(output, "IceFX Application Configuration");
+        }
         logger.info("Default configuration created at: {}", CONFIG_PATH);
     }
     
