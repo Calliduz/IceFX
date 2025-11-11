@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icefx.controller.LoginController"
+            prefHeight="600.0" prefWidth="800.0">
+    
+    <!-- Top: Header -->
+    <top>
+        <VBox styleClass="login-header" spacing="8" alignment="CENTER">
+            <Label text="IceFX Attendance System" styleClass="title"/>
+            <Label text="Face Recognition Attendance" styleClass="subtitle"/>
+        </VBox>
+    </top>
+    
+    <!-- Center: Login Form -->
+    <center>
+        <VBox styleClass="login-container" alignment="CENTER" spacing="20">
+            <VBox styleClass="login-card" alignment="CENTER" spacing="20" maxWidth="450">
+                
+                <!-- Title -->
+                <Label text="Welcome Back" styleClass="form-title"/>
+                <Separator prefWidth="350"/>
+                
+                <!-- User Code Field -->
+                <VBox spacing="8" prefWidth="380">
+                    <Label text="User Code" styleClass="field-label"/>
+                    <TextField fx:id="userCodeField" 
+                              styleClass="login-field"
+                              promptText="Enter your user code (e.g., ADMIN001)"/>
+                </VBox>
+                
+                <!-- Password Field -->
+                <VBox spacing="8" prefWidth="380">
+                    <Label text="Password" styleClass="field-label"/>
+                    <PasswordField fx:id="passwordField" 
+                                  styleClass="login-field"
+                                  promptText="Enter your password"/>
+                </VBox>
+                
+                <!-- Error Label -->
+                <Label fx:id="errorLabel" 
+                      styleClass="error-message"
+                      text="Error message will appear here"
+                      wrapText="true"
+                      visible="false"
+                      maxWidth="380"/>
+                
+                <!-- Login Button -->
+                <HBox spacing="12" alignment="CENTER">
+                    <Button fx:id="loginButton" 
+                           text="Sign In" 
+                           styleClass="login-button"
+                           onAction="#handleLogin"
+                           defaultButton="true"/>
+                    
+                    <Button text="Cancel" 
+                           styleClass="cancel-button"
+                           onAction="#handleCancel"
+                           cancelButton="true"/>
+                </HBox>
+                
+                <!-- Progress Indicator -->
+                <ProgressIndicator fx:id="progressIndicator" 
+                                  visible="false"
+                                  prefWidth="50"
+                                  prefHeight="50"/>
+                
+            </VBox>
+        </VBox>
+    </center>
+    
+    <!-- Bottom: Info -->
+    <bottom>
+        <HBox styleClass="login-footer" spacing="20" alignment="CENTER">
+            <Label text="Version 2.0" styleClass="version-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Label text="Powered by OpenCV &amp; JavaFX 23" styleClass="version-label"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>
