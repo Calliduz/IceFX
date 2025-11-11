@@ -3,6 +3,7 @@ package com.icefx;
 import com.icefx.config.AppConfig;
 import com.icefx.controller.LoginController;
 import com.icefx.util.NativeLoader;
+import com.icefx.util.SessionManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -152,6 +153,7 @@ public class IceFXApplication extends Application {
             logger.info("Releasing camera resources...");
             // CameraService.getInstance().release();
             
+            SessionManager.clear();
             logger.info("✅ Clean shutdown completed");
         } catch (Exception e) {
             logger.error("Error during shutdown", e);

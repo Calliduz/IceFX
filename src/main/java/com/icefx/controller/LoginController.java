@@ -1,9 +1,9 @@
 package com.icefx.controller;
 
-import com.icefx.config.DatabaseConfig;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.User;
 import com.icefx.service.UserService;
+import com.icefx.util.SessionManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -146,65 +146,71 @@ public class LoginController {
      * Handle successful login - navigate to appropriate dashboard.
      */
     private void handleSuccessfulLogin(User user) {
-        logger.info("✅ Login successful for user: {} (Role: {})", 
+        logger.info("✅ Login successful for user: {} (Role: {})",
             user.getUserCode(), user.getRole().getDisplayName());
-        
+
+        SessionManager.startSession(user);
+
         try {
-            // Store user in session (you'll need to create a SessionManager)
-            // SessionManager.setCurrentUser(user);
-            
-            // Navigate based on role
             String fxmlPath;
+            String windowTitle;
             switch (user.getRole()) {
-                case ADMIN:
-                    fxmlPath = "/com/icefx/view/AdminDashboard.fxml";
-                    logger.info("Loading Admin Dashboard...");
-                    break;
-                case STAFF:
-                    fxmlPath = "/com/icefx/view/StaffDashboard.fxml";
-                    logger.info("Loading Staff Dashboard...");
-                    break;
-                case STUDENT:
-                default:
-                    fxmlPath = "/com/icefx/view/StudentDashboard.fxml";
-                    logger.info("Loading Student Dashboard...");
-                    break;
+                case ADMIN -> {
+                    fxmlPath = "/com/icefx/view/AdminPanel.fxml";
+                    windowTitle = "IceFX - Admin Panel";
+                }
+                case STAFF -> {
+                    fxmlPath = "/com/icefx/view/Dashboard.fxml";
+                    windowTitle = "IceFX - Staff Dashboard";
+                }
+                case STUDENT -> {
+                    fxmlPath = "/com/icefx/view/Dashboard.fxml";
+                    windowTitle = "IceFX - Student Dashboard";
+                }
+                default -> throw new IllegalStateException("Unsupported role: " + user.getRole());
             }
-            
-            // Load the dashboard (for now, show success message)
-            // In production, you would load the actual FXML:
-            // loadDashboard(fxmlPath);
-            
-            // Temporary: Just show success alert
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login Successful");
-            alert.setHeaderText("Welcome, " + user.getFullName() + "!");
-            alert.setContentText("Role: " + user.getRole().getDisplayName() + 
-                               "\nDepartment: " + user.getDepartment() +
-                               "\nPosition: " + user.getPosition());
-            alert.showAndWait();
-            
-            // For now, just clear the form
+
+            loadDashboard(fxmlPath, user, windowTitle);
             clearForm();
-            
+
         } catch (Exception e) {
             logger.error("Error navigating to dashboard", e);
             showError("Failed to load dashboard: " + e.getMessage());
+            SessionManager.clear();
         }
     }
-    
+
     /**
-     * Load dashboard scene (to be implemented when FXML files are created).
+     * Load dashboard scene based on the authenticated user.
      */
-    private void loadDashboard(String fxmlPath) throws IOException {
+    private void loadDashboard(String fxmlPath, User user, String windowTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent root = loader.load();
-        
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("IceFX Attendance System - Dashboard");
-        stage.show();
+
+        Object controller = loader.getController();
+        if (controller instanceof DashboardController dashboardController) {
+            dashboardController.setCurrentUser(user);
+        } else if (controller instanceof AdminController adminController) {
+            adminController.setCurrentUser(user);
+        }
+
+        Stage stage = primaryStage != null ? primaryStage : (Stage) loginButton.getScene().getWindow();
+        if (stage == null) {
+            throw new IllegalStateException("Primary stage is not available");
+        }
+
+        Scene scene = stage.getScene();
+        if (scene == null) {
+            scene = new Scene(root);
+            stage.setScene(scene);
+        } else {
+            scene.setRoot(root);
+        }
+
+    stage.setTitle(windowTitle);
+    stage.sizeToScene();
+    stage.centerOnScreen();
+    stage.show();
     }
     
     /**
@@ -266,6 +272,7 @@ public class LoginController {
     @FXML
     private void handleCancel() {
         logger.info("Login cancelled by user");
+        SessionManager.clear();
         Platform.exit();
     }
 }

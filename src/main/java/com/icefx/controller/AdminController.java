@@ -77,6 +77,7 @@ public class AdminController {
     // Data
     private ObservableList<User> allUsers;
     private User selectedUser;
+    private User currentUser;
     
     /**
      * Constructor with dependency injection
@@ -146,6 +147,11 @@ public class AdminController {
                 handleUpdate();
             }
         });
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+        logger.info("AdminController session bound to {}", user.getUserCode());
     }
     
     /**
