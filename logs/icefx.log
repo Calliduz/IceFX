@@ -3721,3 +3721,783 @@ org.bytedeco.javacv.FrameGrabber$Exception: grab() Error: Could not grab frame. 
 2025-11-12 16:15:27.708 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
 2025-11-12 16:15:27.708 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
 2025-11-12 16:15:27.708 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:21:38.801 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:21:38.802 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 16:21:38.802 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 16:21:38.805 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 16:21:38.805 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:21:38.807 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 16:21:38.807 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 16:21:38.807 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 16:21:38.819 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:21:38.819 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 16:21:38.820 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:21:38.820 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 16:21:38.820 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 16:21:38.821 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 16:21:38.821 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 16:21:38.821 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 16:21:38.822 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 16:21:40.575 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 16:21:40.575 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:21:40.576 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 16:21:40.598 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 16:21:41.042 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:21:41.043 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:21:41.043 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:21:41.045 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:21:41.658 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 16:21:46.132 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:21:47.766 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:21:47.767 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:21:47.768 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:21:47.801 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade9397854600403548099.xml
+2025-11-12 16:21:47.843 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:21:47.844 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:21:47.844 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:21:47.844 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:21:47.925 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:21:47.925 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:21:47.962 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:21:47.965 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:21:47.965 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:21:47.965 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:21:48.020 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 16:21:48.337 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:21:48.340 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:21:48.342 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:21:48.560 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:21:48.561 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:21:48.561 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:21:49.343 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:21:49.495 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.AttendanceDAO.findAllToday(AttendanceDAO.java:120)
+	at com.icefx.service.AttendanceService.getTodayAttendance(AttendanceService.java:151)
+	at com.icefx.controller.DashboardController.lambda$loadTodayAttendance$22(DashboardController.java:536)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 16:21:50.484 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:22:10.522 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:22:10.545 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:22:10.547 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:22:18.253 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:22:18.253 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:22:25.396 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:22:25.397 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:22:25.398 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:22:27.524 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:22:27.812 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:22:27.836 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:22:27.837 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:22:36.562 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 16:22:36.592 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 16:22:36.592 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:22:36.593 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 16:22:36.623 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:22:36.623 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:22:36.623 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:22:36.623 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:22:36.703 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 16:22:40.380 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:22:40.380 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:22:40.380 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:22:41.246 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:22:41.247 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:22:41.250 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:22:41.251 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:22:41.252 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:22:41.252 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:22:41.252 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:23:15.028 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:23:15.030 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 16:23:15.030 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 16:23:15.034 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 16:23:15.034 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:23:15.047 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 16:23:15.048 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 16:23:15.048 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 16:23:15.058 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 16:23:15.059 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 16:23:15.060 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 16:23:17.932 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 16:23:17.932 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:23:17.932 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 16:23:17.951 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 16:23:18.929 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:23:18.930 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:23:18.930 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:23:18.932 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:23:20.495 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 16:23:22.291 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:23:22.930 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:23:22.931 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:23:22.932 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:23:22.936 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade6795052594534009641.xml
+2025-11-12 16:23:22.984 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:23:22.984 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:23:22.984 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:23:22.985 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:23:23.061 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:23:23.061 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:23:23.067 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:23:23.070 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:23:23.071 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:23:23.071 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:23:23.134 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 16:23:23.168 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:23:23.168 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:23:23.171 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:23:23.281 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:23:23.283 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:23:23.285 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:23:24.180 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:23:24.577 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.AttendanceDAO.findAllToday(AttendanceDAO.java:120)
+	at com.icefx.service.AttendanceService.getTodayAttendance(AttendanceService.java:151)
+	at com.icefx.controller.DashboardController.lambda$loadTodayAttendance$22(DashboardController.java:536)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 16:23:25.317 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:23:25.863 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:23:25.884 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:23:25.885 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:23:28.408 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:23:28.409 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:23:29.873 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:23:29.874 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:23:29.875 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:23:31.999 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:23:32.153 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:23:32.175 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:23:32.175 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:23:46.949 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:23:46.950 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:23:49.091 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:23:49.092 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:23:49.092 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:23:51.217 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:23:53.401 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:23:53.424 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:23:53.425 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:23:56.050 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 16:23:56.077 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 16:23:56.078 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:23:56.079 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 16:23:56.115 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:23:56.116 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:23:56.116 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:23:56.116 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:23:56.178 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 16:24:00.248 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:24:00.248 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:24:00.249 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:24:00.251 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:24:00.251 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:24:00.253 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:24:00.254 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:24:00.254 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:24:00.254 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:24:00.255 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:24:34.797 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:24:34.799 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 16:24:34.799 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 16:24:34.803 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 16:24:34.803 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:24:34.807 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 16:24:34.808 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 16:24:34.809 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 16:24:34.820 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:24:34.821 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 16:24:34.822 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:24:34.822 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 16:24:34.823 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 16:24:34.824 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 16:24:34.825 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 16:24:34.825 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 16:24:34.825 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 16:24:36.921 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 16:24:36.922 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:24:36.922 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 16:24:36.937 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 16:24:37.428 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:24:37.429 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:24:37.430 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:24:37.431 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:24:38.230 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 16:24:44.185 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:24:44.346 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:24:44.347 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:24:44.347 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:24:44.350 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade854884455894859715.xml
+2025-11-12 16:24:44.418 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:24:44.418 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:24:44.418 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:24:44.418 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:24:44.479 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:24:44.480 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:24:44.485 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:24:44.488 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:24:44.489 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:24:44.489 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:24:44.511 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 16:24:44.608 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:24:44.608 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:24:44.610 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:24:44.727 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:24:44.729 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:24:44.730 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:24:45.614 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:24:45.732 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.AttendanceDAO.findAllToday(AttendanceDAO.java:120)
+	at com.icefx.service.AttendanceService.getTodayAttendance(AttendanceService.java:151)
+	at com.icefx.controller.DashboardController.lambda$loadTodayAttendance$22(DashboardController.java:536)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 16:24:46.769 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:24:47.284 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:24:47.306 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:24:47.308 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:25:03.904 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:25:03.904 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:25:05.136 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:25:05.137 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:25:05.139 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:25:07.265 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:25:07.422 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:25:07.444 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:25:07.445 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:25:35.739 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:25:35.739 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:25:37.448 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:25:37.449 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:25:37.451 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:25:39.575 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:25:39.787 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:25:39.810 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:25:39.811 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:25:44.088 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Stopping camera...
+2025-11-12 16:25:44.089 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:25:46.329 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:25:46.329 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:25:46.330 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:25:46.331 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:25:46.331 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:25:46.332 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:25:46.332 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:25:46.332 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:25:46.332 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:25:46.333 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:28:27.119 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:28:27.121 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 16:28:27.122 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 16:28:27.128 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 16:28:27.128 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:28:27.131 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 16:28:27.131 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 16:28:27.132 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 16:28:27.145 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:28:27.146 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 16:28:27.146 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:28:27.146 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 16:28:27.146 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 16:28:27.147 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 16:28:27.147 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 16:28:27.147 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 16:28:27.147 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 16:28:29.383 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 16:28:29.384 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:28:29.384 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 16:28:29.408 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 16:28:30.082 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:28:30.083 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:28:30.083 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:28:30.085 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:28:31.062 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 16:28:33.137 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:28:33.382 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:28:33.383 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:28:33.384 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:28:33.394 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade17802767779880857571.xml
+2025-11-12 16:28:33.474 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:28:33.474 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:28:33.474 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:28:33.475 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:28:33.542 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:28:33.542 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:28:33.548 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:28:33.552 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:28:33.553 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:28:33.553 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:28:33.583 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 16:28:33.680 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:28:33.681 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:28:33.682 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:28:33.686 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:28:34.435 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:28:34.437 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:28:34.885 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.AttendanceDAO.findAllToday(AttendanceDAO.java:120)
+	at com.icefx.service.AttendanceService.getTodayAttendance(AttendanceService.java:151)
+	at com.icefx.controller.DashboardController.lambda$loadTodayAttendance$24(DashboardController.java:562)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 16:28:35.475 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:28:35.840 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:28:36.627 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:28:36.651 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:28:36.651 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:29:52.356 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:29:52.360 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 16:29:52.361 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 16:29:52.368 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 16:29:52.370 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 16:29:52.399 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 16:29:52.401 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 16:29:52.408 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 16:29:52.437 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:29:52.438 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 16:29:52.439 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:29:52.439 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 16:29:52.439 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 16:29:52.439 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 16:29:52.440 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 16:29:52.441 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 16:29:52.441 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 16:29:54.414 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 16:29:54.414 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 16:29:54.414 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 16:29:54.444 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 16:29:55.161 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:29:55.163 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:29:55.163 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:29:55.164 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:29:56.026 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 16:29:57.926 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:29:58.443 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:29:58.444 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:29:58.444 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:29:58.449 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade13347725034732648927.xml
+2025-11-12 16:29:58.516 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:29:58.517 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:29:58.517 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:29:58.517 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:29:58.579 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:29:58.579 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:29:58.611 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:29:58.618 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:29:58.619 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:29:58.620 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:29:58.667 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 16:29:58.754 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:29:58.757 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:29:58.759 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:29:58.766 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:29:59.442 [Thread-2] INFO  com.zaxxer.hikari.pool.HikariPool - IceFX-MySQL - Added connection com.mysql.cj.jdbc.ConnectionImpl@7e050e9
+2025-11-12 16:29:59.456 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Start completed.
+2025-11-12 16:29:59.456 [Thread-2] INFO  com.icefx.config.DatabaseConfig - ✅ Database connection pool initialized (IceFX-MySQL)
+2025-11-12 16:29:59.486 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:29:59.486 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:29:59.740 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 1 attendance records for today
+2025-11-12 16:30:00.511 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:30:00.940 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:30:01.438 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:30:01.439 [Thread-6] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 73.58733018071779)
+2025-11-12 16:30:01.441 [Thread-6] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:30:01.533 [Thread-6] INFO  com.icefx.service.AttendanceService - ✅ Attendance logged successfully for Juztyne Clever at 2025-11-12T16:30:01.444542298 (Log ID: 2)
+2025-11-12 16:30:01.596 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 2 attendance records for today
+2025-11-12 16:30:04.486 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:30:04.487 [Thread-11] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 70.50827718266822)
+2025-11-12 16:30:04.489 [Thread-11] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:30:04.490 [Thread-11] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 16:30:06.424 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 16:30:06.434 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 16:30:06.435 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:30:06.436 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 16:30:06.485 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:30:06.486 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:30:06.486 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:30:06.486 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:30:06.538 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:30:06.561 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:30:06.562 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:30:06.624 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 16:30:15.208 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:30:15.271 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:30:15.271 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:30:15.272 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:30:15.275 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade2543795538285902211.xml
+2025-11-12 16:30:15.298 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:30:15.298 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:30:15.298 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:30:15.298 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:30:15.458 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:30:15.458 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:30:15.459 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:30:15.459 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:30:15.459 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:30:15.459 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:30:15.514 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:30:15.514 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:30:15.514 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:30:15.514 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:30:15.514 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 2 attendance records for today
+2025-11-12 16:30:15.990 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:30:15.991 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:30:16.636 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 16:30:16.992 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:30:17.639 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:30:19.506 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 16:30:26.075 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:30:26.076 [Thread-18] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 76.63233500711887)
+2025-11-12 16:30:26.080 [Thread-18] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:30:26.083 [Thread-18] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 16:30:28.217 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 16:30:28.239 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 16:30:28.240 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:30:28.240 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 16:30:28.244 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:30:28.267 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:30:28.268 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:30:28.270 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:30:28.270 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:30:28.270 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:30:28.271 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:30:28.349 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 16:30:29.777 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Admin role selected - showing login form
+2025-11-12 16:30:39.306 [Thread-21] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-12 16:30:39.467 [Thread-21] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: ADMIN001
+2025-11-12 16:30:39.470 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: ADMIN001 (Role: Administrator)
+2025-11-12 16:30:39.509 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user ADMIN001 (ADMIN)
+2025-11-12 16:30:39.516 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:30:39.517 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:30:39.527 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade44928514899230898.xml
+2025-11-12 16:30:39.554 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:30:39.554 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:30:39.555 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:30:39.618 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Initializing AdminController
+2025-11-12 16:30:39.624 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Loaded 5 users
+2025-11-12 16:30:41.116 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 16:30:44.387 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Opening Face Registration window for user: STU001
+2025-11-12 16:30:44.546 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Initializing FaceRegistrationController
+2025-11-12 16:30:44.547 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:30:44.552 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Extracted cascade to temp file: /tmp/cascade13284749696063017926.xml
+2025-11-12 16:30:44.579 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Face registration service initialized - Base directory: faces
+2025-11-12 16:30:44.579 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:30:44.581 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade11994055378140839060.xml
+2025-11-12 16:30:44.599 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:30:44.600 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:30:44.600 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:30:44.600 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - FaceRegistrationController initialized successfully
+2025-11-12 16:30:44.600 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - User set for registration: STU001
+2025-11-12 16:30:44.794 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Loaded 10 existing photos for user STU001
+2025-11-12 16:30:49.359 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Deleted 10 face images for user 3
+2025-11-12 16:30:59.336 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capture enabled
+2025-11-12 16:31:05.206 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Starting camera for face registration
+2025-11-12 16:31:07.333 [FaceRegistration-Camera] INFO  c.i.c.FaceRegistrationController - Camera loop started
+2025-11-12 16:31:13.677 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Looking straight at camera (stable for 5 frames)
+2025-11-12 16:31:13.886 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163113_688_front.png
+2025-11-12 16:31:13.935 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 1: faces/3/face_20251112_163113_688_front.png
+2025-11-12 16:31:20.523 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Turn head slightly left (stable for 5 frames)
+2025-11-12 16:31:20.533 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163120_530_left.png
+2025-11-12 16:31:20.537 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 2: faces/3/face_20251112_163120_530_left.png
+2025-11-12 16:31:40.716 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Turn head slightly right (stable for 5 frames)
+2025-11-12 16:31:40.729 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163140_726_right.png
+2025-11-12 16:31:40.735 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 3: faces/3/face_20251112_163140_726_right.png
+2025-11-12 16:31:51.582 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Tilt head slightly up (stable for 5 frames)
+2025-11-12 16:31:51.599 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163151_596_up.png
+2025-11-12 16:31:51.607 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 4: faces/3/face_20251112_163151_596_up.png
+2025-11-12 16:32:13.426 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Tilt head slightly down (stable for 5 frames)
+2025-11-12 16:32:13.441 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163213_438_down.png
+2025-11-12 16:32:13.449 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 5: faces/3/face_20251112_163213_438_down.png
+2025-11-12 16:32:17.071 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Smile at camera (stable for 5 frames)
+2025-11-12 16:32:17.085 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163217_083_smile.png
+2025-11-12 16:32:17.095 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 6: faces/3/face_20251112_163217_083_smile.png
+2025-11-12 16:32:19.289 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Neutral expression (stable for 5 frames)
+2025-11-12 16:32:19.303 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163219_300_neutral.png
+2025-11-12 16:32:19.316 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 7: faces/3/face_20251112_163219_300_neutral.png
+2025-11-12 16:32:21.679 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Move closer to camera (stable for 5 frames)
+2025-11-12 16:32:21.698 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163221_695_distance_near.png
+2025-11-12 16:32:21.714 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 8: faces/3/face_20251112_163221_695_distance_near.png
+2025-11-12 16:32:24.053 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Move back from camera (stable for 5 frames)
+2025-11-12 16:32:24.070 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163224_067_distance_far.png
+2025-11-12 16:32:24.082 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 9: faces/3/face_20251112_163224_067_distance_far.png
+2025-11-12 16:32:33.380 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Good lighting condition (stable for 5 frames)
+2025-11-12 16:32:33.391 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_163233_388_good_lighting.png
+2025-11-12 16:32:33.407 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 10: faces/3/face_20251112_163233_388_good_lighting.png
+2025-11-12 16:32:33.408 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Reached recommended photo count via auto-capture. Auto-training model...
+2025-11-12 16:32:33.408 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Stopping camera
+2025-11-12 16:32:33.430 [FaceRegistration-Camera] ERROR c.i.c.FaceRegistrationController - Error in camera loop
+org.bytedeco.javacv.FrameGrabber$Exception: grab() Error: Could not grab frame. (Has start() been called?)
+	at org.bytedeco.javacv.OpenCVFrameGrabber.grab(OpenCVFrameGrabber.java:298)
+	at com.icefx.controller.FaceRegistrationController.cameraLoop(FaceRegistrationController.java:338)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2025-11-12 16:32:33.463 [FaceRegistration-Camera] INFO  c.i.c.FaceRegistrationController - Camera loop stopped
+2025-11-12 16:32:34.003 [Thread-23] INFO  c.i.service.FaceRecognitionService - Training recognizer from directory: faces
+2025-11-12 16:32:34.107 [Thread-23] INFO  c.i.service.FaceRecognitionService - ✅ Training complete! Trained with 10 face images
+2025-11-12 16:32:34.235 [Thread-23] INFO  c.i.service.FaceRecognitionService - ✅ Model saved to: trained_faces.xml
+2025-11-12 16:32:34.240 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-training succeeded with 10 faces
+2025-11-12 16:32:39.106 [Thread-25] INFO  com.icefx.service.UserService - ✅ User updated: STU001
+2025-11-12 16:32:39.113 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Updated user: STU001
+2025-11-12 16:32:41.729 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logout requested
+2025-11-12 16:32:41.784 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:32:41.784 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:32:41.784 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:32:41.784 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:32:41.842 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logged out successfully
+2025-11-12 16:32:42.800 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 16:32:42.847 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 16:32:42.848 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 16:32:42.848 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 16:32:42.852 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade366254761221779376.xml
+2025-11-12 16:32:42.904 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 16:32:42.905 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 16:32:42.905 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 16:32:42.906 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 16:32:42.957 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 16:32:42.958 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 16:32:42.958 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 16:32:42.958 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 16:32:42.958 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 16:32:42.958 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 16:32:43.000 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 16:32:43.001 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 16:32:43.001 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 16:32:43.001 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 16:32:43.002 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 2 attendance records for today
+2025-11-12 16:32:43.487 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 16:32:43.488 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 16:32:44.499 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 16:32:45.125 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 16:32:49.321 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:32:49.323 [Thread-30] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 79.25142748379096)
+2025-11-12 16:32:49.325 [Thread-30] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:32:49.329 [Thread-30] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 16:32:52.426 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:32:52.427 [Thread-33] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 78.07425504507262)
+2025-11-12 16:32:52.428 [Thread-33] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:32:52.429 [Thread-33] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 16:32:59.050 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 16:32:59.052 [Thread-36] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 63.51005823741175)
+2025-11-12 16:32:59.055 [Thread-36] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 16:32:59.058 [Thread-36] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 16:33:01.141 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 16:33:01.166 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 16:33:01.167 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 16:33:01.167 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 16:33:01.178 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 16:33:01.184 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 16:33:01.184 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 16:33:01.184 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 16:33:01.184 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 16:33:01.201 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 16:33:01.202 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 16:33:01.251 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 16:33:04.370 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 16:33:06.971 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:33:06.971 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:33:06.971 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:33:06.972 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:33:06.973 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 16:33:06.976 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 16:33:06.976 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 16:33:06.976 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 16:33:06.976 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 16:33:06.976 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
