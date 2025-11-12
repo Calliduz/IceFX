@@ -32,7 +32,7 @@ public class AppConfig {
     private static final String DEFAULT_CAMERA_INDEX = "0";
     private static final String DEFAULT_CONFIDENCE_THRESHOLD = "80.0";
     private static final String DEFAULT_DEBOUNCE_TIME = "3000";
-    private static final String DEFAULT_MODEL_PATH = "resources/trained_faces.xml";
+    private static final String DEFAULT_MODEL_PATH = "trained_faces.xml";
     private static final String DEFAULT_DB_MYSQL_HOST = "localhost";
     private static final String DEFAULT_DB_MYSQL_PORT = "3306";
     private static final String DEFAULT_DB_MYSQL_DATABASE = "facial_attendance";

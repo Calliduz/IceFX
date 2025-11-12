@@ -77,6 +77,7 @@ public class FaceRegistrationController {
     @FXML private VBox trainingBox;
     @FXML private StackPane cameraPane;
     @FXML private CheckBox autoCaptureCheckbox;
+    @FXML private VBox cameraOffOverlay;
     
     // State
     private User selectedUser;
@@ -92,7 +93,9 @@ public class FaceRegistrationController {
     private static final long CAPTURE_COOLDOWN_MS = 1000; // 1 second cooldown
     private boolean autoCaptureEnabled = false;
     private long lastAutoCaptureTime = 0;
-    private static final long AUTO_CAPTURE_COOLDOWN_MS = 2000; // 2 seconds for auto-capture
+    private static final long AUTO_CAPTURE_COOLDOWN_MS = 1500; // 1.5 seconds for auto-capture
+    private int stableFrameCount = 0; // Count frames with stable pose
+    private static final int STABLE_FRAMES_REQUIRED = 5; // ~0.17 seconds at 30 FPS - faster response!
     
     /**
      * Initialize the controller
@@ -300,8 +303,9 @@ public class FaceRegistrationController {
             logger.info("Starting camera for face registration");
             
             grabber = new OpenCVFrameGrabber(AppConfig.getCameraIndex());
-            grabber.setImageWidth(640);
-            grabber.setImageHeight(480);
+            grabber.setImageWidth(AppConfig.getInt("camera.width", 640));
+            grabber.setImageHeight(AppConfig.getInt("camera.height", 480));
+            grabber.setFrameRate(AppConfig.getInt("camera.fps", 30));
             grabber.start();
             
             cameraRunning = true;
@@ -362,10 +366,9 @@ public class FaceRegistrationController {
                 Platform.runLater(() -> {
                     cameraView.setImage(image);
                     
-                    // Remove "Camera Not Active" overlay if it exists
-                    if (cameraPane != null && cameraPane.getChildren().size() > 1) {
-                        // Remove overlay label (keep only ImageView)
-                        cameraPane.getChildren().removeIf(node -> node instanceof Label);
+                    // Hide camera overlay when camera starts
+                    if (cameraOffOverlay != null) {
+                        cameraOffOverlay.setVisible(false);
                     }
                     
                     // Check face quality
@@ -430,13 +433,14 @@ public class FaceRegistrationController {
     
     /**
      * Try to auto-capture photo based on current angle and face position.
-     * This is a simplified version - checks if user has maintained position for sufficient time.
+     * Uses face position detection to determine head pose.
      */
     private void tryAutoCapture(QualityResult quality) {
         // Check cooldown
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastAutoCaptureTime < AUTO_CAPTURE_COOLDOWN_MS) {
-            return; // Still in cooldown
+            stableFrameCount = 0; // Reset stability counter during cooldown
+            return;
         }
         
         // Check if we still need more photos
@@ -447,50 +451,154 @@ public class FaceRegistrationController {
         // Get current recommended angle
         CaptureAngle angle = recommendedAngles.get(currentAngleIndex);
         
-        // Simple heuristic: if quality is good and enough time has passed, capture
-        // In a production system, you'd use face landmarks or pose estimation here
-        // For now, we just wait for good quality + cooldown period
+        // Detect if current pose matches recommended angle
+        boolean poseMatches = detectPoseMatch(angle, quality);
         
-        if (quality.isPassed() && selectedUser != null && currentFrame != null) {
-            logger.info("Auto-capturing for angle: {}", angle.getInstruction());
+        if (poseMatches) {
+            stableFrameCount++;
             
-            // Capture face
-            String savedPath = registrationService.captureFace(currentFrame, selectedUser, angle);
+            // Update UI to show pose is matching
+            Platform.runLater(() -> {
+                angleGuideLabel.setText(String.format("✅ %s - Hold still! (%d/%d)", 
+                    angle.getInstruction(), 
+                    currentAngleIndex + 1,
+                    recommendedAngles.size()));
+            });
             
-            if (savedPath != null) {
-                lastAutoCaptureTime = currentTime;
+            // Capture only after pose is stable
+            if (stableFrameCount >= STABLE_FRAMES_REQUIRED) {
+                logger.info("Auto-capturing for angle: {} (stable for {} frames)", 
+                    angle.getInstruction(), stableFrameCount);
                 
-                Platform.runLater(() -> {
-                    capturedPhotos.add(savedPath);
-                    updatePhotosGrid();
-                    updateCaptureCount();
-                    updateTrainButtonState();
+                // Capture face
+                String savedPath = registrationService.captureFace(currentFrame, selectedUser, angle);
+                
+                if (savedPath != null) {
+                    lastAutoCaptureTime = currentTime;
+                    stableFrameCount = 0; // Reset for next angle
                     
-                    // Move to next angle
-                    currentAngleIndex++;
-                    updateAngleGuide();
-                    
-                    ModernToast.success("🤖 Auto-captured! " + capturedPhotos.size() + "/" + FaceRegistrationService.RECOMMENDED_PHOTOS);
-                    logger.info("Auto-captured photo {}: {}", capturedPhotos.size(), savedPath);
-                    
-                    // Auto-train and close if recommended number reached
-                    if (capturedPhotos.size() >= FaceRegistrationService.RECOMMENDED_PHOTOS) {
-                        logger.info("Reached recommended photo count via auto-capture. Auto-training model...");
-                        ModernToast.info("✅ All photos captured! Auto-training model...");
+                    Platform.runLater(() -> {
+                        capturedPhotos.add(savedPath);
+                        updatePhotosGrid();
+                        updateCaptureCount();
+                        updateTrainButtonState();
                         
-                        // Stop camera first
-                        handleStopCamera();
+                        // Move to next angle
+                        currentAngleIndex++;
+                        updateAngleGuide();
                         
-                        // Auto-train after short delay
-                        new Thread(() -> {
-                            try {
-                                Thread.sleep(500);
-                                Platform.runLater(this::performAutoTraining);
-                            } catch (InterruptedException ignored) {}
-                        }).start();
-                    }
-                });
+                        ModernToast.success("🤖 Auto-captured! " + capturedPhotos.size() + "/" + FaceRegistrationService.RECOMMENDED_PHOTOS);
+                        logger.info("Auto-captured photo {}: {}", capturedPhotos.size(), savedPath);
+                        
+                        // Auto-train and close if recommended number reached
+                        if (capturedPhotos.size() >= FaceRegistrationService.RECOMMENDED_PHOTOS) {
+                            logger.info("Reached recommended photo count via auto-capture. Auto-training model...");
+                            ModernToast.info("✅ All photos captured! Auto-training model...");
+                            
+                            // Stop camera first
+                            handleStopCamera();
+                            
+                            // Auto-train after short delay
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(500);
+                                    Platform.runLater(this::performAutoTraining);
+                                } catch (InterruptedException ignored) {}
+                            }).start();
+                        }
+                    });
+                }
             }
+        } else {
+            // Reset stability if pose doesn't match
+            stableFrameCount = 0;
+        }
+    }
+    
+    /**
+     * Detect if current face pose matches the recommended angle.
+     * Uses face bounding box position to estimate head orientation.
+     */
+    private boolean detectPoseMatch(CaptureAngle angle, QualityResult quality) {
+        if (currentFrame == null || !quality.isPassed()) {
+            return false;
+        }
+        
+        try {
+            // Detect face using the cascade classifier
+            org.bytedeco.opencv.opencv_objdetect.CascadeClassifier detector = 
+                new org.bytedeco.opencv.opencv_objdetect.CascadeClassifier();
+            
+            // Use the same cascade file as FaceRegistrationService
+            String cascadePath = "/haar/haarcascade_frontalface_default.xml";
+            java.io.InputStream cascadeStream = getClass().getResourceAsStream(cascadePath);
+            
+            if (cascadeStream != null) {
+                // Extract to temp file
+                java.io.File tempCascade = java.io.File.createTempFile("haarcascade", ".xml");
+                tempCascade.deleteOnExit();
+                java.nio.file.Files.copy(cascadeStream, tempCascade.toPath(), 
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                cascadeStream.close();
+                
+                detector.load(tempCascade.getAbsolutePath());
+            }
+            
+            // Detect faces
+            org.bytedeco.opencv.opencv_core.RectVector faces = 
+                new org.bytedeco.opencv.opencv_core.RectVector();
+            detector.detectMultiScale(currentFrame, faces);
+            
+            if (faces.size() == 0) {
+                return false; // No face detected
+            }
+            
+            // Get the first (largest) face
+            org.bytedeco.opencv.opencv_core.Rect faceRect = faces.get(0);
+            
+            // Calculate face position relative to frame
+            int frameWidth = currentFrame.cols();
+            int frameHeight = currentFrame.rows();
+            
+            int faceCenterX = faceRect.x() + faceRect.width() / 2;
+            int faceCenterY = faceRect.y() + faceRect.height() / 2;
+            
+            // Calculate relative position (0.0 to 1.0)
+            double relativeX = (double) faceCenterX / frameWidth;
+            double relativeY = (double) faceCenterY / frameHeight;
+            
+            // Determine pose based on face position and angle requirement
+            switch (angle) {
+                case FRONT:
+                    // Face should be centered (0.4 to 0.6 range)
+                    return relativeX > 0.4 && relativeX < 0.6 && 
+                           relativeY > 0.4 && relativeY < 0.6;
+                    
+                case LEFT:
+                    // Face should be on the right side of frame (user turned left, face moves right in mirror)
+                    return relativeX > 0.55;
+                    
+                case RIGHT:
+                    // Face should be on the left side of frame (user turned right, face moves left in mirror)
+                    return relativeX < 0.45;
+                    
+                case UP:
+                    // Face should be in lower part of frame
+                    return relativeY > 0.55;
+                    
+                case DOWN:
+                    // Face should be in upper part of frame
+                    return relativeY < 0.45;
+                    
+                default:
+                    // For other angles (smiling, neutral, distance, lighting), just check if centered
+                    return relativeX > 0.35 && relativeX < 0.65 && 
+                           relativeY > 0.35 && relativeY < 0.65;
+            }
+            
+        } catch (Exception e) {
+            logger.error("Error detecting pose: {}", e.getMessage());
+            return false;
         }
     }
     
@@ -524,6 +632,11 @@ public class FaceRegistrationController {
             cameraView.setImage(null);
             qualityLabel.setText("Camera stopped");
             qualityIcon.setText("📷");
+            
+            // Show camera overlay again
+            if (cameraOffOverlay != null) {
+                cameraOffOverlay.setVisible(true);
+            }
         });
         
         ModernToast.info("Camera stopped");

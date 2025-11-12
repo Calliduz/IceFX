@@ -40,7 +40,7 @@
                 <ImageView fx:id="cameraView" fitWidth="640" fitHeight="480" preserveRatio="true"/>
                 
                 <!-- Overlay for no camera -->
-                <VBox alignment="CENTER" spacing="12" style="-fx-background-color: rgba(0,0,0,0.7);">
+                <VBox fx:id="cameraOffOverlay" alignment="CENTER" spacing="12" style="-fx-background-color: rgba(0,0,0,0.7);">
                     <Label text="📷" style="-fx-font-size: 48px;"/>
                     <Label text="Camera Not Active" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
                     <Label text="Start camera to begin capturing" style="-fx-text-fill: #BDBDBD;"/>
