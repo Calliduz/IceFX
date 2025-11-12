@@ -82,7 +82,7 @@
             </VBox>
 
             <!-- Right Panel: Recognition & Attendance (Expanded) -->
-            <VBox spacing="20" HBox.hgrow="ALWAYS" minWidth="600"
+            <VBox spacing="20" HBox.hgrow="ALWAYS" minWidth="600">
                 
                 <!-- Recognition Status Card -->
                 <VBox styleClass="card" spacing="12" style="-fx-padding: 20px;">
