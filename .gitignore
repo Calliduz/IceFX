@@ -32,6 +32,7 @@ logs/
 faces/
 models/
 training_data/
+trained_faces.xml
 
 # Temporary
 *.tmp

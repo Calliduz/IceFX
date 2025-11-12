@@ -27,19 +27,54 @@
             
             <!-- Welcome Text -->
             <VBox alignment="CENTER" spacing="6" maxWidth="380">
-                <Label text="Welcome Back!" style="-fx-font-size: 26px; -fx-font-weight: 600; -fx-text-fill: #1e293b; -fx-alignment: center;"/>
-                <Label text="Sign in to access your dashboard" style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-alignment: center;"/>
+                <Label fx:id="welcomeTitle" text="Welcome!" style="-fx-font-size: 26px; -fx-font-weight: 600; -fx-text-fill: #1e293b; -fx-alignment: center;"/>
+                <Label fx:id="welcomeSubtitle" text="Select your role to continue" style="-fx-font-size: 14px; -fx-text-fill: #64748b; -fx-alignment: center;"/>
             </VBox>
             
-            <!-- Login Form -->
-            <VBox spacing="24" prefWidth="380" maxWidth="380">
+            <!-- Role Selection (Default View) -->
+            <VBox fx:id="roleSelectionBox" spacing="20" prefWidth="380" maxWidth="380">
+                
+                <!-- Student Button -->
+                <Button text="👨‍🎓 I'm a Student" 
+                        styleClass="btn"
+                        onAction="#handleStudentRole"
+                        maxWidth="Infinity"
+                        style="-fx-pref-height: 80px; -fx-font-size: 20px; -fx-font-weight: 700; -fx-background-radius: 12px; -fx-background-color: #10b981; -fx-text-fill: white;">
+                    <tooltip>
+                        <Tooltip text="Automatic face recognition - No login required"/>
+                    </tooltip>
+                </Button>
+                
+                <Label text="or" style="-fx-font-size: 14px; -fx-text-fill: #94a3b8; -fx-alignment: center;"/>
+                
+                <!-- Admin Button -->
+                <Button text="👨‍💼 I'm an Admin" 
+                        styleClass="btn"
+                        onAction="#handleAdminRole"
+                        maxWidth="Infinity"
+                        style="-fx-pref-height: 80px; -fx-font-size: 20px; -fx-font-weight: 700; -fx-background-radius: 12px; -fx-background-color: #667eea; -fx-text-fill: white;">
+                    <tooltip>
+                        <Tooltip text="Requires username and password"/>
+                    </tooltip>
+                </Button>
+                
+                <!-- Info Text -->
+                <VBox spacing="8" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                    <Label text="💡 Students - Just look at the camera" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-alignment: center;"/>
+                    <Label text="🔒 Admins - Need credentials to access" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-alignment: center;"/>
+                </VBox>
+                
+            </VBox>
+            
+            <!-- Admin Login Form (Hidden Initially) -->
+            <VBox fx:id="loginFormBox" spacing="24" prefWidth="380" maxWidth="380" visible="false" managed="false">
                 
                 <!-- User Code Input -->
                 <VBox spacing="10">
-                    <Label text="👤 User Code" styleClass="form-label" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
+                    <Label text="👤 Admin Code" styleClass="form-label" style="-fx-font-weight: 600; -fx-font-size: 14px;"/>
                     <TextField fx:id="userCodeField" 
                                styleClass="form-input"
-                               promptText="Enter your user code (e.g., ADMIN001)"
+                               promptText="Enter admin code (e.g., ADMIN001)"
                                style="-fx-pref-height: 48px; -fx-font-size: 15px; -fx-background-radius: 10px; -fx-border-radius: 10px;"/>
                 </VBox>
                 
@@ -59,14 +94,21 @@
                        visible="false"
                        style="-fx-padding: 14px; -fx-background-color: #fee2e2; -fx-background-radius: 10px; -fx-font-size: 13px; -fx-text-fill: #dc2626;"/>
                 
-                <!-- Sign In Button -->
-                <Button fx:id="loginButton" 
-                        text="Sign In" 
-                        styleClass="btn, btn-primary"
-                        onAction="#handleLogin"
-                        defaultButton="true"
-                        maxWidth="Infinity"
-                        style="-fx-pref-height: 52px; -fx-font-size: 17px; -fx-font-weight: 700; -fx-background-radius: 12px; -fx-background-color: #667eea; -fx-text-fill: white;"/>
+                <!-- Buttons Row -->
+                <HBox spacing="12">
+                    <Button text="← Back" 
+                            styleClass="btn"
+                            onAction="#handleBackToRoles"
+                            style="-fx-pref-height: 52px; -fx-font-size: 16px; -fx-font-weight: 600; -fx-background-radius: 12px; -fx-background-color: #94a3b8; -fx-text-fill: white; -fx-min-width: 100px;"/>
+                    
+                    <Button fx:id="loginButton" 
+                            text="Sign In" 
+                            styleClass="btn, btn-primary"
+                            onAction="#handleLogin"
+                            defaultButton="true"
+                            HBox.hgrow="ALWAYS"
+                            style="-fx-pref-height: 52px; -fx-font-size: 17px; -fx-font-weight: 700; -fx-background-radius: 12px; -fx-background-color: #667eea; -fx-text-fill: white;"/>
+                </HBox>
                 
                 <!-- Progress Indicator -->
                 <StackPane>
@@ -78,17 +120,14 @@
                 
             </VBox>
             
-            <!-- Demo Credentials Card -->
-            <VBox spacing="12" styleClass="info-box" maxWidth="380"
+            <!-- Demo Credentials Card (Only shown in admin login) -->
+            <VBox fx:id="demoCredentialsBox" spacing="12" styleClass="info-box" maxWidth="380" visible="false" managed="false"
                   style="-fx-background-color: #f8fafc; -fx-padding: 20px 24px; -fx-background-radius: 12px; -fx-border-color: #e2e8f0; -fx-border-width: 1px; -fx-border-radius: 12px;">
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <Label text="💡" style="-fx-font-size: 20px;"/>
-                    <Label text="Demo Credentials" style="-fx-font-weight: 700; -fx-font-size: 15px; -fx-text-fill: #475569;"/>
+                    <Label text="Demo Admin Credentials" style="-fx-font-weight: 700; -fx-font-size: 15px; -fx-text-fill: #475569;"/>
                 </HBox>
-                <VBox spacing="8">
-                    <Label text="Admin: ADMIN001 / admin123" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-padding: 0 0 0 30;"/>
-                    <Label text="Student: STU001 / student123" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-padding: 0 0 0 30;"/>
-                </VBox>
+                <Label text="Admin: ADMIN001 / admin123" style="-fx-font-size: 13px; -fx-text-fill: #64748b; -fx-padding: 0 0 0 30;"/>
             </VBox>
             
         </VBox>

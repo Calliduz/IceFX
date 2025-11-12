@@ -2,8 +2,10 @@ package com.icefx.controller;
 
 import com.icefx.config.AppConfig;
 import com.icefx.dao.AttendanceDAO;
+import com.icefx.dao.ScheduleDAO;
 import com.icefx.dao.UserDAO;
 import com.icefx.model.AttendanceLog;
+import com.icefx.model.Schedule;
 import com.icefx.model.User;
 import com.icefx.service.AttendanceService;
 import com.icefx.service.CameraService;
@@ -16,12 +18,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,14 +34,15 @@ import java.util.List;
  * Controller for the main dashboard with camera and face recognition.
  * 
  * Features:
- * - Live camera feed
+ * - Auto-start camera for continuous face scanning
  * - Real-time face detection and recognition
  * - Automatic attendance logging
+ * - Schedule display after recognition
  * - Recent attendance display
  * - Statistics overview
  * 
  * @author IceFX Team
- * @version 2.0
+ * @version 3.0 - Auto-Detect Mode
  */
 public class DashboardController {
     private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
@@ -67,6 +72,9 @@ public class DashboardController {
     @FXML private VBox recognitionPanel;
     @FXML private VBox cameraOffOverlay;
     @FXML private StackPane loadingOverlay;
+    @FXML private VBox schedulePanel;
+    @FXML private Label scheduleLabel;
+    @FXML private VBox scheduleList;
     
     // Services
     private CameraService cameraService;
@@ -76,6 +84,7 @@ public class DashboardController {
     // DAOs
     private UserDAO userDAO;
     private AttendanceDAO attendanceDAO;
+    private ScheduleDAO scheduleDAO;
     
     // Data
     private ObservableList<AttendanceLog> attendanceData;
@@ -99,6 +108,7 @@ public class DashboardController {
             // Initialize DAOs
             userDAO = new UserDAO();
             attendanceDAO = new AttendanceDAO();
+            scheduleDAO = new ScheduleDAO();
             
             // Initialize services
             attendanceService = new AttendanceService(attendanceDAO, userDAO);
@@ -126,7 +136,12 @@ public class DashboardController {
                 loadingOverlay.setVisible(false);
             }
             if (cameraOffOverlay != null) {
-                cameraOffOverlay.setVisible(true);
+                cameraOffOverlay.setVisible(false);
+            }
+            
+            // Hide schedule panel initially
+            if (schedulePanel != null) {
+                schedulePanel.setVisible(false);
             }
             
             // Initialize user info if available
@@ -134,12 +149,73 @@ public class DashboardController {
                 updateUserDisplay();
             }
             
+            // AUTO-START CAMERA - Key feature for automatic attendance
+            logger.info("Auto-starting camera for continuous face scanning...");
+            Platform.runLater(this::autoStartCamera);
+            
             logger.info("✅ DashboardController initialized successfully");
-            ModernToast.success("Dashboard loaded successfully!");
+            ModernToast.success("Dashboard loaded - Camera starting automatically");
             
         } catch (Exception e) {
             logger.error("Failed to initialize DashboardController", e);
             ModernToast.error("Failed to initialize dashboard: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Auto-start camera on dashboard load
+     */
+    private void autoStartCamera() {
+        try {
+            logger.info("Auto-starting camera...");
+            
+            if (loadingOverlay != null) {
+                loadingOverlay.setVisible(true);
+            }
+            
+            cameraService.start();
+            
+            // Short delay for camera warmup
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {}
+                
+                Platform.runLater(() -> {
+                    if (loadingOverlay != null) {
+                        loadingOverlay.setVisible(false);
+                    }
+                    
+                    // Camera buttons are for admin control only
+                    // In auto-detect mode, students don't need to interact
+                    startCameraButton.setDisable(true);
+                    stopCameraButton.setDisable(false);
+                    
+                    if (statusLabel != null) {
+                        statusLabel.setText("🟢 System Active - Scanning for faces...");
+                    }
+                    if (statusIndicator != null) {
+                        statusIndicator.setStyle("-fx-text-fill: #4CAF50;");
+                    }
+                    
+                    logger.info("✅ Camera auto-started successfully");
+                });
+            }).start();
+            
+        } catch (Exception e) {
+            logger.error("Failed to auto-start camera", e);
+            Platform.runLater(() -> {
+                if (loadingOverlay != null) {
+                    loadingOverlay.setVisible(false);
+                }
+                if (cameraOffOverlay != null) {
+                    cameraOffOverlay.setVisible(true);
+                }
+                ModernToast.error("Camera auto-start failed: " + e.getMessage());
+                
+                // Enable manual start as fallback
+                startCameraButton.setDisable(false);
+            });
         }
     }
     
@@ -320,6 +396,22 @@ public class DashboardController {
     }
     
     /**
+     * Reset recognition display to default state (ready for next student).
+     */
+    private void resetRecognitionDisplay() {
+        if (recognitionLabel != null) {
+            recognitionLabel.setText("System Active - Scanning...");
+        }
+        if (recognitionDetails != null) {
+            recognitionDetails.setText("Look at the camera to log attendance");
+        }
+        if (recognitionIcon != null) {
+            recognitionIcon.setText("👤");
+        }
+        logger.debug("Recognition display reset to scanning mode");
+    }
+    
+    /**
      * Log attendance for recognized user.
      */
     private void logAttendance(FaceRecognitionService.RecognitionResult recognition) {
@@ -337,9 +429,12 @@ public class DashboardController {
                 Platform.runLater(() -> {
                     if (result.isSuccess()) {
                         ModernToast.success(String.format(
-                            "Welcome, %s! Attendance logged successfully.",
+                            "✅ Welcome, %s! Attendance logged successfully.",
                             recognition.getUserName()
                         ));
+                        
+                        // Show user's schedule for today
+                        displayUserSchedule(recognition.getUserId(), recognition.getUserName());
                         
                         // Refresh attendance table
                         loadTodayAttendance();
@@ -347,9 +442,12 @@ public class DashboardController {
                         
                     } else if (result.getStatus() == AttendanceService.AttendanceResult.Status.DUPLICATE) {
                         ModernToast.info(String.format(
-                            "Welcome back, %s! You already checked in recently.",
+                            "Welcome back, %s! You already checked in earlier today.",
                             recognition.getUserName()
                         ));
+                        
+                        // Still show schedule even if duplicate
+                        displayUserSchedule(recognition.getUserId(), recognition.getUserName());
                     } else {
                         ModernToast.warning("Failed to log attendance: " + result.getMessage());
                     }
@@ -360,6 +458,71 @@ public class DashboardController {
                 Platform.runLater(() -> 
                     ModernToast.error("Failed to log attendance: " + e.getMessage())
                 );
+            }
+        }).start();
+    }
+    
+    /**
+     * Display user's schedule for today
+     */
+    private void displayUserSchedule(int userId, String userName) {
+        new Thread(() -> {
+            try {
+                DayOfWeek today = LocalDate.now().getDayOfWeek();
+                List<Schedule> schedules = scheduleDAO.findByUserIdAndDay(userId, today);
+                
+                Platform.runLater(() -> {
+                    if (schedulePanel == null || scheduleLabel == null || scheduleList == null) {
+                        return;
+                    }
+                    
+                    schedulePanel.setVisible(true);
+                    scheduleLabel.setText(String.format("📅 %s's Schedule for Today (%s)", 
+                        userName, today.toString()));
+                    
+                    scheduleList.getChildren().clear();
+                    
+                    if (schedules.isEmpty()) {
+                        Label noSchedule = new Label("No classes/activities scheduled for today");
+                        noSchedule.setStyle("-fx-text-fill: #BDBDBD; -fx-font-size: 13px;");
+                        scheduleList.getChildren().add(noSchedule);
+                    } else {
+                        for (Schedule schedule : schedules) {
+                            HBox scheduleItem = new HBox(12);
+                            scheduleItem.setStyle("-fx-background-color: #2C2C2C; -fx-padding: 10; -fx-background-radius: 6;");
+                            scheduleItem.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                            
+                            // Time range
+                            Label timeLabel = new Label(String.format("🕐 %s - %s", 
+                                schedule.getStartTime().format(DateTimeFormatter.ofPattern("h:mm a")),
+                                schedule.getEndTime().format(DateTimeFormatter.ofPattern("h:mm a"))));
+                            timeLabel.setStyle("-fx-text-fill: #64B5F6; -fx-font-weight: bold; -fx-min-width: 150;");
+                            
+                            // Activity
+                            Label activityLabel = new Label(schedule.getActivity());
+                            activityLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+                            
+                            scheduleItem.getChildren().addAll(timeLabel, activityLabel);
+                            scheduleList.getChildren().add(scheduleItem);
+                        }
+                    }
+                    
+                    // Auto-hide schedule and reset recognition after 15 seconds (for next student)
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(15000); // 15 seconds for student to read schedule
+                            Platform.runLater(() -> {
+                                schedulePanel.setVisible(false);
+                                // Reset recognition display for next student
+                                resetRecognitionDisplay();
+                                logger.info("Recognition display reset - ready for next student");
+                            });
+                        } catch (InterruptedException ignored) {}
+                    }).start();
+                });
+                
+            } catch (Exception e) {
+                logger.error("Error loading schedule for user {}", userId, e);
             }
         }).start();
     }
@@ -542,6 +705,34 @@ public class DashboardController {
         this.currentUser = user;
         logger.info("Current user set: {}", user.getFullName());
         updateUserDisplay();
+    }
+    
+    /**
+     * Set student auto-scan mode (no specific user, recognize everyone).
+     * This mode is for students accessing the system - camera auto-starts
+     * and recognizes any registered face.
+     */
+    public void setStudentAutoScanMode(boolean autoScan) {
+        logger.info("Student auto-scan mode: {}", autoScan);
+        
+        Platform.runLater(() -> {
+            // Update UI for student mode
+            if (userNameLabel != null) {
+                userNameLabel.setText("Student Mode");
+            }
+            if (userRoleLabel != null) {
+                userRoleLabel.setText("Auto Face Recognition");
+            }
+            if (statusIndicator != null) {
+                statusIndicator.setText("🎓");
+            }
+            
+            // Auto-start camera
+            if (autoScan) {
+                logger.info("Auto-starting camera for student mode");
+                handleStartCamera();
+            }
+        });
     }
     
     /**
