@@ -17,8 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,14 +63,6 @@ public class AdminController {
     @FXML private Button updateButton;
     @FXML private Button deleteButton;
     @FXML private Button clearButton;
-    @FXML private Button trainButton;
-    @FXML private Button loadModelButton;
-    @FXML private Button saveModelButton;
-    
-    // Face Training
-    @FXML private Label modelStatusLabel;
-    @FXML private Label trainingStatusLabel;
-    @FXML private ProgressBar trainingProgressBar;
     
     // Statistics
     @FXML private Label totalUsersLabel;
@@ -129,7 +119,6 @@ public class AdminController {
         setupSearchAndFilter();
         loadAllUsers();
         updateStatistics();
-        updateModelStatus();
         
         // Initially disable update/delete buttons
         updateButton.setDisable(true);
@@ -465,134 +454,47 @@ public class AdminController {
     }
     
     /**
-     * Train face recognition model
+     * Open Face Registration window
      */
     @FXML
-    private void handleTrainModel() {
+    private void handleRegisterFaces() {
         // AUTHORIZATION CHECK
-        if (!AuthorizationManager.requireAdmin("Train Face Recognition Model")) {
+        if (!AuthorizationManager.requireAdmin("Register Faces")) {
             return;
         }
         
-        // Choose directory with face images
-        DirectoryChooser dirChooser = new DirectoryChooser();
-        dirChooser.setTitle("Select Faces Directory");
-        dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        
-        File facesDir = dirChooser.showDialog(trainButton.getScene().getWindow());
-        if (facesDir == null) {
-            return;
-        }
-        
-        // Disable button during training
-        trainButton.setDisable(true);
-        trainingProgressBar.setVisible(true);
-        trainingProgressBar.setProgress(-1); // Indeterminate
-        trainingStatusLabel.setText("Training in progress...");
-        
-        // Run training in background
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                faceRecognitionService.trainFromDirectory(facesDir.getAbsolutePath());
-                return null;
-            }
-            
-            @Override
-            protected void succeeded() {
-                trainingProgressBar.setVisible(false);
-                trainingStatusLabel.setText("Training completed successfully");
-                trainButton.setDisable(false);
-                updateModelStatus();
-                showInfo("Success", "Face recognition model trained successfully");
-                logger.info("Model trained from: {}", facesDir.getAbsolutePath());
-            }
-            
-            @Override
-            protected void failed() {
-                Throwable e = getException();
-                trainingProgressBar.setVisible(false);
-                trainingStatusLabel.setText("Training failed");
-                trainButton.setDisable(false);
-                logger.error("Error training model", e);
-                showError("Error", "Failed to train model: " + e.getMessage());
-            }
-        };
-        
-        new Thread(task).start();
-    }
-    
-    /**
-     * Load face recognition model
-     */
-    @FXML
-    private void handleLoadModel() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Load Face Recognition Model");
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("XML Files", "*.xml")
-        );
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        
-        File modelFile = fileChooser.showOpenDialog(loadModelButton.getScene().getWindow());
-        if (modelFile == null) {
+        // Check if user is selected
+        if (selectedUser == null) {
+            ModernToast.warning("Please select a user from the table first");
             return;
         }
         
         try {
-            faceRecognitionService.loadModel(modelFile.getAbsolutePath());
-            updateModelStatus();
-            showInfo("Success", "Model loaded successfully");
-            logger.info("Model loaded from: {}", modelFile.getAbsolutePath());
+            logger.info("Opening Face Registration window for user: {}", selectedUser.getUserCode());
+            
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                getClass().getResource("/com/icefx/view/FaceRegistration.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            
+            // Get controller and set the user
+            com.icefx.controller.FaceRegistrationController controller = loader.getController();
+            controller.setUser(selectedUser);
+            
+            javafx.stage.Stage stage = new javafx.stage.Stage();
+            stage.setTitle("IceFX - Face Registration - " + selectedUser.getFullName());
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            
+            // Set cleanup on close
+            stage.setOnCloseRequest(event -> controller.cleanup());
+            
+            stage.showAndWait();
+            
         } catch (Exception e) {
-            logger.error("Error loading model", e);
-            showError("Error", "Failed to load model: " + e.getMessage());
-        }
-    }
-    
-    /**
-     * Save face recognition model
-     */
-    @FXML
-    private void handleSaveModel() {
-        if (!faceRecognitionService.isTrained()) {
-            showError("Error", "No trained model to save. Please train a model first.");
-            return;
-        }
-        
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Face Recognition Model");
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("XML Files", "*.xml")
-        );
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fileChooser.setInitialFileName("trained_faces.xml");
-        
-        File modelFile = fileChooser.showSaveDialog(saveModelButton.getScene().getWindow());
-        if (modelFile == null) {
-            return;
-        }
-        
-        try {
-            faceRecognitionService.saveModel(modelFile.getAbsolutePath());
-            showInfo("Success", "Model saved successfully");
-            logger.info("Model saved to: {}", modelFile.getAbsolutePath());
-        } catch (Exception e) {
-            logger.error("Error saving model", e);
-            showError("Error", "Failed to save model: " + e.getMessage());
-        }
-    }
-    
-    /**
-     * Update model status label
-     */
-    private void updateModelStatus() {
-        if (faceRecognitionService.isTrained()) {
-            modelStatusLabel.setText("✓ Model Trained");
-            modelStatusLabel.setStyle("-fx-text-fill: #4CAF50; -fx-font-weight: bold;");
-        } else {
-            modelStatusLabel.setText("✗ No Model");
-            modelStatusLabel.setStyle("-fx-text-fill: #F44336; -fx-font-weight: bold;");
+            logger.error("Failed to open Face Registration window", e);
+            ModernToast.error("Failed to open Face Registration: " + e.getMessage());
         }
     }
     

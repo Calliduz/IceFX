@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,11 @@ public class LoginController {
     @FXML private Button loginButton;
     @FXML private Label errorLabel;
     @FXML private ProgressIndicator progressIndicator;
+    @FXML private VBox roleSelectionBox;
+    @FXML private VBox loginFormBox;
+    @FXML private VBox demoCredentialsBox;
+    @FXML private Label welcomeTitle;
+    @FXML private Label welcomeSubtitle;
     
     private UserService userService;
     private UserDAO userDAO;
@@ -88,6 +94,113 @@ public class LoginController {
         }
         
         logger.info("LoginController initialized successfully");
+    }
+    
+    /**
+     * Handle student role selection - go directly to student dashboard with face scan.
+     */
+    @FXML
+    private void handleStudentRole() {
+        logger.info("Student role selected - loading auto-scan dashboard");
+        ModernToast.info("Loading student dashboard...");
+        
+        try {
+            // Load student dashboard (auto-scan mode)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/icefx/view/Dashboard.fxml"));
+            Parent root = loader.load();
+            
+            // Get controller and set to student mode
+            Object controller = loader.getController();
+            if (controller instanceof DashboardController dashboardController) {
+                // Student mode - no specific user, auto-recognize everyone
+                dashboardController.setStudentAutoScanMode(true);
+            }
+            
+            Stage stage = primaryStage != null ? primaryStage : (Stage) roleSelectionBox.getScene().getWindow();
+            Scene scene = stage.getScene();
+            
+            if (scene == null) {
+                scene = new Scene(root);
+                stage.setScene(scene);
+            } else {
+                scene.setRoot(root);
+            }
+            
+            stage.setTitle("IceFX - Student Dashboard (Auto-Scan)");
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            stage.show();
+            
+            ModernToast.success("Student dashboard loaded - Camera will start automatically");
+            
+        } catch (Exception e) {
+            logger.error("Failed to load student dashboard", e);
+            ModernToast.error("Failed to load student dashboard: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Handle admin role selection - show login form.
+     */
+    @FXML
+    private void handleAdminRole() {
+        logger.info("Admin role selected - showing login form");
+        
+        // Hide role selection, show login form
+        roleSelectionBox.setVisible(false);
+        roleSelectionBox.setManaged(false);
+        
+        loginFormBox.setVisible(true);
+        loginFormBox.setManaged(true);
+        
+        demoCredentialsBox.setVisible(true);
+        demoCredentialsBox.setManaged(true);
+        
+        // Update welcome text
+        if (welcomeTitle != null) {
+            welcomeTitle.setText("Admin Login");
+        }
+        if (welcomeSubtitle != null) {
+            welcomeSubtitle.setText("Enter your credentials to continue");
+        }
+        
+        // Focus on user code field
+        Platform.runLater(() -> {
+            if (userCodeField != null) {
+                userCodeField.requestFocus();
+            }
+        });
+        
+        ModernToast.info("Admin login required");
+    }
+    
+    /**
+     * Handle back to role selection.
+     */
+    @FXML
+    private void handleBackToRoles() {
+        logger.info("Returning to role selection");
+        
+        // Show role selection, hide login form
+        roleSelectionBox.setVisible(true);
+        roleSelectionBox.setManaged(true);
+        
+        loginFormBox.setVisible(false);
+        loginFormBox.setManaged(false);
+        
+        demoCredentialsBox.setVisible(false);
+        demoCredentialsBox.setManaged(false);
+        
+        // Update welcome text
+        if (welcomeTitle != null) {
+            welcomeTitle.setText("Welcome!");
+        }
+        if (welcomeSubtitle != null) {
+            welcomeSubtitle.setText("Select your role to continue");
+        }
+        
+        // Clear form
+        clearForm();
     }
     
     /**

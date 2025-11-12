@@ -89,12 +89,22 @@
                         <Label fx:id="recognitionIcon" text="👤" style="-fx-font-size: 48px;"/>
                         
                         <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label fx:id="recognitionLabel" text="Ready for detection" 
+                            <Label fx:id="recognitionLabel" text="System Active - Scanning..." 
                                    styleClass="text-large" style="-fx-font-weight: bold;"/>
-                            <Label fx:id="recognitionDetails" text="Waiting for face" 
+                            <Label fx:id="recognitionDetails" text="Look at the camera to log attendance" 
                                    styleClass="text-muted"/>
                         </VBox>
                     </HBox>
+                </VBox>
+
+                <!-- Schedule Panel (Hidden until recognition) -->
+                <VBox fx:id="schedulePanel" styleClass="card" spacing="12" style="-fx-padding: 20px; -fx-background-color: #E3F2FD; -fx-border-color: #2196F3; -fx-border-width: 2px;" visible="false">
+                    <Label fx:id="scheduleLabel" text="📅 Your Schedule for Today" 
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1565C0;"/>
+                    <Separator style="-fx-background-color: #90CAF9;"/>
+                    <VBox fx:id="scheduleList" spacing="8">
+                        <!-- Schedule items will be added dynamically -->
+                    </VBox>
                 </VBox>
 
                 <HBox spacing="16">

@@ -10,6 +10,7 @@ import org.bytedeco.javacv.JavaFXFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Size;
+import org.bytedeco.opencv.global.opencv_core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,6 +68,9 @@ public class CameraService {
     
     // Callback for frame processing (face detection, etc.)
     private FrameCallback callback;
+    
+    // Configuration
+    private boolean mirrorHorizontally = true; // Mirror camera by default for intuitive display
     
     /**
      * Callback interface for processing captured frames.
@@ -195,15 +199,28 @@ public class CameraService {
                     // Skip processing if paused
                     if (!isPaused.get()) {
                         // Convert to Mat for OpenCV processing
-                        Mat mat = convertFrameToMat(frame);
+                        org.bytedeco.javacv.OpenCVFrameConverter.ToMat matConverter = 
+                            new org.bytedeco.javacv.OpenCVFrameConverter.ToMat();
+                        Mat mat = matConverter.convert(frame);
+                        
+                        // Mirror horizontally if enabled (makes movements intuitive)
+                        if (mirrorHorizontally && mat != null) {
+                            Mat flippedMat = new Mat();
+                            opencv_core.flip(mat, flippedMat, 1); // 1 = horizontal flip
+                            mat.release();
+                            mat = flippedMat;
+                        }
                         
                         // Notify callback for face detection (runs on this thread - safe!)
                         if (callback != null && mat != null) {
                             callback.onFrameCaptured(mat);
                         }
                         
+                        // Convert flipped Mat back to Frame for display
+                        Frame displayFrame = mat != null ? matConverter.convert(mat) : frame;
+                        
                         // Convert to JavaFX Image and update UI (must use Platform.runLater!)
-                        Image image = converter.convert(frame);
+                        Image image = converter.convert(displayFrame);
                         if (image != null) {
                             Platform.runLater(() -> currentFrame.set(image));
                         }
@@ -363,5 +380,23 @@ public class CameraService {
      */
     public void setFrameCallback(FrameCallback callback) {
         this.callback = callback;
+    }
+    
+    /**
+     * Enable or disable horizontal mirroring of camera feed.
+     * When enabled (default), camera acts like a mirror for intuitive interaction.
+     * 
+     * @param mirror true to mirror, false for normal orientation
+     */
+    public void setMirrorHorizontally(boolean mirror) {
+        this.mirrorHorizontally = mirror;
+        logger.info("Camera mirroring {}", mirror ? "enabled" : "disabled");
+    }
+    
+    /**
+     * Check if horizontal mirroring is enabled.
+     */
+    public boolean isMirrorHorizontally() {
+        return mirrorHorizontally;
     }
 }
