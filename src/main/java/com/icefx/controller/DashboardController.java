@@ -151,7 +151,15 @@ public class DashboardController {
             
             // AUTO-START CAMERA - Key feature for automatic attendance
             logger.info("Auto-starting camera for continuous face scanning...");
-            Platform.runLater(this::autoStartCamera);
+            // Add small delay to ensure any previous camera session is released
+            Platform.runLater(() -> {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(500); // Wait 500ms for camera to be released
+                    } catch (InterruptedException ignored) {}
+                    Platform.runLater(this::autoStartCamera);
+                }).start();
+            });
             
             logger.info("✅ DashboardController initialized successfully");
             ModernToast.success("Dashboard loaded - Camera starting automatically");
@@ -243,10 +251,28 @@ public class DashboardController {
             cameraView.setPreserveRatio(true);
         }
         
-        // Bind status label
+        // Bind status label and detect camera errors
         if (statusLabel != null) {
             cameraService.statusTextProperty().addListener((obs, oldVal, newVal) -> {
-                Platform.runLater(() -> statusLabel.setText(newVal));
+                Platform.runLater(() -> {
+                    statusLabel.setText(newVal);
+                    
+                    // Detect camera error and show user-friendly message
+                    if ("Camera Error".equals(newVal)) {
+                        ModernToast.error("Failed to access camera. Check if camera is connected and not in use by another app.");
+                        
+                        // Enable manual start button
+                        if (startCameraButton != null) {
+                            startCameraButton.setDisable(false);
+                        }
+                        if (stopCameraButton != null) {
+                            stopCameraButton.setDisable(true);
+                        }
+                        if (cameraOffOverlay != null) {
+                            cameraOffOverlay.setVisible(true);
+                        }
+                    }
+                });
             });
         }
         
