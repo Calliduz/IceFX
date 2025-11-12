@@ -2369,3 +2369,726 @@ org.bytedeco.javacv.FrameGrabber$Exception: grab() Error: Could not grab frame. 
 2025-11-12 15:47:30.790 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
 2025-11-12 15:47:30.790 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
 2025-11-12 15:47:30.790 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:50:23.334 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:50:23.336 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 15:50:23.337 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 15:50:23.342 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 15:50:23.342 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:50:23.357 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 15:50:23.358 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 15:50:23.359 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 15:50:23.371 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:50:23.371 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 15:50:23.372 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:50:23.372 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 15:50:23.372 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 15:50:23.373 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 15:50:23.373 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 15:50:23.374 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 15:50:23.375 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 15:50:30.087 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 15:50:30.088 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:50:30.089 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 15:50:30.162 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 15:50:31.921 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:50:31.923 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:50:31.924 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:50:31.929 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:50:34.062 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 15:51:15.498 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 15:51:16.081 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 15:51:16.083 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 15:51:16.085 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:51:16.121 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade10809116537785231826.xml
+2025-11-12 15:51:16.284 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:51:16.285 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:51:16.285 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:51:16.286 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 15:51:16.336 [JavaFX Application Thread] ERROR c.i.service.FaceRecognitionService - Failed to load model
+java.lang.RuntimeException: OpenCV(4.9.0) /home/runner/work/javacpp-presets/javacpp-presets/opencv/cppbuild/linux-x86_64/opencv_contrib-4.9.0/modules/face/src/facerec.cpp:61: error: (-2:Unspecified error) File can't be opened for reading! in function 'read'
+
+	at org.bytedeco.opencv.opencv_face.FaceRecognizer.read(Native Method)
+	at com.icefx.service.FaceRecognitionService.loadModel(FaceRecognitionService.java:463)
+	at com.icefx.controller.DashboardController.loadFaceRecognitionModel(DashboardController.java:228)
+	at com.icefx.controller.DashboardController.initialize(DashboardController.java:118)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.base@23.0.1/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@23.0.1/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2693)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.handleStudentRole(LoginController.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.base@23.0.1/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@23.0.1/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1860)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Node.fireEvent(Node.java:8963)
+	at javafx.controls@23.0.1/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$MouseHandler.process(Scene.java:3987)
+	at javafx.graphics@23.0.1/javafx.scene.Scene.processMouseEvent(Scene.java:1893)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2711)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.handleMouseEvent(View.java:560)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.notifyMouse(View.java:946)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2025-11-12 15:51:16.344 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 15:51:16.354 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 15:51:16.363 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 15:51:16.364 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 15:51:16.366 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 15:51:16.464 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 15:51:16.548 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 15:51:16.555 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 15:51:16.558 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 15:51:16.650 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 15:51:16.651 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 15:51:16.654 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 15:51:17.804 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 15:51:18.854 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 15:51:19.110 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.AttendanceDAO.findAllToday(AttendanceDAO.java:120)
+	at com.icefx.service.AttendanceService.getTodayAttendance(AttendanceService.java:151)
+	at com.icefx.controller.DashboardController.lambda$loadTodayAttendance$22(DashboardController.java:515)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 15:51:20.063 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:20.408 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:20.565 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:20.697 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:20.833 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:20.975 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.048 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.162 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.286 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.414 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.559 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.679 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.833 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:21.965 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.051 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.131 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.239 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.401 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.571 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.691 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.828 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:22.917 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.074 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.238 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.342 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.457 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.544 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.637 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.750 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:23.856 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:24.029 [CameraService-Thread] WARN  c.i.service.FaceRecognitionService - Recognizer not trained yet
+2025-11-12 15:51:24.059 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:51:24.060 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:51:24.061 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:51:24.062 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:51:24.063 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:51:24.064 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:51:24.064 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:51:24.064 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:51:24.065 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:51:24.065 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:51:52.549 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:51:52.553 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 15:51:52.554 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 15:51:52.562 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 15:51:52.563 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:51:52.569 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 15:51:52.570 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 15:51:52.571 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 15:51:52.599 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:51:52.600 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 15:51:52.600 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:51:52.601 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 15:51:52.601 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 15:51:52.602 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 15:51:52.602 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 15:51:52.603 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 15:51:52.603 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 15:51:57.428 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 15:51:57.429 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:51:57.430 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 15:51:57.484 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 15:51:59.003 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:51:59.006 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:51:59.007 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:51:59.014 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:52:00.832 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 15:52:02.513 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Admin role selected - showing login form
+2025-11-12 15:52:08.099 [Thread-2] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-12 15:52:08.170 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 15:52:09.660 [Thread-2] ERROR com.icefx.config.DatabaseConfig - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:606)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:593)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:101)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.icefx.config.DatabaseConfig.initializeDataSource(DatabaseConfig.java:51)
+	at com.icefx.config.DatabaseConfig.<clinit>(DatabaseConfig.java:28)
+	at com.icefx.dao.UserDAO.findByUserCode(UserDAO.java:83)
+	at com.icefx.service.UserService.authenticate(UserService.java:56)
+	at com.icefx.controller.LoginController.lambda$handleLogin$4(LoginController.java:238)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:165)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:55)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:837)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:420)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:238)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:139)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:367)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:484)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:572)
+	... 8 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:52)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:95)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:140)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:79)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:142)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:961)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825)
+	... 16 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:760)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:144)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:53)
+	... 19 common frames omitted
+2025-11-12 15:52:42.932 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:52:42.932 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:52:42.934 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:52:42.936 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:52:42.936 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:52:42.938 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:52:42.939 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:52:42.939 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:52:42.939 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:52:42.939 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:53:14.049 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:53:14.052 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 15:53:14.052 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 15:53:14.055 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 15:53:14.055 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:53:14.057 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 15:53:14.058 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 15:53:14.059 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 15:53:14.071 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:53:14.071 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 15:53:14.071 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:53:14.071 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 15:53:14.072 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 15:53:14.072 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 15:53:14.073 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 15:53:14.073 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 15:53:14.073 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 15:53:16.279 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 15:53:16.280 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:53:16.281 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 15:53:16.307 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 15:53:17.144 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:53:17.147 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:53:17.147 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:53:17.151 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:53:17.982 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 15:53:19.593 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Admin role selected - showing login form
+2025-11-12 15:53:24.771 [Thread-2] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-12 15:53:24.824 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 15:53:25.888 [Thread-2] INFO  com.zaxxer.hikari.pool.HikariPool - IceFX-MySQL - Added connection com.mysql.cj.jdbc.ConnectionImpl@26db474f
+2025-11-12 15:53:25.896 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Start completed.
+2025-11-12 15:53:25.897 [Thread-2] INFO  com.icefx.config.DatabaseConfig - ✅ Database connection pool initialized (IceFX-MySQL)
+2025-11-12 15:53:26.350 [Thread-2] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: ADMIN001
+2025-11-12 15:53:26.353 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: ADMIN001 (Role: Administrator)
+2025-11-12 15:53:26.354 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user ADMIN001 (ADMIN)
+2025-11-12 15:53:26.361 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:53:26.364 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:53:26.370 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade2798234792961764497.xml
+2025-11-12 15:53:26.439 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:53:26.439 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:53:26.439 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:53:26.819 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Initializing AdminController
+2025-11-12 15:53:26.831 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Loaded 5 users
+2025-11-12 15:53:32.489 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Opening Face Registration window for user: STU001
+2025-11-12 15:53:32.542 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Initializing FaceRegistrationController
+2025-11-12 15:53:32.543 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:53:32.547 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Extracted cascade to temp file: /tmp/cascade6507966787194470295.xml
+2025-11-12 15:53:32.584 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Face registration service initialized - Base directory: faces
+2025-11-12 15:53:32.584 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:53:32.587 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade780037913051710251.xml
+2025-11-12 15:53:32.624 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:53:32.625 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:53:32.625 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:53:32.626 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - FaceRegistrationController initialized successfully
+2025-11-12 15:53:32.627 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - User set for registration: STU001
+2025-11-12 15:53:32.655 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Loaded 10 existing photos for user STU001
+2025-11-12 15:53:41.059 [Thread-3] INFO  c.i.service.FaceRecognitionService - Training recognizer from directory: faces
+2025-11-12 15:53:41.172 [Thread-3] INFO  c.i.service.FaceRecognitionService - ✅ Training complete! Trained with 10 face images
+2025-11-12 15:53:41.250 [Thread-3] INFO  c.i.service.FaceRecognitionService - ✅ Model saved to: trained_faces.xml
+2025-11-12 15:53:41.257 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Model trained with 10 faces
+2025-11-12 15:54:00.887 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Opening Face Registration window for user: STU001
+2025-11-12 15:54:00.926 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Initializing FaceRegistrationController
+2025-11-12 15:54:00.927 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:54:00.933 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Extracted cascade to temp file: /tmp/cascade16501955312441136235.xml
+2025-11-12 15:54:00.976 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Face registration service initialized - Base directory: faces
+2025-11-12 15:54:00.976 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:54:00.983 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade15070103241524595570.xml
+2025-11-12 15:54:01.022 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:54:01.022 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:54:01.022 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:54:01.023 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - FaceRegistrationController initialized successfully
+2025-11-12 15:54:01.023 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - User set for registration: STU001
+2025-11-12 15:54:01.053 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Loaded 10 existing photos for user STU001
+2025-11-12 15:54:11.367 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Cleaning up FaceRegistrationController
+2025-11-12 15:54:23.176 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logout requested
+2025-11-12 15:54:23.211 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:54:23.212 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:54:23.213 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:54:23.213 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:54:23.301 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logged out successfully
+2025-11-12 15:54:24.752 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 15:54:24.814 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController initializing...
+2025-11-12 15:54:24.817 [JavaFX Application Thread] INFO  com.icefx.service.AttendanceService - AttendanceService initialized (duplicate prevention: 60 minutes)
+2025-11-12 15:54:24.818 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:54:24.821 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade9080245077749999130.xml
+2025-11-12 15:54:24.856 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:54:24.856 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:54:24.856 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:54:24.856 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loading face recognition model from: trained_faces.xml
+2025-11-12 15:54:24.900 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Model loaded from: trained_faces.xml
+2025-11-12 15:54:24.901 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Face recognition model loaded successfully
+2025-11-12 15:54:24.902 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - CameraService created for camera 0 at 30 FPS
+2025-11-12 15:54:24.904 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for continuous face scanning...
+2025-11-12 15:54:24.905 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ DashboardController initialized successfully
+2025-11-12 15:54:24.905 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Student auto-scan mode: true
+2025-11-12 15:54:24.944 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera...
+2025-11-12 15:54:24.944 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Starting camera service...
+2025-11-12 15:54:24.948 [CameraService-Thread] INFO  com.icefx.service.CameraService - Initializing camera 0 ...
+2025-11-12 15:54:24.998 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Auto-starting camera for student mode
+2025-11-12 15:54:24.999 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Starting camera...
+2025-11-12 15:54:24.999 [JavaFX Application Thread] WARN  com.icefx.service.CameraService - Camera already running
+2025-11-12 15:54:25.367 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 1 attendance records for today
+2025-11-12 15:54:25.949 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - ✅ Camera auto-started successfully
+2025-11-12 15:54:27.086 [CameraService-Thread] INFO  com.icefx.service.CameraService - ✅ Camera opened successfully
+2025-11-12 15:54:27.608 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 15:54:27.610 [Thread-8] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 71.17951420597021)
+2025-11-12 15:54:27.614 [Thread-8] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 15:54:27.618 [Thread-8] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 15:54:30.669 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 15:54:30.670 [Thread-11] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 74.10578243491275)
+2025-11-12 15:54:30.673 [Thread-11] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 15:54:30.675 [Thread-11] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 15:54:33.739 [CameraService-Thread] INFO  c.i.service.FaceRecognitionService - ✅ Recognized: Juztyne Clever (confidence: {:.1f})
+2025-11-12 15:54:33.739 [Thread-14] INFO  c.i.controller.DashboardController - Logging attendance for user: Juztyne Clever (confidence: 64.08355752077793)
+2025-11-12 15:54:33.741 [Thread-14] INFO  com.icefx.service.AttendanceService - Logging attendance for user: Juztyne Clever (ID: 3)
+2025-11-12 15:54:33.742 [Thread-14] INFO  com.icefx.service.AttendanceService - Duplicate attendance detected for user: Juztyne Clever
+2025-11-12 15:54:42.673 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 15:54:45.711 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 15:54:48.756 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Recognition display reset - ready for next student
+2025-11-12 15:54:57.379 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Refreshing attendance data...
+2025-11-12 15:54:57.409 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Loaded 1 attendance records for today
+2025-11-12 15:55:14.662 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Logout requested by user: Unknown
+2025-11-12 15:55:14.717 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - Cleaning up DashboardController...
+2025-11-12 15:55:14.717 [JavaFX Application Thread] INFO  com.icefx.service.CameraService - Stopping camera service...
+2025-11-12 15:55:14.718 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - DashboardController cleanup complete
+2025-11-12 15:55:14.742 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:55:14.742 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:55:14.743 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:55:14.743 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:55:14.755 [CameraService-Thread] INFO  com.icefx.service.CameraService - Cleaning up camera resources...
+2025-11-12 15:55:14.778 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera released successfully
+2025-11-12 15:55:14.779 [CameraService-Thread] INFO  com.icefx.service.CameraService - Camera cleanup complete
+2025-11-12 15:55:14.805 [JavaFX Application Thread] INFO  c.i.controller.DashboardController - User logged out successfully
+2025-11-12 15:55:16.087 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:55:16.087 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:55:16.088 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:55:16.089 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:55:16.089 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:55:16.091 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:55:16.091 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:55:16.091 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:55:16.091 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:55:16.091 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:57:19.284 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:57:19.286 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - IceFX Facial Attendance System v2.0
+2025-11-12 15:57:19.286 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JDK Version: 23.0.1
+2025-11-12 15:57:19.288 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - JavaFX Version: 23.0.1
+2025-11-12 15:57:19.289 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ═══════════════════════════════════════════════════════
+2025-11-12 15:57:19.291 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - Configuration loaded from: /home/josh/.icefx/config.properties
+2025-11-12 15:57:19.291 [JavaFX-Launcher] INFO  com.icefx.config.AppConfig - ✅ Configuration initialized successfully
+2025-11-12 15:57:19.292 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - Loading OpenCV native libraries...
+2025-11-12 15:57:19.301 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:57:19.301 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Starting OpenCV Native Library Loading
+2025-11-12 15:57:19.301 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - System Information:
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   OS: Linux 6.14.0-35-generic (amd64)
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Java: 23.0.1 (Oracle Corporation)
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Architecture: 64-bit
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader -   Working Dir: /home/josh/IceFX
+2025-11-12 15:57:19.302 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - Loading opencv_java via Loader.load()...
+2025-11-12 15:57:21.200 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ✅ OpenCV loaded successfully!
+2025-11-12 15:57:21.201 [JavaFX-Launcher] INFO  com.icefx.util.NativeLoader - ========================================
+2025-11-12 15:57:21.201 [JavaFX-Launcher] INFO  com.icefx.IceFXApplication - ✅ OpenCV libraries loaded successfully
+2025-11-12 15:57:21.220 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Loading Login screen...
+2025-11-12 15:57:21.710 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:57:21.711 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:57:21.711 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:57:21.713 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:57:22.335 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Application started successfully
+2025-11-12 15:57:25.161 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Admin role selected - showing login form
+2025-11-12 15:57:31.195 [Thread-2] INFO  c.icefx.controller.LoginController - Attempting authentication for user: ADMIN001
+2025-11-12 15:57:31.220 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Starting...
+2025-11-12 15:57:31.547 [Thread-2] INFO  com.zaxxer.hikari.pool.HikariPool - IceFX-MySQL - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f232e83
+2025-11-12 15:57:31.552 [Thread-2] INFO  com.zaxxer.hikari.HikariDataSource - IceFX-MySQL - Start completed.
+2025-11-12 15:57:31.553 [Thread-2] INFO  com.icefx.config.DatabaseConfig - ✅ Database connection pool initialized (IceFX-MySQL)
+2025-11-12 15:57:31.858 [Thread-2] INFO  com.icefx.service.UserService - ✅ Authentication successful for user: ADMIN001
+2025-11-12 15:57:31.862 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ Login successful for user: ADMIN001 (Role: Administrator)
+2025-11-12 15:57:31.864 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session started for user ADMIN001 (ADMIN)
+2025-11-12 15:57:31.870 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:57:31.872 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:57:31.877 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade8549564024509538625.xml
+2025-11-12 15:57:31.953 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:57:31.954 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:57:31.954 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:57:32.049 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Initializing AdminController
+2025-11-12 15:57:32.055 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Loaded 5 users
+2025-11-12 15:57:43.057 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Opening Face Registration window for user: STU001
+2025-11-12 15:57:43.107 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Initializing FaceRegistrationController
+2025-11-12 15:57:43.108 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:57:43.112 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Extracted cascade to temp file: /tmp/cascade17438913526353900302.xml
+2025-11-12 15:57:43.144 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Face registration service initialized - Base directory: faces
+2025-11-12 15:57:43.144 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:57:43.147 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade565629545096568018.xml
+2025-11-12 15:57:43.176 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:57:43.176 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:57:43.176 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:57:43.177 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - FaceRegistrationController initialized successfully
+2025-11-12 15:57:43.177 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - User set for registration: STU001
+2025-11-12 15:57:43.200 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Loaded 10 existing photos for user STU001
+2025-11-12 15:57:47.817 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Deleted 10 face images for user 3
+2025-11-12 15:57:54.779 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Opening Face Registration window for user: STU001
+2025-11-12 15:57:54.825 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Initializing FaceRegistrationController
+2025-11-12 15:57:54.825 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:57:54.828 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Extracted cascade to temp file: /tmp/cascade9928525024063847463.xml
+2025-11-12 15:57:54.871 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Face registration service initialized - Base directory: faces
+2025-11-12 15:57:54.872 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Initializing face detector with cascade: /haar/haarcascade_frontalface_default.xml
+2025-11-12 15:57:54.874 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - Extracted cascade to temp file: /tmp/cascade12986831337579454894.xml
+2025-11-12 15:57:54.910 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService - ✅ Face recognition service initialized
+2025-11-12 15:57:54.910 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Confidence threshold: 80.0
+2025-11-12 15:57:54.911 [JavaFX Application Thread] INFO  c.i.service.FaceRecognitionService -   Debounce time: 3000ms
+2025-11-12 15:57:54.911 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - FaceRegistrationController initialized successfully
+2025-11-12 15:57:54.911 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - User set for registration: STU001
+2025-11-12 15:57:54.911 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Loaded 0 existing photos for user STU001
+2025-11-12 15:58:01.164 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Starting camera for face registration
+2025-11-12 15:58:03.330 [FaceRegistration-Camera] INFO  c.i.c.FaceRegistrationController - Camera loop started
+2025-11-12 15:58:03.336 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capture enabled
+2025-11-12 15:58:09.651 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Looking straight at camera (stable for 5 frames)
+2025-11-12 15:58:09.670 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155809_664_front.png
+2025-11-12 15:58:09.675 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 1: faces/3/face_20251112_155809_664_front.png
+2025-11-12 15:58:16.410 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Turn head slightly left (stable for 5 frames)
+2025-11-12 15:58:16.431 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155816_427_left.png
+2025-11-12 15:58:16.439 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 2: faces/3/face_20251112_155816_427_left.png
+2025-11-12 15:58:24.626 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Turn head slightly right (stable for 5 frames)
+2025-11-12 15:58:24.642 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155824_639_right.png
+2025-11-12 15:58:24.648 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 3: faces/3/face_20251112_155824_639_right.png
+2025-11-12 15:58:27.640 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Tilt head slightly up (stable for 5 frames)
+2025-11-12 15:58:27.658 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155827_655_up.png
+2025-11-12 15:58:27.667 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 4: faces/3/face_20251112_155827_655_up.png
+2025-11-12 15:58:40.762 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Tilt head slightly down (stable for 5 frames)
+2025-11-12 15:58:40.781 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155840_776_down.png
+2025-11-12 15:58:40.806 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 5: faces/3/face_20251112_155840_776_down.png
+2025-11-12 15:58:45.211 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Smile at camera (stable for 5 frames)
+2025-11-12 15:58:45.227 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155845_222_smile.png
+2025-11-12 15:58:45.238 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 6: faces/3/face_20251112_155845_222_smile.png
+2025-11-12 15:58:49.368 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Neutral expression (stable for 5 frames)
+2025-11-12 15:58:49.384 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155849_379_neutral.png
+2025-11-12 15:58:49.412 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 7: faces/3/face_20251112_155849_379_neutral.png
+2025-11-12 15:58:51.459 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Move closer to camera (stable for 5 frames)
+2025-11-12 15:58:51.478 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155851_476_distance_near.png
+2025-11-12 15:58:51.494 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 8: faces/3/face_20251112_155851_476_distance_near.png
+2025-11-12 15:58:54.575 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Move back from camera (stable for 5 frames)
+2025-11-12 15:58:54.596 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155854_593_distance_far.png
+2025-11-12 15:58:54.614 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 9: faces/3/face_20251112_155854_593_distance_far.png
+2025-11-12 15:58:56.571 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-capturing for angle: Good lighting condition (stable for 5 frames)
+2025-11-12 15:58:56.589 [JavaFX Application Thread] INFO  c.i.service.FaceRegistrationService - Captured face for user STU001 - faces/3/face_20251112_155856_586_good_lighting.png
+2025-11-12 15:58:56.607 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-captured photo 10: faces/3/face_20251112_155856_586_good_lighting.png
+2025-11-12 15:58:56.607 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Reached recommended photo count via auto-capture. Auto-training model...
+2025-11-12 15:58:56.607 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Stopping camera
+2025-11-12 15:58:56.630 [FaceRegistration-Camera] ERROR c.i.c.FaceRegistrationController - Error in camera loop
+org.bytedeco.javacv.FrameGrabber$Exception: grab() Error: Could not grab frame. (Has start() been called?)
+	at org.bytedeco.javacv.OpenCVFrameGrabber.grab(OpenCVFrameGrabber.java:298)
+	at com.icefx.controller.FaceRegistrationController.cameraLoop(FaceRegistrationController.java:338)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2025-11-12 15:58:56.633 [FaceRegistration-Camera] INFO  c.i.c.FaceRegistrationController - Camera loop stopped
+2025-11-12 15:58:57.138 [Thread-4] INFO  c.i.service.FaceRecognitionService - Training recognizer from directory: faces
+2025-11-12 15:58:57.210 [Thread-4] INFO  c.i.service.FaceRecognitionService - ✅ Training complete! Trained with 10 face images
+2025-11-12 15:58:57.309 [Thread-4] INFO  c.i.service.FaceRecognitionService - ✅ Model saved to: trained_faces.xml
+2025-11-12 15:58:57.311 [JavaFX Application Thread] INFO  c.i.c.FaceRegistrationController - Auto-training succeeded with 10 faces
+2025-11-12 15:59:08.193 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logout requested
+2025-11-12 15:59:08.219 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initializing...
+2025-11-12 15:59:08.219 [JavaFX Application Thread] INFO  com.icefx.service.UserService - UserService initialized
+2025-11-12 15:59:08.219 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - ✅ UserService initialized successfully
+2025-11-12 15:59:08.220 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - LoginController initialized successfully
+2025-11-12 15:59:08.284 [JavaFX Application Thread] INFO  c.icefx.controller.AdminController - Admin logged out successfully
+2025-11-12 15:59:09.581 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 15:59:09.717 [JavaFX Application Thread] ERROR c.icefx.controller.LoginController - Failed to load student dashboard
+javafx.fxml.LoadException: 
+/home/josh/IceFX/target/classes/com/icefx/view/Dashboard.fxml:87
+
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2670)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.handleStudentRole(LoginController.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.base@23.0.1/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@23.0.1/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1860)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Node.fireEvent(Node.java:8963)
+	at javafx.controls@23.0.1/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$MouseHandler.process(Scene.java:3987)
+	at javafx.graphics@23.0.1/javafx.scene.Scene.processMouseEvent(Scene.java:1893)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2711)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.handleMouseEvent(View.java:560)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.notifyMouse(View.java:946)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[87,17]
+Message: Element type "VBox" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2640)
+	... 57 common frames omitted
+2025-11-12 15:59:12.046 [JavaFX Application Thread] INFO  c.icefx.controller.LoginController - Student role selected - loading auto-scan dashboard
+2025-11-12 15:59:12.071 [JavaFX Application Thread] ERROR c.icefx.controller.LoginController - Failed to load student dashboard
+javafx.fxml.LoadException: 
+/home/josh/IceFX/target/classes/com/icefx/view/Dashboard.fxml:87
+
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2727)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2670)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2536)
+	at com.icefx.controller.LoginController.handleStudentRole(LoginController.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.base@23.0.1/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@23.0.1/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1860)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1731)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Node.fireEvent(Node.java:8963)
+	at javafx.controls@23.0.1/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@23.0.1/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@23.0.1/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@23.0.1/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@23.0.1/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$MouseHandler.process(Scene.java:3987)
+	at javafx.graphics@23.0.1/javafx.scene.Scene.processMouseEvent(Scene.java:1893)
+	at javafx.graphics@23.0.1/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2711)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:430)
+	at javafx.graphics@23.0.1/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.handleMouseEvent(View.java:560)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.View.notifyMouse(View.java:946)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at javafx.graphics@23.0.1/com.sun.glass.ui.gtk.GtkApplication.lambda$runLoop$10(GtkApplication.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[87,17]
+Message: Element type "VBox" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
+	at javafx.fxml@23.0.1/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2640)
+	... 57 common frames omitted
+2025-11-12 15:59:17.170 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:59:17.171 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:59:17.173 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:59:17.174 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:59:17.175 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed
+2025-11-12 15:59:17.177 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Application shutdown initiated...
+2025-11-12 15:59:17.177 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Closing database connections...
+2025-11-12 15:59:17.178 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - Releasing camera resources...
+2025-11-12 15:59:17.178 [JavaFX Application Thread] INFO  com.icefx.util.SessionManager - Session cleared
+2025-11-12 15:59:17.178 [JavaFX Application Thread] INFO  com.icefx.IceFXApplication - ✅ Clean shutdown completed

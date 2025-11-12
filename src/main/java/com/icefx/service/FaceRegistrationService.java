@@ -37,8 +37,8 @@ public class FaceRegistrationService {
     private static final Logger logger = LoggerFactory.getLogger(FaceRegistrationService.class);
     
     // Quality thresholds
-    private static final int MIN_FACE_SIZE = 80;  // Minimum face size in pixels
-    private static final int MAX_FACE_SIZE = 400; // Maximum face size in pixels
+    private static final int MIN_FACE_SIZE = 100;  // Increased minimum face size (was 80)
+    private static final int MAX_FACE_SIZE = 350; // Reduced maximum to prevent zoomed-in faces (was 400)
     private static final double MIN_BRIGHTNESS = 50;  // Minimum average brightness
     private static final double MAX_BRIGHTNESS = 200; // Maximum average brightness
     
@@ -207,6 +207,24 @@ public class FaceRegistrationService {
                 return QualityResult.fail("Face too large - Move back from camera");
             }
             
+            // Check face proportions to avoid capturing partial faces
+            double aspectRatio = (double) faceWidth / faceHeight;
+            if (aspectRatio < 0.7 || aspectRatio > 1.4) {
+                return QualityResult.fail("Incomplete face detected - Ensure full face is visible");
+            }
+            
+            // Check if face takes up reasonable portion of frame (not too small or zoomed in)
+            double faceArea = faceWidth * faceHeight;
+            double frameArea = frame.cols() * frame.rows();
+            double faceRatio = faceArea / frameArea;
+            
+            if (faceRatio < 0.05) {
+                return QualityResult.fail("Face too small in frame - Move closer");
+            }
+            if (faceRatio > 0.45) {
+                return QualityResult.fail("Face too close - Move back slightly");
+            }
+            
             // Check brightness
             Mat faceROI = new Mat(gray, faceRect);
             Scalar meanBrightness = mean(faceROI);
@@ -219,7 +237,7 @@ public class FaceRegistrationService {
                 return QualityResult.fail(String.format("Too bright (%.0f) - Reduce lighting", brightness));
             }
             
-            // Check if face is centered (optional - helps with quality)
+            // Check if face is well-centered (stricter to avoid partial faces/ears)
             int frameCenterX = frame.cols() / 2;
             int frameCenterY = frame.rows() / 2;
             int faceCenterX = faceRect.x() + faceRect.width() / 2;
@@ -228,8 +246,16 @@ public class FaceRegistrationService {
             int offsetX = Math.abs(frameCenterX - faceCenterX);
             int offsetY = Math.abs(frameCenterY - faceCenterY);
             
-            if (offsetX > frame.cols() / 4 || offsetY > frame.rows() / 4) {
+            // Stricter centering: face must be within 20% of center (was 25%)
+            if (offsetX > frame.cols() / 5 || offsetY > frame.rows() / 5) {
                 return QualityResult.fail("Face not centered - Position yourself in center of frame");
+            }
+            
+            // Ensure face is not cut off at edges
+            if (faceRect.x() < 10 || faceRect.y() < 10 ||
+                faceRect.x() + faceRect.width() > frame.cols() - 10 ||
+                faceRect.y() + faceRect.height() > frame.rows() - 10) {
+                return QualityResult.fail("Face too close to edge - Center yourself in frame");
             }
             
             // All checks passed

@@ -568,32 +568,37 @@ public class FaceRegistrationController {
             double relativeY = (double) faceCenterY / frameHeight;
             
             // Determine pose based on face position and angle requirement
+            // Made thresholds more lenient for easier detection
             switch (angle) {
                 case FRONT:
-                    // Face should be centered (0.4 to 0.6 range)
-                    return relativeX > 0.4 && relativeX < 0.6 && 
-                           relativeY > 0.4 && relativeY < 0.6;
+                    // Face should be centered - wider range for easier detection
+                    return relativeX > 0.35 && relativeX < 0.65 && 
+                           relativeY > 0.35 && relativeY < 0.65;
                     
                 case LEFT:
-                    // Face should be on the right side of frame (user turned left, face moves right in mirror)
-                    return relativeX > 0.55;
+                    // Face should be on the right side of frame (user turned left)
+                    // Lowered threshold for easier detection
+                    return relativeX > 0.52;
                     
                 case RIGHT:
-                    // Face should be on the left side of frame (user turned right, face moves left in mirror)
-                    return relativeX < 0.45;
+                    // Face should be on the left side of frame (user turned right)
+                    // Raised threshold for easier detection
+                    return relativeX < 0.48;
                     
                 case UP:
                     // Face should be in lower part of frame
-                    return relativeY > 0.55;
+                    // Lowered threshold for easier detection
+                    return relativeY > 0.52;
                     
                 case DOWN:
                     // Face should be in upper part of frame
-                    return relativeY < 0.45;
+                    // Raised threshold for easier detection
+                    return relativeY < 0.48;
                     
                 default:
-                    // For other angles (smiling, neutral, distance, lighting), just check if centered
-                    return relativeX > 0.35 && relativeX < 0.65 && 
-                           relativeY > 0.35 && relativeY < 0.65;
+                    // For other angles (smiling, neutral, distance, lighting), just check if somewhat centered
+                    return relativeX > 0.30 && relativeX < 0.70 && 
+                           relativeY > 0.30 && relativeY < 0.70;
             }
             
         } catch (Exception e) {

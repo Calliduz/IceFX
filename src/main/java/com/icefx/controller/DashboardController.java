@@ -396,6 +396,22 @@ public class DashboardController {
     }
     
     /**
+     * Reset recognition display to default state (ready for next student).
+     */
+    private void resetRecognitionDisplay() {
+        if (recognitionLabel != null) {
+            recognitionLabel.setText("System Active - Scanning...");
+        }
+        if (recognitionDetails != null) {
+            recognitionDetails.setText("Look at the camera to log attendance");
+        }
+        if (recognitionIcon != null) {
+            recognitionIcon.setText("👤");
+        }
+        logger.debug("Recognition display reset to scanning mode");
+    }
+    
+    /**
      * Log attendance for recognized user.
      */
     private void logAttendance(FaceRecognitionService.RecognitionResult recognition) {
@@ -491,11 +507,16 @@ public class DashboardController {
                         }
                     }
                     
-                    // Auto-hide schedule after 10 seconds
+                    // Auto-hide schedule and reset recognition after 15 seconds (for next student)
                     new Thread(() -> {
                         try {
-                            Thread.sleep(10000);
-                            Platform.runLater(() -> schedulePanel.setVisible(false));
+                            Thread.sleep(15000); // 15 seconds for student to read schedule
+                            Platform.runLater(() -> {
+                                schedulePanel.setVisible(false);
+                                // Reset recognition display for next student
+                                resetRecognitionDisplay();
+                                logger.info("Recognition display reset - ready for next student");
+                            });
                         } catch (InterruptedException ignored) {}
                     }).start();
                 });

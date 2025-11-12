@@ -485,7 +485,8 @@ public class AdminController {
             stage.setTitle("IceFX - Face Registration - " + selectedUser.getFullName());
             stage.setScene(new javafx.scene.Scene(root));
             stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
+            stage.setMaximized(true); // Open maximized instead of fixed size
+            stage.setResizable(true); // Allow resizing
             
             // Set cleanup on close
             stage.setOnCloseRequest(event -> controller.cleanup());
